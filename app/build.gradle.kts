@@ -20,7 +20,7 @@ android {
             compose = true
         }
         composeOptions {
-            kotlinCompilerExtensionVersion = "1.5.7"}
+            kotlinCompilerExtensionVersion = "1.5.0"}
     }
 
     buildTypes {
@@ -59,7 +59,7 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.core:core-ktx:1.12.0")
-    implementation ("org.jetbrains.kotlin:kotlin-stdlib:1.9.21")
+    implementation ("org.jetbrains.kotlin:kotlin-stdlib:1.9.22")
     androidTestImplementation( platform("androidx.compose:compose-bom:2022.10.00"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")

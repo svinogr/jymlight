@@ -2,6 +2,7 @@ package info.upump.jymlight.ui.screens.screenscomponents.itemcard.item
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -47,7 +48,8 @@ fun CycleItemCard(
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.background(
-                MaterialTheme.colorScheme.background)
+                MaterialTheme.colorScheme.background
+            )
 
         ) {
             Box(
@@ -60,7 +62,6 @@ fun CycleItemCard(
                     image = cycle.image,
                     defaultImage = cycle.imageDefault
                 ) {}
-
             }
             Column(
                 modifier = modifier
@@ -128,5 +129,5 @@ fun PreviewCycleItemCard3() {
         imageDefault = "plint1"
         image = ""
     }
-    CycleItemCard(cycle = c, action =  ::println)
+    CycleItemCard(cycle = c, action = ::println)
 }
