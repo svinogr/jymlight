@@ -13,7 +13,7 @@ class DBProvider : FileProvider() {
         val data = Environment.getDataDirectory()
         val dbName = "jym.db"
        // Log.d("path", "${data.path}")
-        val currentDBPath = "/data/info.upump.jym/databases/$dbName"
+        val currentDBPath = "/data/info.upump.jymlight/databases/$dbName"
       //  val currentDBPath = "databases/$dbName"
         val exportFile = File(data, currentDBPath)
     //    val exportFile = File(currentDBPath)
@@ -24,6 +24,6 @@ class DBProvider : FileProvider() {
     }
 
    private fun getFileUri(c: Context, f: File): Uri {
-        return getUriForFile(c!!, "info.upump.jym", f!!)
+        return getUriForFile(c!!, "info.upump.jymlight", f!!)
     }
 }
