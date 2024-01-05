@@ -1,3 +1,349 @@
 <resources>
-    <string name="app_name">jymlight</string>
+    <string name="app_name">UPump</string>
+    <string name="title_activity_main_compose">MainActivityCompose</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_of_mycycle_screen">Мои программы</string>
+    <string name="title_of_mystartcycle_screen">Мои программы</string>
+    <!--
+        <string name="title_of_defaultcycle_screen">Готовые программы</string>
+    -->
+    <string name="title_of_defaultcycle_screen">Шаблоны</string>
+    <string name="title_of_profile_screen">Профиль</string>
+    <string name="title_of_profile_screen2">Настройки</string>
+    <string name="action_with_db">Действия с базой данных</string>
+
+    <!-- list muscles-->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- перечисление-->
+    <string name="shoulder">Плечи</string>
+    <string name="pectoral">Грудные</string>
+    <string name="traps">Трапеции</string>
+    <string name="neck">Шея</string>
+    <string name="triceps">Трицепс</string>
+    <string name="back">Спина</string>
+    <string name="glutes">Ягодицы</string>
+    <string name="quades">Бицепс бедра</string>
+    <string name="hamstring">Трицепс бедра</string>
+    <string name="calves">Голень</string>
+    <string name="abs">Пресс</string>
+    <string name="biceps">Бицепс</string>
+    <!--titles-->
+    <string name="exercise_fragment_title">Упражнения</string>
+    <string name="exercise_title_sets">Подходы</string>
+    <string name="cycle_fragment_title">Мои программы</string>
+    <string name="cycle_fragment_title_add_cycle">Выберите программу</string>
+    <string name="exercise_choose_title_add_exercise">Выберите упражнение</string>
+    <string name="workout_choose_title_add_workouts">Выберите тренировку</string>
+    <string name="user_update_title">Изменить параметры замера</string>
+    <string name="user_create_title">Параметры нового замера</string>
+    <string name="graph_title">Статистика</string>
+
+    <string name="workout_fragment_title">Мои тренировки</string>
+    <string name="set_create_title">Создать новый подход</string>
+    <string name="set_create_">добавить подход</string>
+    <string name="set_update_title">Изменить подход</string>
+    <string name="title_activity_exercise_detail">ExerciseDetailActivity</string>
+    <string name="no_description">Нет описания</string>
+    <string name="title_activity_exercise_detail_edit">ExerciseDetailActivityEdit</string>
+    <string name="exercise_edit_enter_title">Введите название упражнения</string>
+    <string name="exercise_detail_activity_edit_description">Описание</string>
+    <string name="card_type_item">своя</string>
+    <string name="card_type_item_default">предустановленая</string>
+    <!--permissions-->
+    <string name="permission_description">Хранилище файлов</string>
+    <string name="permission_description_camera">Камера</string>
+    <string name="permission_text_request">Для продолжения необходимо разрешить доступ к: </string>
+    <string name="permission_text_options">Настройки</string>
+    <string name="permission_description_storage">Хранилище файлов</string>
+    <string name="title_activity_workout_detail">CycleDetailActivity</string>
+    <string name="title_activity_workout_detail_edit">CycleDetailEditActivity</string>
+    <!--tabs pager-->
+    <string name="tab_workout">Тренировки</string>
+    <string name="tab_exercise">Упражнения</string>
+    <string name="tab_weight">Вес тела</string>
+    <string name="tab_fat">Процент жира</string>
+    <string name="tab_nec">Шея</string>
+    <string name="tab_shoulders">Плечи</string>
+    <string name="tab_pectoral">Грудь</string>
+    <string name="tab_biceps">Бицепсы</string>
+    <string name="tab_abs">Талия</string>
+    <string name="tab_leg">Бедра</string>
+    <string name="tab_calves">Голени</string>
+    <string name="tab_description">Описание</string>
+
+    <!--day-->
+    <string name="day_monday">понедельник</string>
+    <string name="day_wednesday">среда</string>
+    <string name="day_tuesday">вторник</string>
+    <string name="day_thursday">четверг</string>
+    <string name="day_friday">пятница</string>
+    <string name="day_saturday">суббота</string>
+    <string name="day_sunday">воскресенье</string>
+    <!--cycle edit-->
+    <string name="label_cycle">Данные программы</string>
+    <string name="label_start_cycle">Дата начала</string>
+    <string name="label_finish_cycle">Дата окончания</string>
+    <string name="label_description_cycle">Коментарий</string>
+    <string name="label_title_cycle">Название программы</string>
+    <string name="title_cycle_hint">Новая программа</string>
+    <string name="action_clear">Очистить</string>
+    <string name="label_title_common">Название</string>
+
+    <!--dialog-->
+    <string name="clean_cycle">Удалить эти тренировки?</string>
+    <string name="clean_workouts">Удалить эти упражнения?</string>
+    <string name="clean_exercise">Удалить эти подходы?</string>
+    <string name="save_Capitalizw">Сохранить?</string>
+    <string name="save">сохранить</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="label_spinner_day">День недели</string>
+    <string name="label_title_exercise">Название упражнения</string>
+    <string name="title_exercise_hint">Новое упражнение</string>
+    <string name="label_spinner_type_muscle">Группа мышц</string>
+    <string name="card_type_item_exercise">свое</string>
+    <string name="card_type_item_default_exercise">предустановленное</string>
+    <string name="label_weight_set">Вес</string>
+    <string name="label_reps_sets">Количество повторений</string>
+    <string name="label_reps_sets_short">Повторения</string>
+    <string name="label_title_workout">Название тренировки</string>
+    <string name="title_workout_hint">Новая тренировка</string>
+    <string name="my_programs">Мои программы</string>
+    <string name="my_workouts">Мои тренировки</string>
+    <string name="my_exercises">Мои упражнения</string>
+    <string name="my_progress">Мой прогресс</string>
+    <string name="templates">Готовые шаблоны</string>
+    <string name="programs">Готовые программы</string>
+    <string name="workouts">Готовые тренировки</string>
+    <string name="exercises">Все упражнения</string>
+    <string name="action_delete_exercise">Удалить упражнение</string>
+    <string name="action_exercise_clear">Удалить подходы</string>
+    <string name="action_exercise_change_weight">Изменить все веса</string>
+    <string name="action_exercise_change_reps">Изменить повторения</string>
+    <string name="label_sets">Количество добавляемых подходов</string>
+    <string name="cycle_fragment_template_title">Готовые программы</string>
+    <string name="workout_fragment_default_title">Готовые тренировки</string>
+    <string name="title_activity_user_create">UserCreateActivity</string>
+    <string name="label_title_user_neck">Шея, см</string>
+    <string name="title_user_hint">0.00</string>
+    <string name="label_title_user_shoulders">Плечи, см</string>
+    <string name="label_title_user_pectoral">Грудь, см</string>
+    <string name="label_title_user_left_biceps">Лев.Бицепс, см</string>
+    <string name="label_title_user_right_biceps">Пр.Бицепс, см</string>
+    <string name="label_title_user_abs">Талия, см</string>
+    <string name="label_title_user_left_leg">Лев.Бедро, см</string>
+    <string name="label_title_user_right_leg">Пр.Бедро, см</string>
+    <string name="label_title_user_left_calves">Лев.Голень, см</string>
+    <string name="label_title_user_right_calves">Пр.Голень, см</string>
+    <string name="label_title_user_weight">Вес, кг</string>
+    <string name="label_title_user_height">Рост, см</string>
+    <string name="label_title_user_fat">Жир,%</string>
+    <string name="title_user_fat_hint">0.00</string>
+    <string name="title_user_fragment">Мой прогресс</string>
+    <string name="label_weight_user">Вес тела, кг</string>
+    <string name="label_height_user">Рост</string>
+    <string name="label_fat_user">Жир, %</string>
+    <string name="action_graph">Статистика</string>
+    <string name="picker_dialog_btn_save">Сохранить</string>
+    <string name="picker_dialog_btn_cancel">Отмена</string>
+    <string name="label_title_user_date">Дата измерения</string>
+    <string name="label_date_user">Дата</string>
+    <!--dialog-->
+    <string name="cycle_dialog_title">Выберите действие:</string>
+    <string name="cycle_dialog_create_new">Создать новую программу</string>
+    <string name="cycle_create_new">Добавить программу</string>
+    <string name="cycle_dialog_сhoose">Выбрать готовую программу</string>
+    <string name="workout_dialog_title">Выберите действие:</string>
+    <string name="workout_dialog_create_new">Добавить тренировку</string>
+    <string name="workout_dialog_сhoose">Выбрать готовую тренировку</string>
+    <string name="title_activity_settings2">Settings</string>
+
+    <!--graph-->
+    <string name="desc_graph_weight">Вес тела, кг</string>
+    <string name="desc_graph_fat">Процент жира</string>
+    <string name="desc_graph_neck">Шея, см</string>
+    <string name="desc_graph_shoulders">Плечи, см</string>
+    <string name="desc_graph_pectoral">Грудь, см</string>
+    <string name="desc_graph_r_biceps">Правый бицепс, см</string>
+    <string name="desc_graph_l_biceps">Левый бицепс, см</string>
+    <string name="desc_graph_abs">Талия, см</string>
+    <string name="desc_graph_r_leg">Правое бедро, см</string>
+    <string name="desc_graph_l_leg">Левое, см</string>
+    <string name="desc_graph_r_calves">Правая голень, см</string>
+    <string name="desc_graph_l_calves">Левая голень, см</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">Настройка запуска</string>
+
+    <string name="pref_title_social_recommendations">Enable social recommendations</string>
+    <string name="pref_description_social_recommendations">Recommendations for people to contact
+        based on your message history
+    </string>
+
+    <string name="pref_title_display_name">Display name</string>
+    <string name="pref_default_display_name">John Smith</string>
+
+    <string name="pref_title_add_friends_to_messages">Выбор начального меню</string>
+
+    <string-array name="pref_example_list_titles">
+        <item>Мои программы</item>
+        <item>Мои тренировки</item>
+        <item>Мой прогресс</item>
+        <item>Готовые программы</item>
+        <item>Все упражнения</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>5</item>
+
+    </string-array><!-- Export import settings -->
+
+    <!--<string name="pref_settings_title_write_to_fille">Настройка экспорта</string>-->
+    <string name="pref_title_read_from_db">Импорт базы</string>
+    <string name="pref_title_write_to_email">Экспорт базы на Email</string>
+    <string name="pref_title_write_to_fille">Экспорт базы в файл</string>
+    <!--<string-array name="pref_backup_write_list_titles">-->
+    <!--<item>В файл</item>-->
+    <!--<item>Отправить на почту</item>-->
+    <!--</string-array>-->
+    <!--<string-array name="pref_backup_write__values">-->
+    <!--<item>0</item>-->
+    <!--<item>1</item>-->
+    <!--</string-array>-->
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Data &amp; sync</string>
+
+    <string name="pref_title_sync_frequency">Sync frequency</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string-array name="list_preference_entries">
+        <item>Entry 1</item>
+        <item>Entry 2</item>
+        <item>Entry 3</item>
+    </string-array>
+
+    <string-array name="list_preference_entry_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="multi_select_list_preference_default_value" />
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_new_message_notifications">New message notifications</string>
+
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_ringtone_silent">Silent</string>
+
+    <string name="pref_title_vibrate">Vibrate</string>
+
+    <!--toasts-->
+    <string name="toast_write_name">Необходимо ввести название</string>
+    <string name="toast_cycle_saved">Программа сохранена</string>
+    <string name="toast_dont_save">Невозможно сохранить</string>
+    <string name="toast_cycle_delete_workouts">Тренировки удалены</string>
+    <string name="toast_cycle_update">Программа изменена</string>
+    <string name="toast_dont_update">Невозможно изменить</string>
+    <string name="toast_cycle_delete">Программа удалена</string>
+    <string name="toast_dont_delete">Невозможно удалить</string>
+    <string name="toast_exercise_saved">Упражнение сохранено</string>
+    <string name="toast_exercise_delete_sets">Подходы удалены</string>
+    <string name="toast_exercise_delete">Упражнение удалено</string>
+    <string name="toast_exercise_update">Упражнение изменено</string>
+    <string name="toast_set_delete">Подход удален</string>
+    <string name="toast_set_saved">Подход сохранен</string>
+    <string name="toast_not_corect_value">Введено неправильное значение</string>
+    <string name="toast_set_update">Подход изменен</string>
+    <string name="toast_user_saved">Параметры сохранены</string>
+    <string name="toast_user_update">Параметры изменены</string>
+    <string name="toast_user_delete">Параметры удалены</string>
+    <string name="toast_workout_saved">Тренировка сохранена</string>
+    <string name="toast_workout_delete">Тренировка удалена</string>
+    <string name="toast_workout_update">Тренировка изменена</string>
+    <string name="toast_workout_delete_exercises">Упражнения удалены</string>
+    <string name="toast_user_warning">Для построения графика необходимо минимум два измерения параметров</string>
+    <string name="warning_save_description">Сохранить изменение описания</string>
+
+    <string name="snack_delete">Удалить?</string>
+    <string name="chip_cancel">отмена</string>
+    <string name="chips_delete">удалить</string>
+    <string name="chips_clear">очистить</string>
+    <string name="chips_comment">коментарий</string>
+    <string name="chips_edite">редактровать</string>
+    <string name="chips_copy">скопировать</string>
+
+
+    <string name="snack_cycle_delete_workouts">Удалить тренировки</string>
+    <string name="snack_exersice_delete_sets">Удалить подходы</string>
+    <string name="snack_workout_delete_exercises">Удалить упражнения</string>
+    <string name="snack_exit_app">Выйти из приложения?</string>
+    <string name="snack_exit_workout">Выйти из тренировки?</string>
+    <string name="pref_header_pravo">Правовые уведомления</string>
+    <string name="pravo_lable">Отдельные компоненты приложения содержат материалы и ссылки программного обеспечения распространяемого на условиях лицензирования:</string>
+    <string name="pravo_text">MPAndroidChart.\nLicensed under the Apache License,\nVersion 2.0 (the "License")</string>
+    <string name="pravo_text2">kashifo/android-folder-picker-library \nLicensed under the Apache License,\nVersion 2.0 (the "License")
+</string>
+
+    <!--add-->
+    <string name="idAdd">ca-app-pub-7715449191385617~1256202239</string>
+    <string name="banner_ad_unit_id">ca-app-pub-7715449191385617/8047883437</string>
+    <string name="week_even">четная неделя</string>
+    <string name="week_not_even">нечетная неделя</string>
+    <string name="week_even_label">Четная неделя</string>
+    <string name="title_activity_user">Параметры измерений</string>
+    <string name="pref_header_backup">Перенос базы данных</string>
+    <string name="email_subject_for_beackup">Бекап БД</string>
+    <string name="backupToFileDone">Экспорт завершен</string>
+    <string name="backupToCurentBD">Импорт завершен</string>
+    <string name="label_weight_set_past">Пред. вес</string>
+    <string name="to_view_workout">просмотр</string>
+    <string name="start_time_00">00</string>
+    <string name="stopwatch_btn_stop">STOP</string>
+    <string name="stopwatch_btn_start">START</string>
+    <string name="btn_start_stopwatch_title">START</string>
+    <string name="btn_stop_stopwatch_title">PAUSE</string>
+
+    <!--use for android-folder-picker-library-->
+    <string name="up">Up</string>
+
+    <string name="neww">New</string>
+
+    <string name="select">Select</string>
+
+    <string name="cancel">Cancel</string>
+
+    <string name="title">Select Folder</string>
+
+    <string name="location">Location</string>
+    <string name="tab_cycle_title">тренировки</string>
+    <string name="tab_cycle_description">описание</string>
+    <string name="edit">Редактирование</string>
+    <string name="error_tips_empty_field">пустое поле</string>
+
 </resources>
