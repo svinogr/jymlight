@@ -64,9 +64,14 @@ fun DefaultExerciseDetailScreen(
 
                 snackBarHostState
             ) {
-                SnackBar(stringResource(id = R.string.clean_workouts), R.drawable.ic_delete_24) {
-                    exerciseVM.cleanItem()
-                }
+                SnackBar(
+                    text =  stringResource(id = R.string.clean_workouts),
+                    icon = R.drawable.ic_delete_24,
+                    action = {
+                        exerciseVM.cleanItem()
+                    },
+                    data = it
+                )
             }
         }
     ) { it ->

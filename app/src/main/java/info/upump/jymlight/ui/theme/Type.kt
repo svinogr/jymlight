@@ -18,7 +18,7 @@ val Typography = Typography(
     bodyLarge = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
+        fontSize = 18.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
     )
@@ -58,7 +58,7 @@ val MyTextLabel16: TextStyle
             fontFamily = FontFamily.Default,
             fontWeight = FontWeight.Normal,
             fontSize = 16.sp,
-              color =  MaterialTheme.colorScheme.onTertiary
+            color =  MaterialTheme.colorScheme.onTertiary
         )
     }
 
@@ -69,7 +69,7 @@ val MyTextHeader16: TextStyle
             fontFamily = FontFamily.Default,
             fontWeight = FontWeight.Normal,
             fontSize = 16.sp,
-              color = MaterialTheme.colorScheme.onSecondary
+            color = MaterialTheme.colorScheme.onSecondary
         )
     }
 

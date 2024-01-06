@@ -62,7 +62,7 @@ fun DateCardWithDatePicker(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 4.dp, end = 4.dp)
+           //     .padding(start = 4.dp, end = 4.dp)
         ) {
             Row(modifier = Modifier) {
                 val modifierValue = Modifier.padding(top = 4.dp, bottom = 4.dp)

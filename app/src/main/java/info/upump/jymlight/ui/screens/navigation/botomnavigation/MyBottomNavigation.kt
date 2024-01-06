@@ -2,6 +2,7 @@ package info.upump.jymlight.ui.screens.navigation.botomnavigation
 
 import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material3.Icon
@@ -21,14 +22,17 @@ import androidx.navigation.compose.rememberNavController
 
 @Preview
 @Composable
-fun MyBottomNavigation(navController: NavController = rememberNavController()) {
+fun MyBottomNavigation(
+    modifier: Modifier = Modifier.navigationBarsPadding(),
+    navController: NavController = rememberNavController(),
+) {
     val listScreens = listOf(
         NavigationItem.MyCycleNavigationItem,
         NavigationItem.DefaultCycleNavigationItem,
         NavigationItem.ProfileNavigationItem
     )
 
-    BottomNavigation() {
+    BottomNavigation(modifier = modifier) {
         val backStackEntry by navController.currentBackStackEntryAsState()
         val currentRout = backStackEntry?.destination?.route
         listScreens.forEach { item ->

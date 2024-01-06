@@ -24,6 +24,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -56,11 +57,11 @@ fun MainScreen() {
         mutableStateOf("")
     }
 
-    val topBarState = remember {
+    val topBarState = rememberSaveable {
         mutableStateOf(true)
     }
 
-    val bottomBarStat = remember {
+    val bottomBarStat = rememberSaveable {
         mutableStateOf(true)
     }
 
@@ -89,16 +90,19 @@ fun MainScreen() {
                 ),
                 exit = slideOutVertically() { with(density) { 60.dp.roundToPx() } }
             ) {
-                MyBottomNavigation(navController)
+                MyBottomNavigation(navController = navController)
             }
         },
         snackbarHost = {
             SnackbarHost(
                 snackBarHostState
             ) {
-                SnackBar(stringResource(id = R.string.snack_exit_app), R.drawable.ic_exit) {
-                    activity.finish()
-                }
+                SnackBar(text = stringResource(id = R.string.snack_exit_app),
+                    icon = R.drawable.ic_exit,
+                    action = {
+                        activity.finish()
+                    }, data = it
+                )
             }
         },
 
@@ -133,11 +137,9 @@ fun MainScreen() {
                     },
 
                     actions = {
-                       // Log.d("click", "click2 ${appBarActions.value.size}")
                         for (i in appBarActions.value) {
                             val coroutineScope = rememberCoroutineScope()
                             IconButton(onClick = {
-                        //        Log.d("click", "click")
                                 coroutineScope.launch() {
                                     i.action()
                                 }

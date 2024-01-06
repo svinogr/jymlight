@@ -68,18 +68,21 @@ fun ListChooseExercise(
                         ExerciseItemCard(exercise = it, navHost = navHost) {
                             state.value = true
                             actionChoose(it)
-                            navHost.popBackStack()
+                           /* navHost.popBackStack()
                             navHost.navigate(
                               NavigationItem.DetailExerciseNavigationItem.routeWithId(
                                     it
                                 )
-                            )
+                            )*/
                         }
                         DividerCustom(dismissState, state = state.value)
                     }
                 },
                 dismissThresholds = { FractionalThreshold(0.5f) }
             )
+        }
+        item() {
+            EmptyItem()
         }
     }
 }

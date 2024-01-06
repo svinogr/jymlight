@@ -249,9 +249,13 @@ class CycleVMCreateEdit() : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithS
 
     private fun deleteTempImg(tempImage: String, context: Context) {
         if (tempImage.isBlank()) return
-        val file = Uri.parse(tempImage).toFile()
-        if (file.exists()) {
-            file.delete()
+        try {
+            val file = Uri.parse(tempImage).toFile()
+            if (file.exists()) {
+                file.delete()
+            }
+        } catch (e: IllegalArgumentException) {
+            Log.d("Error", "нет такого файла для удаления")
         }
     }
 

@@ -4,6 +4,7 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -39,7 +40,7 @@ fun ExerciseReviewScreen(
         exerciseVM.getItem(id)
     }
     Scaffold { it ->
-        Column {
+        Column(modifier = Modifier.padding(top = it.calculateTopPadding(), bottom = it.calculateBottomPadding())) {
             ImageForDetailScreen(modifier = Modifier.height(200.dp),
                 image = exerciseVM.item.collectAsState().value.exerciseDescription!!.img,
                 defaultImage = exerciseVM.item.collectAsState().value.exerciseDescription!!.defaultImg
@@ -47,7 +48,7 @@ fun ExerciseReviewScreen(
 
             CardTypeMuscle(text = stringResource(id = exerciseVM.item.collectAsState().value.typeMuscle.title))
 
-            CardDescription(textDescription = exerciseVM.item.collectAsState().value.comment, modifier =  Modifier.weight(4f))
+            CardDescription(textDescription = exerciseVM.item.collectAsState().value.comment, modifier =  Modifier.weight(4.5f))
         }
     }
 

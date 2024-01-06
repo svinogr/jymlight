@@ -93,7 +93,7 @@ class Exercise(
                 listSets.add(set)
             }
             exercise.exerciseDescription = exerciseDescription
-            exercise.comment = entity.exerciseEntity.comment ?: ""
+            exercise.comment = entity.exerciseEntity.comment!!
             exercise.setsList = listSets
 
             return exercise

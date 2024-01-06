@@ -7,6 +7,7 @@ import info.upump.database.repo.WorkoutRepo
 import info.upump.jymlight.models.entity.Day
 import info.upump.jymlight.models.entity.Exercise
 import info.upump.jymlight.models.entity.TypeMuscle
+import info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,7 +15,8 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 
-class ExerciseChooseVM : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad(),
+
+class ExerciseChooseVM : BaseVMWithStateLoad(),
     ExerciseChooseVMInterface {
     private val exerciseRepo = ExerciseRepo.get()
     private val workoutRepo = WorkoutRepo.get()
@@ -42,9 +44,8 @@ class ExerciseChooseVM : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStat
         }
     }
 
-    override fun saveForParentChosen(id: Long) {
+    override fun saveForParentChosen(id: Long, callback: (id: Long) -> Unit) {
         Log.d("Save exercise", "save $id")
-        Log.d("Save exercise", "save $parentId")
         viewModelScope.launch(Dispatchers.IO) {
             val exerciseRepo = ExerciseRepo.get()
 
@@ -54,13 +55,18 @@ class ExerciseChooseVM : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStat
                 val exercise = Exercise()
                 exercise.id = 0
                 exercise.parentId = parentId
+                Log.d("Save exercise", "save $parentId")
                 exercise.typeMuscle = TypeMuscle.valueOf(exeFullEnt.exerciseEntity.type_exercise!!)
                 exercise.isDefaultType = false
                 exercise.isTemplate = false
                 exercise.descriptionId = exeDescId
                 exercise.comment = exeFullEnt.exerciseEntity.comment!!
 
-                exerciseRepo.save(Exercise.mapToEntity(exercise))
+                val save =  exerciseRepo.save(Exercise.mapToEntity(exercise))
+
+                launch(Dispatchers.Main) {
+                    callback(save._id)
+                }
             }
         }
     }
