@@ -3,7 +3,6 @@ package info.upump.jymlight.ui.screens.viewmodel.exercise
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import info.upump.database.repo.ExerciseRepo
-import info.upump.database.repo.WorkoutRepo
 import info.upump.jymlight.models.entity.Day
 import info.upump.jymlight.models.entity.Exercise
 import info.upump.jymlight.models.entity.TypeMuscle
@@ -19,17 +18,16 @@ import kotlinx.coroutines.launch
 class ExerciseChooseVM : BaseVMWithStateLoad(),
     ExerciseChooseVMInterface {
     private val exerciseRepo = ExerciseRepo.get()
-    private val workoutRepo = WorkoutRepo.get()
     private var parentId: Long = 0L
 
-    private val _day = MutableStateFlow(Day.TUESDAY) //TODO изменить на каритинку
+    private val _day = MutableStateFlow(Day.TUESDAY)
     override val day: StateFlow<Day> = _day
 
     private val _subItems = MutableStateFlow<List<Exercise>>(mutableListOf())
     override val subItems: StateFlow<List<Exercise>> = _subItems
 
-    override fun getAllExerciseForParent(parentId: Long) {
-        this.parentId = parentId
+    override fun getAllExerciseForParent(id: Long) {
+        this.parentId = id
 
         viewModelScope.launch(Dispatchers.IO) {
             _stateLoading.value = true

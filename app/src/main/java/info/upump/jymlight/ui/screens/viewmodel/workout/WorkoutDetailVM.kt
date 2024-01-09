@@ -235,9 +235,7 @@ class WorkoutDetailVM : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithState
                 override fun getBy(
                     id: Long
                 ) {
-                    TODO(
-                        "Not yet implemented"
-                    )
+                    TODO("Not yet implemented")
                 }
 
                 override fun delete(it: Long) {

@@ -62,7 +62,6 @@ class Exercise(
             exercise.descriptionId = entity.description_id!!
             exercise.typeMuscle = TypeMuscle.valueOf(entity.type_exercise!!)
             exercise.isTemplate = entity.template == 1
-            //TODO проверить
 
             return exercise
         }

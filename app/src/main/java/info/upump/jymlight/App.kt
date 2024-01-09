@@ -6,7 +6,6 @@ import info.upump.database.DatabaseApp
 import info.upump.database.RoomDB
 
 class App : Application() {
-
     override fun onCreate() {
         super.onCreate()
         Log.d("Init app", "init")

@@ -163,7 +163,7 @@ fun NavGraphBuilder.myCycleGraph(
                val id = it.arguments?.getLong("id")
                Log.d("TAG", "id = $id")
 
-               //   MySetsDetailScreen(id!!, navHostController, paddingValues, appBarTitle) //TODO
+               //   MySetsDetailScreen(id!!, navHostController, paddingValues, appBarTitle)
            }*/
 
         // Workout start

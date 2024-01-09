@@ -27,7 +27,6 @@ class Workout(
                 isDefaultType = workoutEntity.default_type == 1,
                 isTemplate = workoutEntity.default_type == 1,
                 day = Day.valueOf(workoutEntity.day!!),
-                //TODO вставить настоящис список
                 exercises = mutableListOf<Exercise>()
             )
             workout.title = workoutEntity.title
@@ -46,11 +45,11 @@ class Workout(
             workoutEntity.start_date = workout.startStringFormatDate
             workoutEntity.finish_date = workout.finishStringFormatDate
             workoutEntity.comment = workout.comment
-            workoutEntity.day = workout.day.toString() //TODO внимание проверить правильность
+            workoutEntity.day = workout.day.toString()
             workoutEntity.default_type = if (workout.isDefaultType) 1 else 0
             workoutEntity.week_even = if (workout.isWeekEven) 1 else 0
-            workoutEntity.template = if (workout.isTemplate) 1 else 0 // надо проверить
-            workoutEntity.template = 0 //TODO  надо проверить
+            workoutEntity.template = if (workout.isTemplate) 1 else 0
+            workoutEntity.template = 0
             workoutEntity.parent_id = workout.parentId
 
             return workoutEntity

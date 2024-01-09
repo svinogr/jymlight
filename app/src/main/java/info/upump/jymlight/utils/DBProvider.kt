@@ -7,8 +7,6 @@ import android.util.Log
 import androidx.core.content.FileProvider
 import java.io.File
 
-//TODO
-
 class DBProvider : FileProvider() {
     fun getDatabaseURIForBD(c: Context): Uri {
         val data = Environment.getDataDirectory()
