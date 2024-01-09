@@ -19,7 +19,7 @@
         android:theme="@style/JymTheme.NoActionBar"
         android:supportsRtl="true">
         <provider
-            android:name="info.upump.jymlight.utils.DBProvider"
+            android:name=".utils.DBProvider"
             android:authorities="info.upump.jymlight"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -31,12 +31,12 @@
         <activity
             android:name=".MainActivityCompose"
             android:exported="true"
+            android:windowSoftInputMode="adjustResize"
             android:theme="@style/Theme.Jym.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 </manifest>

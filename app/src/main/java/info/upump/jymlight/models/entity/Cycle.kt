@@ -1,5 +1,6 @@
 package info.upump.jymlight.models.entity
 
+import androidx.compose.runtime.Immutable
 import info.upump.database.entities.CycleEntity
 import info.upump.database.entities.CycleFullEntityWithWorkouts
 import info.upump.jymlight.models.entity.Workout
@@ -7,7 +8,7 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-
+@Immutable
 class Cycle(
     var workoutList: List<Workout> = ArrayList(),
     var isDefaultType: Boolean = false,
@@ -35,17 +36,6 @@ class Cycle(
                 ", defaultImg=" + imageDefault +
                 '}'
     }
-
-
-
-
-
-    /*    override fun hashCode(): Int {
-            var result = super.hashCode()
-            result = 31 * result + if (image != null) image.hashCode() else 0
-            return result
-        }*/
-
 
     companion object {
         fun mapFromDbEntity(entity: CycleEntity): Cycle {

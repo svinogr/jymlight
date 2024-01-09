@@ -26,6 +26,7 @@ import info.upump.jymlight.models.entity.Day
 import info.upump.jymlight.models.entity.Exercise
 import info.upump.jymlight.models.entity.ExerciseDescription
 import info.upump.jymlight.models.entity.TypeMuscle
+import info.upump.jymlight.ui.screens.navigation.botomnavigation.NavigationItem
 import info.upump.jymlight.ui.screens.screenscomponents.itemcard.ListChooseExercise
 import info.upump.jymlight.ui.screens.screenscomponents.itemcard.ListExercise
 import info.upump.jymlight.ui.screens.screenscomponents.screen.CheckChips
@@ -78,7 +79,14 @@ fun ExerciseChooseScreen(
                 )
             }
             val action: (Long) -> Unit = {
-                exerciseVM.saveForParentChosen(it)
+                exerciseVM.saveForParentChosen(it) {id ->
+                    navHostController.popBackStack()
+                    navHostController.navigate(
+                        NavigationItem.DetailExerciseNavigationItem.routeWithId(
+                            id
+                        )
+                    )
+                }
             }
 
             ListChooseExercise(

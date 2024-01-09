@@ -11,6 +11,8 @@
         <item name="colorControlNormal">@color/colorText</item>
     </style>
     <style name="JymTheme.NoActionBar" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
         <item name="windowActionBar">false</item>
         <item name="actionBarItemBackground">@color/colorAccentNet</item>
         <item name="windowNoTitle">true</item>
@@ -96,11 +98,11 @@
     </style>
     <!-- Splash theme. -->
 
-  <!--  <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:windowBackground">@drawable/splash_activity</item>
-        style name="AppTheme.NoActionBar">
+    <!--  <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+          <item name="android:windowBackground">@drawable/splash_activity</item>
+          style name="AppTheme.NoActionBar">
 
-    </style>-->
+      </style>-->
     <style name="ToolBarStyle" parent="Widget.AppCompat.Toolbar">
         <item name="actionMenuTextColor">#ff63BBF7</item>
     </style>

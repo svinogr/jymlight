@@ -86,10 +86,13 @@ fun DefaultCycleDetailScreenM3(
             snackbarHost = {
                 SnackbarHost(
                     snackBarHostState
-                ) {
-                    SnackBar(stringResource(id = R.string.chips_copy), R.drawable.ic_copy) {
-                        cycleVM.copyToPersonal(id)
-                    }
+                ) { it ->
+                        SnackBar(
+                            text = stringResource(id = R.string.chips_copy),
+                            icon = R.drawable.ic_copy, action = {
+                                cycleVM.copyToPersonal(id)
+                            }, data = it
+                        )
                 }
             }
         ) {

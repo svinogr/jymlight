@@ -52,7 +52,7 @@ fun ItemSwipeBackgroundIcon(
         targetValue =
         when (dismissState.targetValue) {
             DismissValue.Default -> colorResource(id = R.color.colorBackgroundChips)
-            else -> MaterialTheme.colorScheme.secondary
+            else -> MaterialTheme.colorScheme.primaryContainer
         },
         animationSpec = tween(1000, easing = LinearEasing),
         label = ""

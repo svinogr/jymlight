@@ -105,9 +105,14 @@ fun WorkoutDetailScreenM3(
                 SnackbarHost(
                     snackBarHostState
                 ) {
-                    SnackBar(stringResource(id = R.string.clean_workouts), R.drawable.ic_delete_24) {
-                        workoutVM.cleanItem()
-                    }
+                    SnackBar(
+                        text = stringResource(id = R.string.clean_workouts),
+                        icon = R.drawable.ic_delete_24,
+                        action = {
+                            workoutVM.cleanItem()
+                        },
+                        data = it
+                    )
                 }
             }
         ) { it ->

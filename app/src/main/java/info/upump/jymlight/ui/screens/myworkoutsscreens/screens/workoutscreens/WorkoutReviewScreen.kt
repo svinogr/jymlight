@@ -1,5 +1,6 @@
 package info.upump.jymlight.ui.screens.myworkoutsscreens.screens.workoutscreens
 
+
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -38,17 +39,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import info.upump.jymlight.ui.screens.mainscreen.AppBarAction
+import info.upump.jymlight.ui.screens.screenscomponents.screen.SnackBar
+import info.upump.jymlight.ui.screens.screenscomponents.screen.StopWatch
+import info.upump.jymlight.ui.screens.viewmodel.workout.StopWatchVM
 import info.upump.jymlight.R
 import info.upump.jymlight.models.entity.Exercise
 import info.upump.jymlight.models.entity.ExerciseDescription
 import info.upump.jymlight.models.entity.Sets
 import info.upump.jymlight.models.entity.TypeMuscle
-import info.upump.jymlight.ui.screens.mainscreen.AppBarAction
 import info.upump.jymlight.ui.screens.screenscomponents.BottomSheet
 import info.upump.jymlight.ui.screens.screenscomponents.itemcard.ListWorkoutForReview
-import info.upump.jymlight.ui.screens.screenscomponents.screen.SnackBar
-import info.upump.jymlight.ui.screens.screenscomponents.screen.StopWatch
-import info.upump.jymlight.ui.screens.viewmodel.workout.StopWatchVM
 import info.upump.jymlight.ui.screens.viewmodel.workout.WorkoutDetailVM
 import info.upump.jymlight.ui.theme.MyOutlineTextTitleLabel20Text
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -69,9 +70,9 @@ fun WorkoutReview(
     val workoutVM: WorkoutDetailVM = viewModel()
     val stopwatchVM: StopWatchVM = viewModel()
 
-  /*  val workout by remember {
-        mutableStateOf(workoutVM.item)
-    }*/
+    val title = remember {
+        mutableStateOf(workoutVM.title)
+    }
 
     val exercise by remember {
         mutableStateOf(workoutVM.subItems)
@@ -80,9 +81,12 @@ fun WorkoutReview(
     val status by remember {
         mutableStateOf(stopwatchVM.status)
     }
+
     val time by remember {
         mutableStateOf(stopwatchVM.formatedTime)
     }
+
+    appBarTitle.value = title.value.collectAsState().value
 
     val coroutine = rememberCoroutineScope()
     val snackBarHostState = remember { SnackbarHostState() }
@@ -109,17 +113,23 @@ fun WorkoutReview(
                 SnackbarHost(
                     snackBarHostState
                 ) {
-                    SnackBar(stringResource(id = R.string.snack_exit_workout), R.drawable.ic_exit) {
-                        appBarActions.value = listOf()
-                        navHostController.popBackStack()
-                    }
+                    SnackBar(
+                        text = stringResource(id = R.string.snack_exit_workout),
+                        icon = R.drawable.ic_exit,
+                        action = {
+                            appBarActions.value = listOf()
+                            navHostController.popBackStack()
+                        },
+                        data = it
+                    )
                 }
             }
 
         ) { it ->
             Column(
                 modifier = Modifier
-                    .padding(top = it.calculateTopPadding())
+                    .padding(top = it.calculateTopPadding(),
+                        bottom = it.calculateBottomPadding())
                     .fillMaxHeight()
             ) {
 

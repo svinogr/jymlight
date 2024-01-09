@@ -100,17 +100,21 @@ fun AlterCycleDetailScreenM3(
             snackbarHost = {
                 SnackbarHost(
                     snackBarHostState
-                ) {
-                    SnackBar(stringResource(id = R.string.clean_cycle), R.drawable.ic_delete_24) {
-                        cycleVM.cleanItem()
+                ) { data ->
+                        SnackBar(
+                            text = stringResource(id = R.string.clean_cycle),
+                            icon = R.drawable.ic_delete_24,
+                            data = data
+                        ) {
+                            cycleVM.cleanItem()
+                        }
                     }
-                }
             }
         ) {
             Column(
                 modifier = Modifier
                     .padding(top = it.calculateTopPadding())
-                    .fillMaxHeight()
+
             ) {
                 Box(modifier = Modifier.height(200.dp)) {
                     ImageForDetailScreen(
@@ -225,8 +229,8 @@ fun AlterCycleDetailScreenPreview() {
             snackbarHost = {
                 SnackbarHost(
                     snackBarHostState
-                ) {
-                    SnackBar(stringResource(id = R.string.clean_cycle), R.drawable.ic_delete_24) {
+                ) { data ->
+                    SnackBar(text = stringResource(id = R.string.clean_cycle), icon = R.drawable.ic_delete_24, data = data) {
                         cycleVM.cleanItem()
                     }
                 }

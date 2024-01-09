@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.viewModelScope
 import info.upump.database.repo.SetsRepo
 import info.upump.jymlight.models.entity.Sets
+import info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,7 +13,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class SetsVM : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad(), SetsVMInterface {
+class SetsVM : BaseVMWithStateLoad(), SetsVMInterface {
     private val _sets = MutableStateFlow<Sets>(Sets())
     override val item: StateFlow<Sets> = _sets.asStateFlow()
 
@@ -39,8 +40,8 @@ class SetsVM : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad(), S
     }
 
     override fun updateWeight(weight: Double) {
-       //  if (tempWeight !=)
-      //  _weightPast.update { _weight.value }
+        //  if (tempWeight !=)
+        //  _weightPast.update { _weight.value }
         _weight.update { weight }
     }
 
@@ -83,7 +84,7 @@ class SetsVM : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad(), S
         if (quantity.value == 0 && id.value == 0L) return
 
         viewModelScope.launch(Dispatchers.IO) {
-            Log.d("save set", "${weight.value} ${reps.value} ${quantity.value}")
+            Log.d("save set", "${weight.value} ${reps.value} ${quantity.value} ${parentId.value} ")
             val sets = Sets().apply {
                 id = this@SetsVM.id.value
                 parentId = this@SetsVM.parentId.value
@@ -91,9 +92,9 @@ class SetsVM : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad(), S
                 weight = this@SetsVM.weight.value
                 weightPast = this@SetsVM._weightPast.value
             }
+            sets.weightPast = tempWeight
 
             if ( _weight.value != tempWeight) {
-                sets.weightPast = tempWeight
             }
 
             val setsRepo = SetsRepo.get()
@@ -167,5 +168,4 @@ class SetsVM : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad(), S
             }
         }
     }
-
 }
