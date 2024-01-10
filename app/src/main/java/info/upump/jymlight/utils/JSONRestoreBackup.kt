@@ -3,7 +3,9 @@ package info.upump.jym.utils
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import com.google.gson.Gson
+import com.google.gson.JsonSyntaxException
 import com.google.gson.reflect.TypeToken
 import info.upump.database.RoomDB
 import info.upump.database.entities.CycleEntity
@@ -103,10 +105,12 @@ class JSONRestoreBackup : RestoreBackupable {
                 context.contentResolver.openInputStream(uri)?.use { inS ->
                     inS.bufferedReader().use {
                         val readText = it.readText()
-                        //        Log.d("restore", readText)
                         val type = object : TypeToken<List<Cycle>>() {}.type
-                        fromJson = Gson().fromJson(readText, type)
-                        //     Log.d("restore", fromJson.toString())
+                        try {
+                            fromJson = Gson().fromJson(readText, type)
+                        }catch (e: JsonSyntaxException){
+                            return@withContext
+                        }
                     }
                 }
 

@@ -32,16 +32,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import info.upump.jymlight.utils.DBRestoreBackup
+import info.upump.jym.utils.JSONRestoreBackup
 import info.upump.jymlight.R
 import info.upump.jymlight.ui.screens.screenscomponents.itemcard.ItemSwipeBackgroundIcon
 import info.upump.jymlight.ui.screens.screenscomponents.itemcard.item.ItemButton
 import info.upump.jymlight.ui.screens.screenscomponents.screen.CardDescriptionVariableTitle
 import info.upump.jymlight.ui.screens.screenscomponents.screen.DividerCustom
 import info.upump.jymlight.ui.screens.viewmodel.profile.ProfileVM
+import info.upump.jymlight.utils.DBRestoreBackup
+import info.upump.jymlight.utils.RestoreBackupable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
+
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
@@ -52,15 +55,11 @@ fun ProfileScreen(navHostController: NavHostController, paddingValues: PaddingVa
 
     val profileVM: ProfileVM = viewModel()
     val loadState = profileVM.isLoading.collectAsState()
-
+    val restoreInterface: RestoreBackupable = JSONRestoreBackup()
     val launch = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) {
         it?.let {
-            val checkFile = File(it.path!!)
-            Log.d("exe", "extension = ${checkFile.extension}")
-            if (checkFile.extension == "db") {
-                coroutine.launch(Dispatchers.IO) {
-                    profileVM.load(it, context)
-                }
+            coroutine.launch(Dispatchers.IO) {
+                profileVM.load(it, context, restoreInterface)
             }
         }
     }
@@ -70,11 +69,11 @@ fun ProfileScreen(navHostController: NavHostController, paddingValues: PaddingVa
     }
 
     Scaffold(modifier = Modifier.padding(top = paddingValues.calculateTopPadding())) { it ->
-        val context = LocalContext.current
-        val coroutine = rememberCoroutineScope()
-        Box(modifier = Modifier
-            .fillMaxHeight()
-            .background(MaterialTheme.colorScheme.background)) {
+        Box(
+            modifier = Modifier
+                .fillMaxHeight()
+                .background(MaterialTheme.colorScheme.background)
+        ) {
             LazyColumn(modifier = Modifier.background(MaterialTheme.colorScheme.background)) {
                 item {
                     CardDescriptionVariableTitle(title = stringResource(id = R.string.action_with_db))
@@ -104,7 +103,7 @@ fun ProfileScreen(navHostController: NavHostController, paddingValues: PaddingVa
                                     action = {
                                         state.value = true
                                         coroutine.launch {
-                                            profileVM.send(context)
+                                            profileVM.send(context, restoreInterface)
                                         }
                                         state.value = false
                                     },
@@ -151,7 +150,6 @@ fun ProfileScreen(navHostController: NavHostController, paddingValues: PaddingVa
                         }
                     )
                 }
-
             }
 
             if (isLoad.value) {

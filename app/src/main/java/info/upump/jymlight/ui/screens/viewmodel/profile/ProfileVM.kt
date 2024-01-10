@@ -10,21 +10,19 @@ import kotlinx.coroutines.flow.update
 
 
 class ProfileVM : BaseVMWithStateLoad() {
-
-    suspend fun load(uri: Uri, context: Context) {
-        _stateLoading.update {true}
+    suspend fun load(uri: Uri, context: Context, restoreInterface: RestoreBackupable) {
+        _stateLoading.update { true }
         Log.d("load", "load")
         // val backupDB: RestoreBackupable = DBRestoreBackup()
-        val backupDB: RestoreBackupable = JSONRestoreBackup()
-        backupDB.restore(uri, context, _stateLoading)
+      //  val backupDB: RestoreBackupable = JSONRestoreBackup()
+        restoreInterface.restore(uri, context, _stateLoading)
     }
 
-    suspend fun send(context: Context) {
+    suspend fun send(context: Context, restoreInterface: RestoreBackupable) {
         Log.d("v", "send")
         //  val backupDab: RestoreBackupable = DBRestoreBackup()
         val backupDab: RestoreBackupable = JSONRestoreBackup()
-        val intent = backupDab.getSendIntent(context)
+        val intent = restoreInterface.getSendIntent(context)
         context.startActivity(intent)
     }
-
 }
