@@ -37,7 +37,8 @@ fun ListWorkoutForReview(
             .fillMaxWidth()
             .fillMaxHeight()
             .background(
-                MaterialTheme.colorScheme.background)
+                MaterialTheme.colorScheme.background
+            )
     ) {
         list.groupBy { it.exerciseDescription!!.title }.forEach { title, list ->
 
@@ -52,21 +53,25 @@ fun ListWorkoutForReview(
                         containerColor = MaterialTheme.colorScheme.primary
                     )
                 ) {
-                    Text(
-                        text = title,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(start = 8.dp, bottom = 8.dp, end = 8.dp),
-                        style = MyTextTitleLabel20,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis,
-                    )
+                    Column {
+                        Text(
+                            text = title,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(start = 8.dp, bottom = 8.dp, end = 8.dp),
+                            style = MyTextTitleLabel20,
+                            maxLines = 2,
+                            overflow = TextOverflow.Ellipsis,
+                        )
+                        TableHeader()
+                    }
                 }
 
             }
-            item {
+         /*   item {
                 TableHeader()
-            }
+            }*/
+
             itemsIndexed(list, key = { index, item -> item.id }) { index, item ->
                 item.setsList.forEachIndexed() { index, it ->
                     Column {
