@@ -82,7 +82,11 @@ fun simpleList(
         item() {
             EmptyItem(size = 2.dp)
         }
-        itemsIndexed(list, key = { index, item -> item.id }) { index, it ->
+
+        val sortedList = list.sortedBy {
+            it.day
+        }
+        itemsIndexed(sortedList, key = { index, item -> item.id }) { index, it ->
             val state = remember {
                 mutableStateOf(false)
             }
@@ -95,7 +99,7 @@ fun simpleList(
                 }
             })
 
-            val actionDelete = {  deleteAction(it.id)}
+            val actionDelete = {deleteAction(it.id)}
             SwipeToDismiss(
                 state = dismissState,
                 directions = setOf(DismissDirection.EndToStart, DismissDirection.StartToEnd),
@@ -141,13 +145,16 @@ fun listWithGroup(
         modifier = modifier
             .fillMaxWidth()
             .fillMaxHeight()
-            .background(colorResource(R.color.colorBackgroundCardView)),
+            .background(MaterialTheme.colorScheme.background),
         state = lazyListState
     ) {
         item() {
             EmptyItem(size = 2.dp)
         }
-        list.groupBy { it.isWeekEven }.toSortedMap().forEach { (isWeekEven, list) ->
+        val sortedList = list.sortedBy {
+            it.day
+        }
+        sortedList.groupBy { it.isWeekEven }.toSortedMap().forEach { (isWeekEven, list) ->
             stickyHeader {
                 Card(
                     modifier = Modifier
