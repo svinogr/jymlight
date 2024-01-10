@@ -50,6 +50,7 @@ import info.upump.jymlight.models.entity.Sets
 import info.upump.jymlight.models.entity.TypeMuscle
 import info.upump.jymlight.ui.screens.screenscomponents.BottomSheet
 import info.upump.jymlight.ui.screens.screenscomponents.itemcard.ListWorkoutForReview
+import info.upump.jymlight.ui.screens.screenscomponents.screen.StopWatchState
 import info.upump.jymlight.ui.screens.viewmodel.workout.WorkoutDetailVM
 import info.upump.jymlight.ui.theme.MyOutlineTextTitleLabel20Text
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -128,8 +129,10 @@ fun WorkoutReview(
         ) { it ->
             Column(
                 modifier = Modifier
-                    .padding(top = it.calculateTopPadding(),
-                        bottom = it.calculateBottomPadding())
+                    .padding(
+                        top = it.calculateTopPadding(),
+                        bottom = it.calculateBottomPadding()
+                    )
                     .fillMaxHeight()
             ) {
 
@@ -151,7 +154,10 @@ fun WorkoutReview(
 
     BackHandler {
         coroutine.launch {
-            snackBarHostState.showSnackbar("")
+            if (status.value != (StopWatchState.STOP))
+            snackBarHostState.showSnackbar("") else{
+                navHostController.popBackStack()
+            }
         }
     }
 }
@@ -281,27 +287,12 @@ fun WorkoutReviewPreview() {
                 modifier = Modifier
                     .padding(top = it.calculateTopPadding())
             ) {
-                /*   Box(modifier = Modifier.weight(1.5f)) {
-                       ImageByDay(day = workout.value.day)
-                       RowChips(
-                           modifier = Modifier.align(Alignment.BottomEnd),
-                           Chips(
-                               stringResource(id = R.string.chips_comment),
-                               R.drawable.ic_info_black_24dp,
-                           ) {
-                               coroutine.launch() {
-                                   bottomState.show()
-                               }
-                           }
-                       )
-                   }*/
                 ListWorkoutForReview(list, modifier = Modifier.weight(3f))
                 Divider(
                     thickness = 1.dp, modifier = Modifier
                         .fillMaxWidth()
                         .padding(8.dp)
                 )
-
             }
         }
     }
