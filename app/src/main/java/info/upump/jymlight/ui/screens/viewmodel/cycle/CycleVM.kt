@@ -37,7 +37,6 @@ class CycleVM : BaseVMWithStateLoad() {
             }.collect {list ->
                 Log.d("update","${list.size}")
                 _cycleList.update{ list}
-               // _cycleList.value = it
                 _stateLoading.value = false
             }
         }

@@ -8,6 +8,7 @@ import info.upump.database.DatabaseApp
 import info.upump.database.RoomDB
 import info.upump.database.repo.CycleRepo
 import info.upump.jymlight.R
+import info.upump.jymlight.models.entity.Cycle
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +17,7 @@ import java.io.File
 import java.io.FileOutputStream
 
 class DBRestoreBackup() : RestoreBackupable {
-    override suspend fun getSendIntent(context: Context): Intent {
+    override suspend fun getSendIntent(context: Context, list: List<Cycle>): Intent {
         val intentToSendToBd = Intent(Intent.ACTION_SEND)
         val ur = DBProvider().getDatabaseURIForBD(context)
 

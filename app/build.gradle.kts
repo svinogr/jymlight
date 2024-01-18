@@ -30,6 +30,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
@@ -49,7 +50,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation (project(":database"))
     implementation ("com.google.android.material:material:1.11.0")
-    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation (platform("androidx.compose:compose-bom:2022.10.00"))
     implementation ("androidx.compose.ui:ui:1.5.4")
     debugImplementation ("androidx.compose.ui:ui-tooling:1.5.4")
@@ -70,7 +71,7 @@ dependencies {
     // Optional - Integration with activities
     implementation("androidx.activity:activity-compose:1.8.2")
     // Optional - Integration with ViewModels
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2") // было же просто viewmodel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0") // было же просто viewmodel
     // Optional - Integration with LiveData
     implementation("androidx.compose.runtime:runtime-livedata")
     debugImplementation ("androidx.compose.ui:ui-test-manifest")

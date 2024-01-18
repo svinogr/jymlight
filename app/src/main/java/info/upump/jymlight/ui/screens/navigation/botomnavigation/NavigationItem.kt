@@ -4,7 +4,9 @@ import info.upump.jymlight.R
 
 const val MY_START_CYCLE_ROUTE = "myStartCycleRoute"
 const val DEFAULT_START_CYCLE_ROUTE = "defaultStartCycleRoute"
+
 const val PROFILE_START_CYCLE_ROUTE = "ProfileStartCycleRoute"
+const val PROFILE_CHOOSE_ROUTE = "ProfileChooseRoute"
 
 const val MY_WORKOUT_ROUTE = "myWorkoutRoute"
 const val MY_EXERCISE_ROUTE = "myExerciseRoute"
@@ -80,6 +82,7 @@ sealed class NavigationItem(val title: Int = -1, val route: String, val iconId: 
         }
     }
 
+    // Profile start
     object ProfileNavigationItem :
         NavigationItem(
             R.string.title_of_profile_screen2,
@@ -87,6 +90,13 @@ sealed class NavigationItem(val title: Int = -1, val route: String, val iconId: 
             R.drawable.profile
         )
 
+
+    object ChooseProfileNavigation : NavigationItem(
+        route = PROFILE_CHOOSE_ROUTE
+    )
+
+
+    // Profile end
 
     // Sets start
     // создание нового подхода

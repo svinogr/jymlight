@@ -34,6 +34,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import info.upump.jym.utils.JSONRestoreBackup
 import info.upump.jymlight.R
+import info.upump.jymlight.ui.screens.navigation.botomnavigation.NavigationItem
 import info.upump.jymlight.ui.screens.screenscomponents.itemcard.ItemSwipeBackgroundIcon
 import info.upump.jymlight.ui.screens.screenscomponents.itemcard.item.ItemButton
 import info.upump.jymlight.ui.screens.screenscomponents.screen.CardDescriptionVariableTitle
@@ -50,16 +51,15 @@ import java.io.File
 @Composable
 fun ProfileScreen(navHostController: NavHostController, paddingValues: PaddingValues) {
     val context = LocalContext.current
-
     val coroutine = rememberCoroutineScope()
 
     val profileVM: ProfileVM = viewModel()
     val loadState = profileVM.isLoading.collectAsState()
-    val restoreInterface: RestoreBackupable = JSONRestoreBackup()
+
     val launch = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) {
         it?.let {
             coroutine.launch(Dispatchers.IO) {
-                profileVM.load(it, context, restoreInterface)
+                profileVM.load(it, context)
             }
         }
     }
@@ -101,11 +101,14 @@ fun ProfileScreen(navHostController: NavHostController, paddingValues: PaddingVa
                             Column(modifier = Modifier) {
                                 ItemButton(
                                     action = {
-                                        state.value = true
+                                    /*    state.value = true
                                         coroutine.launch {
                                             profileVM.send(context, restoreInterface)
                                         }
-                                        state.value = false
+                                        state.value = false*/
+
+                                       navHostController.navigate(NavigationItem.ChooseProfileNavigation.route)
+
                                     },
                                     icon = R.drawable.ic_send_to_email,
                                     title = stringResource(id = R.string.pref_title_write_to_email)
@@ -161,13 +164,6 @@ fun ProfileScreen(navHostController: NavHostController, paddingValues: PaddingVa
             }
         }
     }
-}
-
-
-private suspend fun sendToDb(context: Context) {
-    val backupDab = DBRestoreBackup()
-    val intent = backupDab.getSendIntent(context)
-    context.startActivity(intent)
 }
 
 

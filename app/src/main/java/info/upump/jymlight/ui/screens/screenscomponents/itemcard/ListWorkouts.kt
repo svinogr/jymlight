@@ -129,6 +129,9 @@ fun simpleList(
                 dismissThresholds = { FractionalThreshold(0.5f) }
             )
         }
+        item() {
+            EmptyItem()
+        }
     }
 }
 

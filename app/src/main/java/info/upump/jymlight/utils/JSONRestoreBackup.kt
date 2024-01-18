@@ -35,10 +35,10 @@ import java.io.File
 import java.io.FileOutputStream
 
 class JSONRestoreBackup : RestoreBackupable {
-    override suspend fun getSendIntent(context: Context): Intent =
+    override suspend fun getSendIntent(context: Context, listToJson: List<Cycle>): Intent =
             withContext(Dispatchers.IO) {
 
-                val cycleRepo = CycleRepo.get() as CycleRepo
+        /*        val cycleRepo = CycleRepo.get() as CycleRepo
                 val listEntities = cycleRepo.getAllFullestEntityPersonal()
                 val listToJson = mutableListOf<Cycle>()
 
@@ -70,7 +70,7 @@ class JSONRestoreBackup : RestoreBackupable {
 
                     listToJson.add(cycle)
                 }
-
+*/
                 val intentToSendToBd = Intent(Intent.ACTION_SEND)
 
                 val gson = Gson()

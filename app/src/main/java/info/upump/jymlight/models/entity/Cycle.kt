@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 @Immutable
-class Cycle(
+open class Cycle(
     var workoutList: List<Workout> = ArrayList(),
     var isDefaultType: Boolean = false,
     var image: String = "",
@@ -167,7 +167,6 @@ class Cycle(
         if (startDate != other.startDate) return false
         if (finishDate != other.finishDate) return false
         if (comment != other.comment) return false
-        if (parentId != other.parentId) return false
 
         return true
     }
@@ -182,6 +181,7 @@ class Cycle(
         result = 31 * result + finishDate.hashCode()
         result = 31 * result + comment.hashCode()
         result = 31 * result + parentId.hashCode()
+
         return result
     }
 }

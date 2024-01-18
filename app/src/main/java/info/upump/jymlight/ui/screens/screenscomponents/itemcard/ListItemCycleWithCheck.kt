@@ -1,5 +1,6 @@
 package info.upump.jymlight.ui.screens.screenscomponents.itemcard
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -13,46 +14,50 @@ import androidx.compose.material.SwipeToDismiss
 import androidx.compose.material.rememberDismissState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import info.upump.jymlight.models.entity.Cycle
-import info.upump.jymlight.ui.screens.navigation.botomnavigation.NavigationItem
-import info.upump.jymlight.ui.screens.screenscomponents.itemcard.item.CycleItemCard
+import info.upump.jymlight.models.entity.CycleCheck
+import info.upump.jymlight.ui.screens.screenscomponents.itemcard.item.CycleItemCardWithCheck
 import info.upump.jymlight.ui.screens.screenscomponents.screen.DividerCustom
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun ListItemDefaultsCycle(
+fun ListItemCycleWithCheck(
     modifier: Modifier = Modifier,
     lazyListState: LazyListState,
-    list: List<Cycle>,
-    navhost: NavHostController,
+    list: List<CycleCheck>,
+    action: (Long) -> Unit
 ) {
+    val state = remember {
+        mutableStateOf(false)
+    }
+
+    /*    val stateList = remember {
+            mutableStateOf(list)
+        }*/
+
+    SideEffect {
+        Log.d("check", "side ListItemCycleWithCheck ")
+    }
     LazyColumn(
         modifier = modifier
             .fillMaxWidth()
             .fillMaxHeight()
             .background(
-                    MaterialTheme.colorScheme.background),
+                MaterialTheme.colorScheme.background
+            ),
         state = lazyListState
     ) {
         item() {
             EmptyItem(size = 2.dp)
         }
-        itemsIndexed(list, key = { index, item -> item.id }) { index, it ->
-            val state = remember {
-                mutableStateOf(false)
-            }
-            val action: () -> Unit = {
-                state.value = true
-                navhost.navigate(NavigationItem.DefaultDetailCycleNavigationItem.routeWithId(it.id))
-            }
-
+        itemsIndexed(list, key = { index, item -> item.cycle.id })
+        { _, cycle ->
             val dismissState = rememberDismissState(confirmStateChange = { value ->
                 true
             })
@@ -70,7 +75,7 @@ fun ListItemDefaultsCycle(
                 dismissContent = {
 
                     Column(modifier = Modifier) {
-                        CycleItemCard(cycle = it, action = action)
+                        CycleItemCardWithCheck(cycle = cycle) { action(cycle.cycle.id) }
                         DividerCustom(dismissState, state = state.value)
                     }
                 },
@@ -83,32 +88,32 @@ fun ListItemDefaultsCycle(
     }
 }
 
-
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
-fun ListItemDefaultsCyclePreview() {
-
-    ListItemDefaultsCycle(
+fun ListItemCycleWithCheckPreview() {
+    ListItemCycleWithCheck(
         lazyListState = LazyListState(),
         list = listOf(
-            Cycle().apply {
+            CycleCheck(cycle = Cycle().apply {
                 id = 1
                 title = "Program1"
                 image = ""
                 imageDefault = "uk1"
-            },
-            Cycle().apply {
-                id = 12
-                title = "Program2"
-                image = ""
-                imageDefault = "uk2"
-            },
-            Cycle().apply {
-                id = 13
-                title = "Program3"
+            }, isCheck = true),
+            CycleCheck(cycle = Cycle().apply {
+                id = 1
+                title = "Program1"
                 image = ""
                 imageDefault = "uk1"
-            }),
-        navhost = NavHostController(LocalContext.current)
-    )
+            }, isCheck = false),
+            CycleCheck(
+                cycle = Cycle().apply {
+                    id = 1
+                    title = "Program1"
+                    image = ""
+                    imageDefault = "uk1"
+                }, isCheck = true
+            )
+        )
+    ) {}
 }
