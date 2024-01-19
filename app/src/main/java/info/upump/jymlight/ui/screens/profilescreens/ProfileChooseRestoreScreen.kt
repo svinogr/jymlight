@@ -38,7 +38,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProfileChooseBackupScreen(navController: NavHostController, paddingValues: PaddingValues) {
+fun ProfileChooseRestoreScreen(uri: String, navController: NavHostController, paddingValues: PaddingValues) {
     val listState = rememberLazyListState()
     val coroutine = rememberCoroutineScope()
     val context = LocalContext.current
@@ -84,7 +84,7 @@ fun ProfileChooseBackupScreen(navController: NavHostController, paddingValues: P
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun ProfileChooseBackupScreen() {
+fun PreviewProfileChoose() {
     val listState = rememberLazyListState()
 
     val list = listOf(
@@ -112,7 +112,7 @@ fun ProfileChooseBackupScreen() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProfileChooseBackupScreenWithChooseALL(
+fun ProfileChooseScreenWithChooseALL(
     navController: NavHostController,
     paddingValues: PaddingValues
 ) {
@@ -171,7 +171,7 @@ fun ProfileChooseBackupScreenWithChooseALL(
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun PreviewProfileChooseBackupScreenWithChooseALL() {
+fun PreviewProfileChooseScreenWithChooseALL() {
     val listState = rememberLazyListState()
 
     val list = listOf(

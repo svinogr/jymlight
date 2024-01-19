@@ -1,3 +1,4 @@
+/*
 package info.upump.jymlight.utils
 
 import android.content.Context
@@ -33,7 +34,7 @@ class DBRestoreBackup() : RestoreBackupable {
         return intentToSendToBd
     }
 
-    override suspend fun restore(uri: Uri, context: Context, _stateLoading: MutableStateFlow<Boolean>) {
+    override suspend fun restore(uri: Uri, context: Context): Intent {
         coroutineScope() {
             launch(Dispatchers.IO) {
                 val file = File(RoomDB.DB_PATH_RESTORE, RoomDB.BASE_NAME_RESTORE)
@@ -63,7 +64,8 @@ class DBRestoreBackup() : RestoreBackupable {
                 }
 
 
-                /*
+                */
+/*
                                 DatabaseApp.initilizeDb(context, RoomDB.BASE_NAME, RoomDB.DB_PATH)
                                 file.delete()
                                 val file2 = File(RoomDB.BASE_NAME_RESTORE, RoomDB.DB_PATH)
@@ -71,10 +73,11 @@ class DBRestoreBackup() : RestoreBackupable {
 
                                 val repo = CycleRepo.get() as CycleRepo
                                 repo.saveFullEntitiesOnlyFromOtherDB(list)
-                                _stateLoading.update { false }*/
+                                _stateLoading.update { false }*//*
+
 
             }
         }
     }
 
-}
+}*/

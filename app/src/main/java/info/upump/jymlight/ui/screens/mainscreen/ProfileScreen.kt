@@ -1,7 +1,5 @@
 package info.upump.jymlight.ui.screens.mainscreen
 
-import android.content.Context
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
@@ -10,9 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.SwipeToDismiss
 import androidx.compose.material.rememberDismissState
@@ -20,31 +16,20 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import info.upump.jym.utils.JSONRestoreBackup
 import info.upump.jymlight.R
 import info.upump.jymlight.ui.screens.navigation.botomnavigation.NavigationItem
 import info.upump.jymlight.ui.screens.screenscomponents.itemcard.ItemSwipeBackgroundIcon
 import info.upump.jymlight.ui.screens.screenscomponents.itemcard.item.ItemButton
 import info.upump.jymlight.ui.screens.screenscomponents.screen.CardDescriptionVariableTitle
 import info.upump.jymlight.ui.screens.screenscomponents.screen.DividerCustom
-import info.upump.jymlight.ui.screens.viewmodel.profile.ProfileVM
-import info.upump.jymlight.utils.DBRestoreBackup
-import info.upump.jymlight.utils.RestoreBackupable
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import java.io.File
 
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
@@ -53,20 +38,12 @@ fun ProfileScreen(navHostController: NavHostController, paddingValues: PaddingVa
     val context = LocalContext.current
     val coroutine = rememberCoroutineScope()
 
-    val profileVM: ProfileVM = viewModel()
-    val loadState = profileVM.isLoading.collectAsState()
-
     val launch = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) {
         it?.let {
-            coroutine.launch(Dispatchers.IO) {
-                profileVM.load(it, context)
-            }
+            navHostController.navigate(NavigationItem.ChooseBackupProfileNavigation.route)
         }
     }
 
-    val isLoad = remember {
-        mutableStateOf(loadState.value)
-    }
 
     Scaffold(modifier = Modifier.padding(top = paddingValues.calculateTopPadding())) { it ->
         Box(
@@ -101,14 +78,7 @@ fun ProfileScreen(navHostController: NavHostController, paddingValues: PaddingVa
                             Column(modifier = Modifier) {
                                 ItemButton(
                                     action = {
-                                    /*    state.value = true
-                                        coroutine.launch {
-                                            profileVM.send(context, restoreInterface)
-                                        }
-                                        state.value = false*/
-
-                                       navHostController.navigate(NavigationItem.ChooseProfileNavigation.route)
-
+                                        navHostController.navigate(NavigationItem.ChooseSendProfileNavigation.route)
                                     },
                                     icon = R.drawable.ic_send_to_email,
                                     title = stringResource(id = R.string.pref_title_write_to_email)
@@ -153,14 +123,6 @@ fun ProfileScreen(navHostController: NavHostController, paddingValues: PaddingVa
                         }
                     )
                 }
-            }
-
-            if (isLoad.value) {
-                CircularProgressIndicator(
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                        .width(64.dp),
-                )
             }
         }
     }

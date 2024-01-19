@@ -3,7 +3,6 @@ package info.upump.jym.utils
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import com.google.gson.reflect.TypeToken
@@ -19,58 +18,20 @@ import info.upump.database.entities.WorkoutFullEntity
 import info.upump.database.repo.CycleRepo
 import info.upump.jymlight.R
 import info.upump.jymlight.models.entity.Cycle
-import info.upump.jymlight.models.entity.Exercise
-import info.upump.jymlight.models.entity.Sets
-import info.upump.jymlight.models.entity.Workout
 import info.upump.jymlight.utils.DBProvider
 import info.upump.jymlight.utils.RestoreBackupable
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.withContext
 import okio.use
 import java.io.File
 import java.io.FileOutputStream
 
 class JSONRestoreBackup : RestoreBackupable {
-    override suspend fun getSendIntent(context: Context, listToJson: List<Cycle>): Intent =
+    override suspend fun backup(context: Context, listToJson: List<Cycle>): Intent =
             withContext(Dispatchers.IO) {
-
-        /*        val cycleRepo = CycleRepo.get() as CycleRepo
-                val listEntities = cycleRepo.getAllFullestEntityPersonal()
-                val listToJson = mutableListOf<Cycle>()
-
-                for (cE in listEntities) {
-                    val cycle = Cycle.mapFromDbEntity(cE.cycleEntity)
-                    val workoutList = mutableListOf<Workout>()
-                    cycle.workoutList = workoutList
-
-                    for (wE in cE.listWorkoutEntity) {
-                        val workout = Workout.mapFromDbEntity(wE.workoutEntity)
-                        workoutList.add(workout)
-
-                        val exerciseList = mutableListOf<Exercise>()
-                        workout.exercises = exerciseList
-
-                        for (eE in wE.listExerciseEntity) {
-                            val exercise = Exercise.mapFromDbEntity(eE.exerciseEntity)
-                            exerciseList.add(exercise)
-
-                            val setList = mutableListOf<Sets>()
-                            exercise.setsList = setList
-
-                            for (sE in eE.listSetsEntity) {
-                                val sets = Sets.mapFromDbEntity(sE)
-                                setList.add(sets)
-                            }
-                        }
-                    }
-
-                    listToJson.add(cycle)
-                }
-*/
                 val intentToSendToBd = Intent(Intent.ACTION_SEND)
 
                 val gson = Gson()
@@ -98,7 +59,7 @@ class JSONRestoreBackup : RestoreBackupable {
             }
 
 
-    override suspend fun restore(uri: Uri, context: Context, _stateLoading: MutableStateFlow<Boolean>): Unit =
+    override suspend fun restore(uri: Uri, context: Context) =
             withContext(Dispatchers.IO) {
                 var fromJson = listOf<Cycle>()
 

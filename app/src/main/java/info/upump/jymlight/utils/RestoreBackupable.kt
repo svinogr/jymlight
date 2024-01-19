@@ -10,6 +10,7 @@ interface RestoreBackupable {
     companion object {
         const val FILE_EXTENSION = "db"
     }
-    suspend fun getSendIntent(context: Context, list: List<Cycle>): Intent
-    suspend fun restore(uri: Uri, context: Context, _stateLoading: MutableStateFlow<Boolean>)
+
+    suspend fun backup(context: Context, list: List<Cycle>): Intent
+    suspend fun restore(uri: Uri, context: Context)
 }

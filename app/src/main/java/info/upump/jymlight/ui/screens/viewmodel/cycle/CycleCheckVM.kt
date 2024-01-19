@@ -14,16 +14,11 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-enum class StateCheckBoxes() {
-    ALL, NOTHING, SELECTED
-}
-
 class CycleCheckVM() : BaseVMWithStateLoad() {
     private val cycleRepo = CycleRepo.get()
     private val _cycleList = MutableStateFlow<List<CycleCheck>>(mutableListOf())
     val cycleList: StateFlow<List<CycleCheck>> = _cycleList.asStateFlow()
     suspend fun getAllPersonal() {
-        Log.d("getAllPersonal", "getAllPersonal")
         _stateLoading.value = true
 
         viewModelScope.launch(
@@ -34,7 +29,7 @@ class CycleCheckVM() : BaseVMWithStateLoad() {
                 it.map { c ->
                     val cycle = Cycle.mapFullFromDbEntity(c)
                     val cycleCheck = CycleCheck(cycle = cycle).apply {
-                        isCheck = true
+                        isCheck = false
                     }
                     return@map cycleCheck
                 }

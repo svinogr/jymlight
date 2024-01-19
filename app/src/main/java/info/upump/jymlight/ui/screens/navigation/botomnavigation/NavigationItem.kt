@@ -6,7 +6,8 @@ const val MY_START_CYCLE_ROUTE = "myStartCycleRoute"
 const val DEFAULT_START_CYCLE_ROUTE = "defaultStartCycleRoute"
 
 const val PROFILE_START_CYCLE_ROUTE = "ProfileStartCycleRoute"
-const val PROFILE_CHOOSE_ROUTE = "ProfileChooseRoute"
+const val PROFILE_CHOOSE_BACKUP_ROUTE = "ProfileChooseRoute"
+const val PROFILE_CHOOSE_RESTORE_ROUTE = "ProfileChooseRoute"
 
 const val MY_WORKOUT_ROUTE = "myWorkoutRoute"
 const val MY_EXERCISE_ROUTE = "myExerciseRoute"
@@ -91,8 +92,12 @@ sealed class NavigationItem(val title: Int = -1, val route: String, val iconId: 
         )
 
 
-    object ChooseProfileNavigation : NavigationItem(
-        route = PROFILE_CHOOSE_ROUTE
+    object ChooseSendProfileNavigation : NavigationItem(
+        route = PROFILE_CHOOSE_BACKUP_ROUTE
+    )  
+    
+    object ChooseBackupProfileNavigation : NavigationItem(
+        route = PROFILE_CHOOSE_RESTORE_ROUTE
     )
 
 

@@ -5,10 +5,13 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.MutableState
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import info.upump.jymlight.ui.screens.mainscreen.ProfileScreen
-import info.upump.jymlight.ui.screens.profilescreens.ProfileChooseScreen
+import info.upump.jymlight.ui.screens.profilescreens.ProfileChooseBackupScreen
+import info.upump.jymlight.ui.screens.profilescreens.ProfileChooseRestoreScreen
 
 const val PROFILE_ROOT_ROUT = "profileRootRout"
 
@@ -31,10 +34,23 @@ fun NavGraphBuilder.profileNavGraph(
             ProfileScreen(navHostController, paddingValues)
         }
 
-        composable(route = NavigationItem.ChooseProfileNavigation.route) {
+        composable(route = NavigationItem.ChooseSendProfileNavigation.route) {
             appBarTitle.value =
                 context.resources.getString(NavigationItem.ProfileNavigationItem.title)
-            ProfileChooseScreen(navHostController, paddingValues)
+            ProfileChooseBackupScreen(navHostController, paddingValues)
+        }
+
+        composable(route = NavigationItem.ChooseSendProfileNavigation.route,
+            arguments = listOf(navArgument("uri") {
+                type = NavType.StringType
+            })
+
+        ) {
+            appBarTitle.value =
+                context.resources.getString(NavigationItem.ProfileNavigationItem.title)
+            val uri = it.arguments?.getString("uri")
+
+            ProfileChooseRestoreScreen(uri!!, navHostController, paddingValues)
         }
     }
 
