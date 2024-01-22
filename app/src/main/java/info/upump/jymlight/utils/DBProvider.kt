@@ -8,15 +8,6 @@ import androidx.core.content.FileProvider
 import java.io.File
 
 class DBProvider : FileProvider() {
- /*   fun getDatabaseURIForBD(c: Context): Uri {
-        val data = Environment.getDataDirectory()
-        val dbName = "jym.db"
-        val currentDBPath = "/data/info.upump.jymlight/databases/$dbName"
-        val exportFile = File(data, currentDBPath)
-
-        return getFileUri(c, exportFile)
-    }
-*/
     fun getDatabaseURIForJsonFile(c: Context, file: File): Uri {
         return getFileUri(c, file)
     }
