@@ -1,6 +1,8 @@
 package info.upump.jymlight.ui.screens.myworkoutsscreens.screens.workoutscreens
 
 
+import android.content.Context
+import android.preference.PreferenceDataStore
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -32,12 +34,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.NavHostController
 import info.upump.jymlight.ui.screens.mainscreen.AppBarAction
 import info.upump.jymlight.ui.screens.screenscomponents.screen.SnackBar
@@ -50,11 +57,15 @@ import info.upump.jymlight.models.entity.Sets
 import info.upump.jymlight.models.entity.TypeMuscle
 import info.upump.jymlight.ui.screens.screenscomponents.BottomSheet
 import info.upump.jymlight.ui.screens.screenscomponents.itemcard.ListWorkoutForReview
+import info.upump.jymlight.ui.screens.screenscomponents.screen.SoundTimer
 import info.upump.jymlight.ui.screens.screenscomponents.screen.StopWatchState
+import info.upump.jymlight.ui.screens.viewmodel.workout.SoundTimerVM
+import info.upump.jymlight.ui.screens.viewmodel.workout.SoundViewModelFactory
 import info.upump.jymlight.ui.screens.viewmodel.workout.WorkoutDetailVM
 import info.upump.jymlight.ui.theme.MyOutlineTextTitleLabel20Text
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
@@ -70,6 +81,12 @@ fun WorkoutReview(
 
     val workoutVM: WorkoutDetailVM = viewModel()
     val stopwatchVM: StopWatchVM = viewModel()
+    val soundTimerVM: SoundTimerVM = viewModel(
+        factory = SoundViewModelFactory(LocalContext.current))
+
+    val isSound = remember {
+        mutableStateOf(soundTimerVM.isSound)
+    }
 
     val title = remember {
         mutableStateOf(workoutVM.title)
@@ -140,6 +157,7 @@ fun WorkoutReview(
                     exercise.collectAsState().value,
                     Modifier.weight(4f)
                 )
+                SoundTimer(start = soundTimerVM.startSoundMiles.value.first(), finish =0.0 )
                 StopWatch(
                     time.collectAsState().value,
                     status.collectAsState().value,
@@ -297,3 +315,4 @@ fun WorkoutReviewPreview() {
         }
     }
 }
+

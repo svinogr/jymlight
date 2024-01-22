@@ -99,4 +99,6 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("com.google.code.gson:gson:2.10")
+
+    implementation( "androidx.datastore:datastore-preferences:1.0.0")
 }
