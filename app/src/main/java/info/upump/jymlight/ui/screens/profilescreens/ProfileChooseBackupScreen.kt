@@ -1,5 +1,7 @@
 package info.upump.jymlight.ui.screens.profilescreens
 
+import android.content.Context
+import android.content.Intent
 import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -25,6 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import info.upump.jym.utils.JSONRestoreBackup
 import info.upump.jymlight.R
 import info.upump.jymlight.models.entity.Cycle
 import info.upump.jymlight.models.entity.CycleCheck
@@ -32,7 +35,7 @@ import info.upump.jymlight.ui.screens.mainscreen.isScrollingUp
 import info.upump.jymlight.ui.screens.screenscomponents.FloatButtonWithState
 import info.upump.jymlight.ui.screens.screenscomponents.itemcard.ListItemCycleWithCheck
 import info.upump.jymlight.ui.screens.viewmodel.cycle.CycleCheckVM
-import info.upump.jymlight.utils.DataBaseAction
+import info.upump.jymlight.utils.ReadToBackupRestorable
 import kotlinx.coroutines.launch
 
 
@@ -47,7 +50,7 @@ fun ProfileChooseBackupScreen(navController: NavHostController, paddingValues: P
     val listCycles = cycleVM.cycleList
 
     LaunchedEffect(key1 = true) {
-        cycleVM.getAllPersonal()
+        cycleVM.getAllPersonalFromDB()
     }
 
     val list = remember {
@@ -64,9 +67,9 @@ fun ProfileChooseBackupScreen(navController: NavHostController, paddingValues: P
             ) {
                 coroutine.launch {
                     Log.d("check", "${cycleVM.getCheckedCycle().size}")
-                    val db = DataBaseAction()
-                    val intent  = db.backup(context, cycleVM.getCheckedCycle())
-                     context.startActivity(intent)
+                    val intent: Intent =
+                        getIntentToSend(context, cycleVM.getCheckedCycle(), JSONRestoreBackup())
+                    context.startActivity(intent)
                 }
             }
         }
@@ -79,6 +82,25 @@ fun ProfileChooseBackupScreen(navController: NavHostController, paddingValues: P
             )
         }
     }
+}
+
+suspend fun getIntentToSend(
+    context: Context,
+    list: List<Cycle>,
+    restoreInterface: ReadToBackupRestorable
+): Intent {
+    val uri = restoreInterface.backupToUri(context, list)
+    val intentToSendToBd = Intent(Intent.ACTION_SEND)
+    intentToSendToBd.type = "text/plain"
+    intentToSendToBd.putExtra(Intent.EXTRA_STREAM, uri)
+    intentToSendToBd.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    intentToSendToBd.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+    intentToSendToBd.putExtra(
+        Intent.EXTRA_SUBJECT,
+        context.getString(R.string.email_subject_for_beackup)
+    )
+
+    return intentToSendToBd
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -124,7 +146,7 @@ fun ProfileChooseBackupScreenWithChooseALL(
     val listCycles = cycleVM.cycleList
 
     LaunchedEffect(key1 = true) {
-        cycleVM.getAllPersonal()
+        cycleVM.getAllPersonalFromDB()
     }
 
     val list = remember {

@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.MutableState
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
@@ -40,17 +39,13 @@ fun NavGraphBuilder.profileNavGraph(
             ProfileChooseBackupScreen(navHostController, paddingValues)
         }
 
-        composable(route = NavigationItem.ChooseSendProfileNavigation.route,
-            arguments = listOf(navArgument("uri") {
-                type = NavType.StringType
-            })
+        composable(route = NavigationItem.ChooseRestoreProfileNavigation.route,
+
 
         ) {
             appBarTitle.value =
                 context.resources.getString(NavigationItem.ProfileNavigationItem.title)
-            val uri = it.arguments?.getString("uri")
-
-            ProfileChooseRestoreScreen(uri!!, navHostController, paddingValues)
+            ProfileChooseRestoreScreen(navHostController, paddingValues)
         }
     }
 

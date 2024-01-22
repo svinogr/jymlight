@@ -1,5 +1,8 @@
 package info.upump.jymlight.ui.screens.mainscreen
 
+import android.content.Context
+import android.net.Uri
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
@@ -30,8 +33,13 @@ import info.upump.jymlight.ui.screens.screenscomponents.itemcard.ItemSwipeBackgr
 import info.upump.jymlight.ui.screens.screenscomponents.itemcard.item.ItemButton
 import info.upump.jymlight.ui.screens.screenscomponents.screen.CardDescriptionVariableTitle
 import info.upump.jymlight.ui.screens.screenscomponents.screen.DividerCustom
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.io.File
+import java.io.FileOutputStream
 
-
+const val  NAME_RESTORE_FILE = "restore.json"
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
 fun ProfileScreen(navHostController: NavHostController, paddingValues: PaddingValues) {
@@ -40,10 +48,14 @@ fun ProfileScreen(navHostController: NavHostController, paddingValues: PaddingVa
 
     val launch = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) {
         it?.let {
-            navHostController.navigate(NavigationItem.ChooseBackupProfileNavigation.route)
+            Log.d("uri", "1 $it")
+            coroutine.launch(Dispatchers.IO) {
+                saveFile(it, context) {
+                    navHostController.navigate(NavigationItem.ChooseRestoreProfileNavigation.route)
+                }
+            }
         }
     }
-
 
     Scaffold(modifier = Modifier.padding(top = paddingValues.calculateTopPadding())) { it ->
         Box(
@@ -126,6 +138,18 @@ fun ProfileScreen(navHostController: NavHostController, paddingValues: PaddingVa
             }
         }
     }
+}
+
+suspend fun saveFile(uri: Uri, context: Context, nextFunction: () -> Unit) {
+    context.contentResolver.openInputStream(uri)?.use { it ->
+        val fileUri = it.readBytes()
+        val dir = context.filesDir
+        val file = File(dir, NAME_RESTORE_FILE)
+        FileOutputStream(file).use {
+            it.write(fileUri)
+        }
+    }
+    withContext(Dispatchers.Main) { nextFunction() }
 }
 
 
