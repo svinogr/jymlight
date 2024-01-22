@@ -94,10 +94,12 @@ sealed class NavigationItem(val title: Int = -1, val route: String, val iconId: 
 
 
     object ChooseSendProfileNavigation : NavigationItem(
+        title = R.string.profile_choose_backup_title,
         route = PROFILE_CHOOSE_BACKUP_ROUTE
     )
 
     object ChooseRestoreProfileNavigation : NavigationItem(
+        title = R.string.profile_choose_restore_title,
         route = PROFILE_CHOOSE_RESTORE_ROUTE
     )
 

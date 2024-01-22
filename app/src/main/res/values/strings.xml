@@ -37,6 +37,8 @@
     <string name="user_update_title">Изменить параметры замера</string>
     <string name="user_create_title">Параметры нового замера</string>
     <string name="graph_title">Статистика</string>
+    <string name="profile_choose_backup_title">Выберите программы</string>
+    <string name="profile_choose_restore_title">Выберите программы</string>
 
     <string name="workout_fragment_title">Мои тренировки</string>
     <string name="set_create_title">Создать новый подход</string>

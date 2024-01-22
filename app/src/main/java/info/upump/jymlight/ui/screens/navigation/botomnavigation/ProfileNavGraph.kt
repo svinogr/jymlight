@@ -35,18 +35,16 @@ fun NavGraphBuilder.profileNavGraph(
 
         composable(route = NavigationItem.ChooseSendProfileNavigation.route) {
             appBarTitle.value =
-                context.resources.getString(NavigationItem.ProfileNavigationItem.title)
+                context.resources.getString(NavigationItem.ChooseSendProfileNavigation.title)
             ProfileChooseBackupScreen(navHostController, paddingValues)
         }
 
         composable(route = NavigationItem.ChooseRestoreProfileNavigation.route,
 
-
         ) {
             appBarTitle.value =
-                context.resources.getString(NavigationItem.ProfileNavigationItem.title)
+                context.resources.getString(NavigationItem.ChooseRestoreProfileNavigation.title)
             ProfileChooseRestoreScreen(navHostController, paddingValues)
         }
     }
-
 }
