@@ -1,8 +1,6 @@
 package info.upump.jymlight.ui.screens.myworkoutsscreens.screens.workoutscreens
 
 
-import android.content.Context
-import android.preference.PreferenceDataStore
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -40,32 +38,26 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.NavHostController
-import info.upump.jymlight.ui.screens.mainscreen.AppBarAction
-import info.upump.jymlight.ui.screens.screenscomponents.screen.SnackBar
-import info.upump.jymlight.ui.screens.screenscomponents.screen.StopWatch
-import info.upump.jymlight.ui.screens.viewmodel.workout.StopWatchVM
 import info.upump.jymlight.R
 import info.upump.jymlight.models.entity.Exercise
 import info.upump.jymlight.models.entity.ExerciseDescription
 import info.upump.jymlight.models.entity.Sets
 import info.upump.jymlight.models.entity.TypeMuscle
+import info.upump.jymlight.ui.screens.mainscreen.AppBarAction
 import info.upump.jymlight.ui.screens.screenscomponents.BottomSheet
 import info.upump.jymlight.ui.screens.screenscomponents.itemcard.ListWorkoutForReview
+import info.upump.jymlight.ui.screens.screenscomponents.screen.SnackBar
 import info.upump.jymlight.ui.screens.screenscomponents.screen.SoundTimer
+import info.upump.jymlight.ui.screens.screenscomponents.screen.StopWatch
 import info.upump.jymlight.ui.screens.screenscomponents.screen.StopWatchState
 import info.upump.jymlight.ui.screens.viewmodel.workout.SoundTimerVM
-import info.upump.jymlight.ui.screens.viewmodel.workout.SoundViewModelFactory
+import info.upump.jymlight.ui.screens.viewmodel.workout.StopWatchVM
 import info.upump.jymlight.ui.screens.viewmodel.workout.WorkoutDetailVM
 import info.upump.jymlight.ui.theme.MyOutlineTextTitleLabel20Text
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
@@ -78,15 +70,15 @@ fun WorkoutReview(
     appBarActions: MutableState<List<AppBarAction>>
 ) {
     val bottomState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
-
+    val context = LocalContext.current
     val workoutVM: WorkoutDetailVM = viewModel()
     val stopwatchVM: StopWatchVM = viewModel()
-    val soundTimerVM: SoundTimerVM = viewModel(
-        factory = SoundViewModelFactory(LocalContext.current))
+    val soundTimerVM: SoundTimerVM = viewModel()
 
     val isSound = remember {
         mutableStateOf(soundTimerVM.isSound)
     }
+
 
     val title = remember {
         mutableStateOf(workoutVM.title)
@@ -104,6 +96,19 @@ fun WorkoutReview(
         mutableStateOf(stopwatchVM.formatedTime)
     }
 
+    val startSoundMiles = remember {
+        mutableStateOf(
+            soundTimerVM.startSoundMiles
+        )
+    }
+
+    val finishSoundMiles = remember {
+        mutableStateOf(
+            soundTimerVM.finishSoundMiles
+        )
+    }
+
+
     appBarTitle.value = title.value.collectAsState().value
 
     val coroutine = rememberCoroutineScope()
@@ -116,6 +121,7 @@ fun WorkoutReview(
         val list = mutableListOf<AppBarAction>()
         list.add(commentAction)
         appBarActions.value = list
+        soundTimerVM.init(context)
     }
 
     ModalBottomSheetLayout(
@@ -157,7 +163,20 @@ fun WorkoutReview(
                     exercise.collectAsState().value,
                     Modifier.weight(4f)
                 )
-                SoundTimer(start = soundTimerVM.startSoundMiles.value.first(), finish =0.0 )
+                val startAction: (Long) -> Unit = {
+                    soundTimerVM.setStart(it, context)
+                }
+
+                val finishAction: (Long) -> Unit = {
+                    soundTimerVM.setFinish(it, context)
+                }
+
+                SoundTimer(
+                    start = startSoundMiles.value.collectAsState().value,
+                    finish = finishSoundMiles.value.collectAsState().value,
+                    setFinishAction = finishAction,
+                    setStartAction = startAction
+                )
                 StopWatch(
                     time.collectAsState().value,
                     status.collectAsState().value,
@@ -173,7 +192,7 @@ fun WorkoutReview(
     BackHandler {
         coroutine.launch {
             if (status.value != (StopWatchState.STOP))
-            snackBarHostState.showSnackbar("") else{
+                snackBarHostState.showSnackbar("") else {
                 navHostController.popBackStack()
             }
         }

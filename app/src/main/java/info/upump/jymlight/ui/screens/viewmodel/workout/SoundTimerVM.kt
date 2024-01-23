@@ -1,26 +1,18 @@
 package info.upump.jymlight.ui.screens.viewmodel.workout
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
-import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.platform.LocalContext
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.longPreferencesKey
-import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import info.upump.jymlight.dataStore
 import info.upump.jymlight.ui.screens.screenscomponents.screen.StopWatchState
-import info.upump.jymlight.ui.screens.viewmodel.workout.SoundTimerVM.Companion.dataStore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
@@ -33,7 +25,10 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
-class SoundTimerVM(context: Context) : ViewModel() {
+
+class SoundTimerVM() : ViewModel() {
+    val START_KEY = longPreferencesKey("start")
+    val FINISH_KEY = longPreferencesKey("finish")
     private val _isSound = MutableStateFlow(false)
     val isSound = _isSound.asStateFlow()
     private val _formatedTime = MutableStateFlow("00")
@@ -44,17 +39,27 @@ class SoundTimerVM(context: Context) : ViewModel() {
 
     private var lastTimeStamp = 0L
     private var timeMile = 0L
-    private val _startSoundMiles = MutableStateFlow(context.dataStore.data.map { pref ->
-        pref[start] ?: 0L
-    })
 
+    private val _startSoundMiles = MutableStateFlow(0L)
     val startSoundMiles = _startSoundMiles.asStateFlow()
 
-    private val _finishSoundMiles = MutableStateFlow(context.dataStore.data.map { pref ->
-        pref[finish] ?: 0L
-    })
-
+    private val _finishSoundMiles = MutableStateFlow(0L)
     val finishSoundMiles = _finishSoundMiles.asStateFlow()
+
+    fun init(context: Context) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _startSoundMiles.update {
+                context.dataStore.data.map {
+                    it[START_KEY] ?: 0
+                }.first()
+            }
+            _finishSoundMiles.update {
+                context.dataStore.data.map {
+                    it[FINISH_KEY] ?: 0
+                }.first()
+            }
+        }
+    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun start(context: Context) {
@@ -64,24 +69,24 @@ class SoundTimerVM(context: Context) : ViewModel() {
         var isSoundFinish = false
 
         scope.launch(Dispatchers.IO) {
-            _status.update { StopWatchState.RESUME }
-            while (status.value == StopWatchState.RESUME) {
+            /*      _status.update { StopWatchState.RESUME }
+                  while (status.value == StopWatchState.RESUME) {
 
-                lastTimeStamp = System.currentTimeMillis()
-                delay(1L)
-                timeMile += System.currentTimeMillis() - lastTimeStamp
+                      lastTimeStamp = System.currentTimeMillis()
+                      delay(1L)
+                      timeMile += System.currentTimeMillis() - lastTimeStamp
 
-                if (timeMile >= startSoundMiles.value.first() && !isSoundStart) {
-                    _isSound.update { true }
-                    Log.d("sound", "sound start")
-                }
+                      if (timeMile >= startSoundMiles.value.first() && !isSoundStart) {
+                          _isSound.update { true }
+                          Log.d("sound", "sound start")
+                      }
 
-                if (timeMile >= finishSoundMiles.value.first() && !isSoundFinish) {
-                    _isSound.update { true }
-                    Log.d("sound", "sound finish")
-                }
+                      if (timeMile >= finishSoundMiles.value.first() && !isSoundFinish) {
+                          _isSound.update { true }
+                          Log.d("sound", "sound finish")
+                      }
 
-            }
+                  }*/
         }
     }
 
@@ -127,9 +132,24 @@ class SoundTimerVM(context: Context) : ViewModel() {
         scope.cancel()
     }
 
-    companion object {
-        val Context.dataStore: DataStore<Preferences> by preferencesDataStore("storeData")
-        val start = longPreferencesKey("start")
-        val finish = longPreferencesKey("finish")
+    fun setStart(it: Long, context: Context) {
+        viewModelScope.launch {
+            context.dataStore.edit { preferences ->
+                 preferences[START_KEY] = it
+                _startSoundMiles.update { it }
+            }
+
+        }
     }
+
+    fun setFinish(it: Long, context: Context) {
+        viewModelScope.launch {
+            context.dataStore.edit { preferences ->
+                preferences[FINISH_KEY] = it
+                _finishSoundMiles.update { it }
+            }
+
+        }
+    }
+
 }
