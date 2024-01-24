@@ -63,7 +63,7 @@ fun EditSoundTimerScreen(
         mutableStateOf(soundTimerErrorActionEditVM.finis)
     }
     val bottomState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
-    val snackBarHostState = remember { SnackbarHostState() }
+    
     LaunchedEffect(key1 = true){
         soundTimerErrorActionEditVM.init(context)
         val infoAction =

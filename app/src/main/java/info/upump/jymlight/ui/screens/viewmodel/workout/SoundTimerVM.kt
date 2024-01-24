@@ -1,12 +1,14 @@
 package info.upump.jymlight.ui.screens.viewmodel.workout
 
 import android.content.Context
+import android.media.MediaPlayer
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import info.upump.jymlight.R
 import info.upump.jymlight.dataStore
 import info.upump.jymlight.ui.screens.screenscomponents.screen.StopWatchState
 import info.upump.jymlight.utils.KeysForDataStore
@@ -29,8 +31,7 @@ import java.util.Locale
 
 
 class SoundTimerVM() : ViewModel() {
-    private val _isSound = MutableStateFlow(false)
-    val isSound = _isSound.asStateFlow()
+    private var isSound = true
     private val _formatedTime = MutableStateFlow("00:00:00")
     val formatedTime = _formatedTime.asStateFlow()
     private val _status = MutableStateFlow(StopWatchState.STOP)
@@ -62,26 +63,30 @@ class SoundTimerVM() : ViewModel() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun start() {
-            scope.launch(Dispatchers.IO) {
-                _status.update { StopWatchState.RESUME }
-                while (status.value == StopWatchState.RESUME && timeMile/1000 < _finishSoundMiles.value) {
-                    lastTimeStamp = System.currentTimeMillis()
-                    delay(10L)
-                    timeMile += System.currentTimeMillis() - lastTimeStamp
-                    _formatedTime.update { formatTime(timeMile) }
+    fun start(context: Context) {
+        val player = MediaPlayer.create(context, R.raw.pik)
 
-                    if(timeMile/1000 >= _startSoundMiles.value) {
-                        _isSound.update { true }
-                    }
+        scope.launch(Dispatchers.IO) {
+            _status.update { StopWatchState.RESUME }
+            while (status.value == StopWatchState.RESUME && timeMile / 1000 < _finishSoundMiles.value) {
+                lastTimeStamp = System.currentTimeMillis()
+                delay(10L)
+                timeMile += System.currentTimeMillis() - lastTimeStamp
+                _formatedTime.update { formatTime(timeMile) }
+
+                if (timeMile / 1000 >= _startSoundMiles.value && isSound) {
+                    player.start()
+                    isSound = false
                 }
-                _isSound.update { false }
-                _isSound.update { true }
-                timeMile = 0L
-                _isSound.update { false }
-                _status.update { StopWatchState.STOP }
             }
+
+            timeMile = 0L
+            player.start()
+            isSound = true
+            _status.update { StopWatchState.STOP }
+        }
     }
+
     @RequiresApi(Build.VERSION_CODES.O)
     private fun formatTime(timeMiles: Long): String {
         val localDateTime = LocalDateTime.ofInstant(

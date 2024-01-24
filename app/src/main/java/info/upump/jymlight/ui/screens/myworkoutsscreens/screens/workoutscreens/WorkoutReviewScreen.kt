@@ -77,11 +77,6 @@ fun WorkoutReview(
     val stopwatchVM: StopWatchVM = viewModel()
     val soundTimerVM: SoundTimerVM = viewModel()
 
-    val isSound = remember {
-        mutableStateOf(soundTimerVM.isSound)
-    }
-
-
     val title = remember {
         mutableStateOf(workoutVM.title)
     }
@@ -116,7 +111,7 @@ fun WorkoutReview(
 
     val startAction: () -> Unit = {
         Log.d("sound", "start")
-        soundTimerVM.start()
+        soundTimerVM.start(context)
     }
 
     val editAction: () -> Unit = {
