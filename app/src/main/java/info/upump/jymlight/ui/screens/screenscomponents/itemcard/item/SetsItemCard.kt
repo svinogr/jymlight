@@ -2,8 +2,11 @@ package info.upump.jymlight.ui.screens.screenscomponents.itemcard.item
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.magnifier
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.material3.Card
@@ -11,6 +14,8 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -40,9 +45,9 @@ fun SetsItemCard(
         ConstraintLayout(
             modifier = modifier
                 .fillMaxWidth()
-                .padding()
+                //  .padding()
                 .background(
-                        MaterialTheme.colorScheme.background
+                    MaterialTheme.colorScheme.background
                 )
                 .padding(top = 16.dp, bottom = 16.dp)
         ) {
@@ -54,30 +59,43 @@ fun SetsItemCard(
             val guiTwo = createGuidelineFromStart(GuidelineSets.TWO.offset)
             val guiThree = createGuidelineFromStart(GuidelineSets.THREE.offset)
             val guiFour = createGuidelineFromStart(GuidelineSets.FOUR.offset)
+            val guiFive = createGuidelineFromStart(GuidelineSets.FIVE.offset)
             val modifierOneThree = Modifier.padding(start = 0.dp)
             Text(
                 text = "${number + 1}",
                 modifier = modifierOneThree.constrainAs(textNumber) {
                     start.linkTo(guiOne)
-                }, style = MyTextTitleLabel16
-            )
-            Text(
-                text = sets.weight.toString(),
-                modifier = modifierOneThree.constrainAs(textWeight) {
-                    start.linkTo(guiTwo)
-                }, style = MyTextTitleLabel16
-            )
+                    //     end.linkTo(guiTwo)
+                },
+                style = MyTextTitleLabel16,
+
+                )
+
+                Text(modifier = Modifier.
+                constrainAs(textWeight) {
+                    //start.linkTo(guiTwo)
+                    end.linkTo(guiThree)
+                }.padding(end = 0.dp),
+                    text = sets.weight.toString(),
+                    style = MyTextTitleLabel16,
+                    textAlign = TextAlign.End
+                )
+
             Text(
                 text = sets.weightPast.toString(),
                 modifier = modifierOneThree.constrainAs(textPasWeight) {
-                    start.linkTo(guiThree)
-                }, style = MyTextLabel16
+                   // start.linkTo(guiThree)
+                    end.linkTo(guiFour)
+                }, style = MyTextLabel16,
+                textAlign = TextAlign.End
             )
             Text(
                 text = sets.reps.toString(),
                 modifier = modifierOneThree.constrainAs(textReps) {
-                    start.linkTo(guiFour)
-                }, style = MyTextTitleLabel16
+                   // start.linkTo(guiFour)
+                    end.linkTo(guiFive)
+                }, style = MyTextTitleLabel16,
+                textAlign = TextAlign.End
             )
         }
     }
@@ -116,30 +134,45 @@ fun SetsItemCardWithoutClick(
             val guiTwo = createGuidelineFromStart(GuidelineSets.TWO.offset)
             val guiThree = createGuidelineFromStart(GuidelineSets.THREE.offset)
             val guiFour = createGuidelineFromStart(GuidelineSets.FOUR.offset)
+            val guiFive = createGuidelineFromStart(GuidelineSets.FIVE.offset)
             val modifierOneThree = Modifier.padding(start = 0.dp)
             Text(
                 text = "${number + 1}",
-                modifier = modifierOneThree.constrainAs(textNumber) {
-                    start.linkTo(guiOne)
-                }, style = MyTextTitleLabel16
+                modifier = modifierOneThree
+                    .constrainAs(textNumber) {
+                        start.linkTo(guiOne)
+                     //   end.linkTo(guiTwo)
+                    }
+                    .fillMaxWidth(), style = MyTextTitleLabel16,
+                textAlign = TextAlign.End
             )
             Text(
                 text = sets.weight.toString(),
-                modifier = modifierOneThree.constrainAs(textWeight) {
-                    start.linkTo(guiTwo)
-                }, style = MyTextTitleLabel16
+                modifier = modifierOneThree
+                    .constrainAs(textWeight) {
+                       // start.linkTo(guiTwo)
+                        end.linkTo(guiThree)
+                    }
+                    .fillMaxWidth(), style = MyTextTitleLabel16,
+                textAlign = TextAlign.End
             )
             Text(
                 text = sets.weightPast.toString(),
-                modifier = modifierOneThree.constrainAs(textPasWeight) {
-                    start.linkTo(guiThree)
-                }, style = MyTextLabel16
+                modifier = modifierOneThree
+                    .constrainAs(textPasWeight) {
+                      //  start.linkTo(guiThree)
+                        end.linkTo(guiFour)
+                    }
+                    .fillMaxWidth(), style = MyTextLabel16,
+                textAlign = TextAlign.End
             )
             Text(
                 text = sets.reps.toString(),
                 modifier = modifierOneThree.constrainAs(textReps) {
-                    start.linkTo(guiFour)
-                }, style = MyTextTitleLabel16
+                 //   start.linkTo(guiFour)
+                    end.linkTo(guiFive)
+                }, style = MyTextTitleLabel16,
+                textAlign = TextAlign.End
             )
         }
     }

@@ -23,7 +23,7 @@ import info.upump.jymlight.ui.theme.MyTextTitleLabel16
 
 
 enum class GuidelineSets(val offset: Float) {
-    ONE(0.05f), TWO(0.20f), THREE(0.40f), FOUR(0.7f)
+    ONE(0.05f), TWO(0.22f), THREE(0.30f), FOUR(0.58f), FIVE(0.90f)
 
 }
 
@@ -52,29 +52,34 @@ fun TableHeader(
             val guiTwo = createGuidelineFromStart(GuidelineSets.TWO.offset)
             val guiThree = createGuidelineFromStart(GuidelineSets.THREE.offset)
             val guiFour = createGuidelineFromStart(GuidelineSets.FOUR.offset)
+            val guiFive = createGuidelineFromStart(GuidelineSets.FIVE.offset)
             val modifierOneThree = Modifier.padding(top = 8.dp, bottom = 8.dp)
             Text(
                 text = "№",
                 modifier = modifierOneThree.constrainAs(textNumber) {
                     start.linkTo(guiOne)
+                 //   end.linkTo(guiTwo)
                 }, style = MyTextTitleHeaderl16
             )
             Text(
                 text = stringResource(id = R.string.label_weight_set),
                 modifier = modifierOneThree.constrainAs(textWeight) {
-                    start.linkTo(guiTwo)
+                  //  start.linkTo(guiTwo)
+                    end.linkTo(guiThree)
                 }, style = MyTextTitleHeaderl16
             )
             Text(
                 text = stringResource(id = R.string.label_weight_set_past),
                 modifier = modifierOneThree.constrainAs(textPasWeight) {
-                    start.linkTo(guiThree)
+                 //   start.linkTo(guiThree)
+                    end.linkTo(guiFour)
                 }, style = MyTextHeader16
             )
             Text(
                 text = stringResource(id = R.string.label_reps_sets_short),
                 modifier = modifierOneThree.constrainAs(textReps) {
-                    start.linkTo(guiFour)
+                   // start.linkTo(guiFour)
+                    end.linkTo(guiFive)
                 }, style = MyTextTitleHeaderl16
             )
         }
