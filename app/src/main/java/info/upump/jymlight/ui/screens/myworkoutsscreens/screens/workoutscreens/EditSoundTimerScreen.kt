@@ -1,6 +1,5 @@
 package info.upump.jymlight.ui.screens.myworkoutsscreens.screens.workoutscreens
 
-import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -10,13 +9,20 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetLayout
+import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -29,20 +35,26 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import info.upump.jymlight.R
+import info.upump.jymlight.ui.screens.mainscreen.AppBarAction
+import info.upump.jymlight.ui.screens.screenscomponents.BottomSheet
 import info.upump.jymlight.ui.screens.screenscomponents.FloatButtonWithState
 import info.upump.jymlight.ui.screens.screenscomponents.NumberPicker
 import info.upump.jymlight.ui.screens.viewmodel.workout.SoundTimerEditVM
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
 fun EditSoundTimerScreen(
-    navHostController: NavHostController, paddingValues: PaddingValues
+    navHostController: NavHostController,
+    paddingValues: PaddingValues,
+    appBarTitle: MutableState<String>,
+    appBarActions: MutableState<List<AppBarAction>>
 ) {
     val colModifier = Modifier.background(colorResource(id = R.color.colorBackgroundCardView))
     val titleModifier = Modifier.padding(start = 8.dp, top = 8.dp)
     val context = LocalContext.current
-    val soundTimerErrorActionEditVM : SoundTimerEditVM = viewModel()
+    val soundTimerErrorActionEditVM: SoundTimerEditVM = viewModel()
 
+    appBarTitle.value = stringResource(id = R.string.label_edit_sound_timer_screen)
     val start = remember {
         mutableStateOf(soundTimerErrorActionEditVM.start)
     }
@@ -50,78 +62,94 @@ fun EditSoundTimerScreen(
     val finish = remember {
         mutableStateOf(soundTimerErrorActionEditVM.finis)
     }
+    val bottomState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
+    val snackBarHostState = remember { SnackbarHostState() }
+    LaunchedEffect(key1 = true){
+        soundTimerErrorActionEditVM.init(context)
+        val infoAction =
+            AppBarAction(icon = R.drawable.ic_info_black_24dp) {
+                bottomState.show() }
+        val list = mutableListOf<AppBarAction>()
+        list.add(infoAction)
+        appBarActions.value = list
+    }
 
-    Scaffold(modifier = Modifier.padding(top = paddingValues.calculateTopPadding()),
-        floatingActionButton = {
-            FloatButtonWithState(
-                text = stringResource(id = R.string.picker_dialog_btn_save),
-                isVisible = true,
-                icon = R.drawable.ic_save_black
-            ) {
-               // setVM.save()
-                navHostController.navigateUp()
-            }
-        })
-    { it ->
-        Column(
-            modifier = colModifier
-                .background(MaterialTheme.colorScheme.background)
-                .fillMaxWidth()
-                .padding(top = it.calculateTopPadding())
-        ) {
-
-            Card(
-                modifier = Modifier
-                    .weight(1f)
-                    .background(MaterialTheme.colorScheme.background)
-                    .padding(start = 8.dp, end = 8.dp),
-                elevation = CardDefaults.cardElevation(0.dp),
-                shape = RoundedCornerShape(0.dp)
-            ) {
-                Column(
-                    modifier = colModifier
-                        .background(MaterialTheme.colorScheme.background)
-                        .fillMaxHeight()
+    ModalBottomSheetLayout(
+        sheetState = bottomState,
+        sheetShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
+        sheetContent = {
+            BottomSheet(text = stringResource(id = R.string.label_edit_sound_timer_screen_info))
+        }
+    ) {
+        Scaffold(modifier = Modifier.padding(top = paddingValues.calculateTopPadding()),
+            floatingActionButton = {
+                FloatButtonWithState(
+                    text = stringResource(id = R.string.picker_dialog_btn_save),
+                    isVisible = true,
+                    icon = R.drawable.ic_save_black
                 ) {
-                    Text(
-                        modifier = titleModifier,
-                        text = stringResource(id = R.string.label_reps_sets),
-                        color = MaterialTheme.colorScheme.onBackground
-                    )
-                    NumberPicker(0, 100, start.value.collectAsState().value) {
-                        soundTimerErrorActionEditVM.setStart(it)
-                       // soundTimerErrorActionEditVM.setStart(it)
+                    soundTimerErrorActionEditVM.save(context)
+                    navHostController.navigateUp()
+                }
+            })
+        { it ->
+            Column(
+                modifier = colModifier
+                    .background(MaterialTheme.colorScheme.background)
+                    .fillMaxWidth()
+                    .padding(top = it.calculateTopPadding())
+            ) {
+
+                Card(
+                    modifier = Modifier
+                        .weight(1f)
+                        .background(MaterialTheme.colorScheme.background)
+                        .padding(start = 8.dp, end = 8.dp),
+                    elevation = CardDefaults.cardElevation(0.dp),
+                    shape = RoundedCornerShape(0.dp)
+                ) {
+                    Column(
+                        modifier = colModifier
+                            .background(MaterialTheme.colorScheme.background)
+                            .fillMaxHeight()
+                    ) {
+                        Text(
+                            modifier = titleModifier,
+                            text = stringResource(id = R.string.label_sound_timer_start),
+                            color = MaterialTheme.colorScheme.onBackground
+                        )
+                        NumberPicker(0, 100, start.value.collectAsState().value) {
+                            soundTimerErrorActionEditVM.setStart(it)
+                        }
                     }
                 }
-            }
 
-            Card(
-                modifier = Modifier
-                    .weight(1f)
-                    .background(MaterialTheme.colorScheme.background)
-                    .padding(start = 8.dp, end = 8.dp),
-                elevation = CardDefaults.cardElevation(0.dp),
-                shape = RoundedCornerShape(0.dp)
-            ) {
-                Column(
-                    modifier = colModifier
+                Card(
+                    modifier = Modifier
+                        .weight(1f)
                         .background(MaterialTheme.colorScheme.background)
-                        .fillMaxHeight()
+                        .padding(start = 8.dp, end = 8.dp),
+                    elevation = CardDefaults.cardElevation(0.dp),
+                    shape = RoundedCornerShape(0.dp)
                 ) {
-                    Text(
-                        modifier = titleModifier,
-                        text = stringResource(id = R.string.label_sets),
-                        color = MaterialTheme.colorScheme.onBackground
-                    )
-                    NumberPicker(0, 200, finish.value.collectAsState().value) {
-                        Log.d("q", it.toString())
-                        soundTimerErrorActionEditVM.setFinish(it)
-
+                    Column(
+                        modifier = colModifier
+                            .background(MaterialTheme.colorScheme.background)
+                            .fillMaxHeight()
+                    ) {
+                        Text(
+                            modifier = titleModifier,
+                            text = stringResource(id = R.string.label_sound_timer_finish),
+                            color = MaterialTheme.colorScheme.onBackground
+                        )
+                        NumberPicker(0, 200, finish.value.collectAsState().value) {
+                            soundTimerErrorActionEditVM.setFinish(it)
+                        }
                     }
                 }
-            }
 
-            Spacer(modifier = Modifier.weight(0.3f))
+                Spacer(modifier = Modifier.weight(0.3f))
+            }
         }
     }
 
@@ -133,5 +161,15 @@ fun EditSoundTimerScreen(
 @Preview
 @Composable
 fun PreviewEditSoundTimer() {
-    EditSoundTimerScreen(NavHostController(LocalContext.current), PaddingValues())
+    val m = remember {
+        mutableStateOf("mutableStateOf(\"stringResource(id = R.string.label_sound_timer_start)\"")
+    }
+    val infoAction =
+        AppBarAction(icon = R.drawable.ic_info_black_24dp) {}
+    val list = listOf(infoAction)
+    val stateAction = remember {
+        mutableStateOf(list)
+    }
+
+    EditSoundTimerScreen(NavHostController(LocalContext.current), PaddingValues(), m, stateAction)
 }

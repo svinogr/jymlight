@@ -1,6 +1,7 @@
 package info.upump.jymlight.ui.screens.viewmodel.workout
 
 import android.content.Context
+import android.util.Log
 import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -36,15 +37,16 @@ class SoundTimerEditVM : ViewModel() {
         }
     }
 
-    fun setStart(it: Int) {
-        _start.update { it }
+    fun setStart(start: Int) {
+        _start.update { start }
     }
 
-    fun setFinish(it: Int) {
-        _finish.update { it }
+    fun setFinish(finish: Int) {
+        _finish.update { finish }
     }
 
     fun save(context: Context) {
+        Log.d("sound", "${_start.value}")
         viewModelScope.launch(Dispatchers.IO) {
             context.dataStore.edit { preferences ->
                 preferences[KeysForDataStore.START_KEY] = _start.value

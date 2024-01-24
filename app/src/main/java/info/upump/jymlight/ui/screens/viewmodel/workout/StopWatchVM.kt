@@ -34,7 +34,6 @@ class StopWatchVM : ViewModel() {
         scope.launch(Dispatchers.IO) {
             _status.update { StopWatchState.RESUME }
             while (status.value == StopWatchState.RESUME) {
-
                 lastTimeStamp = System.currentTimeMillis()
                 delay(10L)
                 timeMile += System.currentTimeMillis() - lastTimeStamp

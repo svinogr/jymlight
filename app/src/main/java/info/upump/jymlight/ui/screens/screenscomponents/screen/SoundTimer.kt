@@ -32,6 +32,7 @@ import info.upump.jymlight.ui.theme.MyWatchTitleLabel20
 @Composable
 fun SoundTimer(
     modifier: Modifier = Modifier,
+    soundTime: String,
     start: Int,
     finish: Int,
     editAction: () -> Unit,
@@ -67,7 +68,7 @@ fun SoundTimer(
             ) {
                 Text(
                     style = MyWatchTitleLabel20,
-                    text = "0:0:0",
+                    text = soundTime,
                     textAlign = TextAlign.Center,
                     modifier = Modifier
                         .padding(start = 8.dp, top = 8.dp, end = 4.dp, bottom = 8.dp)
@@ -115,5 +116,5 @@ fun SoundTimer(
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun PreviewSoundTimer() {
-    SoundTimer(modifier = Modifier.fillMaxWidth(), start = 10, finish = 60, {}, {})
+    SoundTimer(modifier = Modifier.fillMaxWidth(), soundTime = "0000000", start = 10, finish = 60, {}, {})
 }

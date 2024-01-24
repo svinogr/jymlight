@@ -350,5 +350,9 @@
     <string name="edit">Редактирование</string>
     <string name="error_tips_empty_field">пустое поле</string>
     <string name="btn_edit_stopwatch_title">изменить</string>
+    <string name="label_sound_timer_start">задержка первого сигнала</string>
+    <string name="label_sound_timer_finish">Граница второго сигнала</string>
+    <string name="label_edit_sound_timer_screen">Создайте интервал нагрузки</string>
+    <string name="label_edit_sound_timer_screen_info">Создайте интервал нагрузки</string>
 
 </resources>

@@ -250,7 +250,7 @@ fun NavGraphBuilder.myCycleGraph(
 
             ) {
             appBarStyle.value = WHITE_STYLE
-            EditSoundTimerScreen(navHostController, paddingValues)
+            EditSoundTimerScreen(navHostController, paddingValues,  appBarTitle, appBarActions)
         }
     }
 }

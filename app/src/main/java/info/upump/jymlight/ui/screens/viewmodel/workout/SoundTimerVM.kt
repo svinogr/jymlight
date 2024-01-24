@@ -14,6 +14,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
@@ -30,7 +31,7 @@ import java.util.Locale
 class SoundTimerVM() : ViewModel() {
     private val _isSound = MutableStateFlow(false)
     val isSound = _isSound.asStateFlow()
-    private val _formatedTime = MutableStateFlow("00")
+    private val _formatedTime = MutableStateFlow("00:00:00")
     val formatedTime = _formatedTime.asStateFlow()
     private val _status = MutableStateFlow(StopWatchState.STOP)
     val status = _status.asStateFlow()
@@ -61,56 +62,26 @@ class SoundTimerVM() : ViewModel() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun start(context: Context) {
-        //Todo shared preferenc
+    fun start() {
+            scope.launch(Dispatchers.IO) {
+                _status.update { StopWatchState.RESUME }
+                while (status.value == StopWatchState.RESUME && timeMile/1000 < _finishSoundMiles.value) {
+                    lastTimeStamp = System.currentTimeMillis()
+                    delay(10L)
+                    timeMile += System.currentTimeMillis() - lastTimeStamp
+                    _formatedTime.update { formatTime(timeMile) }
 
-        var isSoundStart = false
-        var isSoundFinish = false
-
-        scope.launch(Dispatchers.IO) {
-            /*      _status.update { StopWatchState.RESUME }
-                  while (status.value == StopWatchState.RESUME) {
-
-                      lastTimeStamp = System.currentTimeMillis()
-                      delay(1L)
-                      timeMile += System.currentTimeMillis() - lastTimeStamp
-
-                      if (timeMile >= startSoundMiles.value.first() && !isSoundStart) {
-                          _isSound.update { true }
-                          Log.d("sound", "sound start")
-                      }
-
-                      if (timeMile >= finishSoundMiles.value.first() && !isSoundFinish) {
-                          _isSound.update { true }
-                          Log.d("sound", "sound finish")
-                      }
-
-                  }*/
-        }
+                    if(timeMile/1000 >= _startSoundMiles.value) {
+                        _isSound.update { true }
+                    }
+                }
+                _isSound.update { false }
+                _isSound.update { true }
+                timeMile = 0L
+                _isSound.update { false }
+                _status.update { StopWatchState.STOP }
+            }
     }
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    fun stop() {
-        _status.update { StopWatchState.STOP }
-        scope.cancel()
-        scope = CoroutineScope(Dispatchers.IO)
-        lastTimeStamp = 0L
-        timeMile = 0L
-        _formatedTime.update { "00:00:00" }
-
-    }
-
-    fun pause() {
-        _status.update { StopWatchState.PAUSE }
-
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun resume(context: Context) {
-        _status.update { StopWatchState.RESUME }
-        start(context)
-    }
-
     @RequiresApi(Build.VERSION_CODES.O)
     private fun formatTime(timeMiles: Long): String {
         val localDateTime = LocalDateTime.ofInstant(
@@ -130,25 +101,4 @@ class SoundTimerVM() : ViewModel() {
         super.onCleared()
         scope.cancel()
     }
-
-    fun setStart(it: Int, context: Context) {
-        viewModelScope.launch {
-            context.dataStore.edit { preferences ->
-                 preferences[KeysForDataStore.START_KEY] = it
-                _startSoundMiles.update { it }
-            }
-
-        }
-    }
-
-    fun setFinish(it: Int, context: Context) {
-        viewModelScope.launch {
-            context.dataStore.edit { preferences ->
-                preferences[KeysForDataStore.FINISH_KEY] = it
-                _finishSoundMiles.update { it }
-            }
-
-        }
-    }
-
 }

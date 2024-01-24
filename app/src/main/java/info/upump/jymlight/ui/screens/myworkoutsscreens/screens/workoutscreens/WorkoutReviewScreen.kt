@@ -109,9 +109,14 @@ fun WorkoutReview(
             soundTimerVM.finishSoundMiles
         )
     }
+
+    val soundTime = remember {
+        mutableStateOf(soundTimerVM.formatedTime)
+    }
+
     val startAction: () -> Unit = {
         Log.d("sound", "start")
-        soundTimerVM.start(context)
+        soundTimerVM.start()
     }
 
     val editAction: () -> Unit = {
@@ -175,6 +180,7 @@ fun WorkoutReview(
                 )
 
                 SoundTimer(
+                    soundTime = soundTime.value.collectAsState().value,
                     start = startSoundMiles.value.collectAsState().value,
                     finish = finishSoundMiles.value.collectAsState().value,
                     startAction = startAction,
