@@ -328,8 +328,10 @@
     <string name="start_time_00">00</string>
     <string name="stopwatch_btn_stop">STOP</string>
     <string name="stopwatch_btn_start">START</string>
-    <string name="btn_start_stopwatch_title">START</string>
-    <string name="btn_stop_stopwatch_title">PAUSE</string>
+    <string name="btn_start_stopwatch_title">start</string>
+    <string name="btn_pause_stopwatch_title">pause</string>
+    <string name="btn_stop_stopwatch_title">stop</string>
+    <string name="btn_continue_stopwatch_title">continue</string>
 
     <!--use for android-folder-picker-library-->
     <string name="up">Up</string>
@@ -347,5 +349,6 @@
     <string name="tab_cycle_description">описание</string>
     <string name="edit">Редактирование</string>
     <string name="error_tips_empty_field">пустое поле</string>
+    <string name="btn_edit_stopwatch_title">изменить</string>
 
 </resources>

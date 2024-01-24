@@ -1,6 +1,7 @@
 package info.upump.jymlight.ui.screens.myworkoutsscreens.screens.workoutscreens
 
 
+import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -46,6 +47,7 @@ import info.upump.jymlight.models.entity.ExerciseDescription
 import info.upump.jymlight.models.entity.Sets
 import info.upump.jymlight.models.entity.TypeMuscle
 import info.upump.jymlight.ui.screens.mainscreen.AppBarAction
+import info.upump.jymlight.ui.screens.navigation.botomnavigation.NavigationItem
 import info.upump.jymlight.ui.screens.screenscomponents.BottomSheet
 import info.upump.jymlight.ui.screens.screenscomponents.itemcard.ListWorkoutForReview
 import info.upump.jymlight.ui.screens.screenscomponents.screen.SnackBar
@@ -107,7 +109,15 @@ fun WorkoutReview(
             soundTimerVM.finishSoundMiles
         )
     }
+    val startAction: () -> Unit = {
+        Log.d("sound", "start")
+        soundTimerVM.start(context)
+    }
 
+    val editAction: () -> Unit = {
+        Log.d("sound", "edit")
+        navHostController.navigate(NavigationItem.EditSoundTimerWorkoutItem.route)
+    }
 
     appBarTitle.value = title.value.collectAsState().value
 
@@ -163,19 +173,12 @@ fun WorkoutReview(
                     exercise.collectAsState().value,
                     Modifier.weight(4f)
                 )
-                val startAction: (Long) -> Unit = {
-                    soundTimerVM.setStart(it, context)
-                }
-
-                val finishAction: (Long) -> Unit = {
-                    soundTimerVM.setFinish(it, context)
-                }
 
                 SoundTimer(
                     start = startSoundMiles.value.collectAsState().value,
                     finish = finishSoundMiles.value.collectAsState().value,
-                    setFinishAction = finishAction,
-                    setStartAction = startAction
+                    startAction = startAction,
+                    editAction = editAction
                 )
                 StopWatch(
                     time.collectAsState().value,

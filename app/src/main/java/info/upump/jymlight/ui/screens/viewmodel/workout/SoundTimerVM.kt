@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import info.upump.jymlight.dataStore
 import info.upump.jymlight.ui.screens.screenscomponents.screen.StopWatchState
+import info.upump.jymlight.utils.KeysForDataStore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -27,8 +28,6 @@ import java.util.Locale
 
 
 class SoundTimerVM() : ViewModel() {
-    val START_KEY = longPreferencesKey("start")
-    val FINISH_KEY = longPreferencesKey("finish")
     private val _isSound = MutableStateFlow(false)
     val isSound = _isSound.asStateFlow()
     private val _formatedTime = MutableStateFlow("00")
@@ -40,22 +39,22 @@ class SoundTimerVM() : ViewModel() {
     private var lastTimeStamp = 0L
     private var timeMile = 0L
 
-    private val _startSoundMiles = MutableStateFlow(0L)
+    private val _startSoundMiles = MutableStateFlow(0)
     val startSoundMiles = _startSoundMiles.asStateFlow()
 
-    private val _finishSoundMiles = MutableStateFlow(0L)
+    private val _finishSoundMiles = MutableStateFlow(0)
     val finishSoundMiles = _finishSoundMiles.asStateFlow()
 
     fun init(context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
             _startSoundMiles.update {
                 context.dataStore.data.map {
-                    it[START_KEY] ?: 0
+                    it[KeysForDataStore.START_KEY] ?: 0
                 }.first()
             }
             _finishSoundMiles.update {
                 context.dataStore.data.map {
-                    it[FINISH_KEY] ?: 0
+                    it[KeysForDataStore.FINISH_KEY] ?: 0
                 }.first()
             }
         }
@@ -132,20 +131,20 @@ class SoundTimerVM() : ViewModel() {
         scope.cancel()
     }
 
-    fun setStart(it: Long, context: Context) {
+    fun setStart(it: Int, context: Context) {
         viewModelScope.launch {
             context.dataStore.edit { preferences ->
-                 preferences[START_KEY] = it
+                 preferences[KeysForDataStore.START_KEY] = it
                 _startSoundMiles.update { it }
             }
 
         }
     }
 
-    fun setFinish(it: Long, context: Context) {
+    fun setFinish(it: Int, context: Context) {
         viewModelScope.launch {
             context.dataStore.edit { preferences ->
-                preferences[FINISH_KEY] = it
+                preferences[KeysForDataStore.FINISH_KEY] = it
                 _finishSoundMiles.update { it }
             }
 

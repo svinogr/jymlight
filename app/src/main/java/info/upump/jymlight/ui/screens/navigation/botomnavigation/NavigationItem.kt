@@ -30,6 +30,8 @@ const val EXERCISE_CREATE_ROUTE = "exerciseChoose"
 const val CYCLE_EDITE_ROUTE = "cycleEditCreate"
 const val WORKOUT_CREATE_ROUTE = "workoutCreate"
 const val WORKOUT_EDITE_ROUTE = "workoutEdit"
+const val WORKOUT_SOUND_TIMER_ROUTE = "soundTimerEdit"
+
 const val SETS_CREATE_ROUTE = "setsCreate"
 const val SETS_EDITE_ROUTE = "setsEdite"
 
@@ -151,6 +153,10 @@ sealed class NavigationItem(val title: Int = -1, val route: String, val iconId: 
             return this.route.replace(oldValue = DETAIL_ARGUMENT_KEY_ID, newValue = id.toString())
         }
     }
+
+    object EditSoundTimerWorkoutItem : NavigationItem(
+        route = WORKOUT_SOUND_TIMER_ROUTE
+    )
 
 
     // переход на экран создания workout с id родителя

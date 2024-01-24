@@ -23,6 +23,7 @@ import info.upump.jymlight.ui.screens.myworkoutsscreens.screens.exercisescreens.
 import info.upump.jymlight.ui.screens.myworkoutsscreens.screens.setsscreen.SetEditeScreen
 import info.upump.jymlight.ui.screens.myworkoutsscreens.screens.setsscreen.SetsCreateScreen
 import info.upump.jymlight.ui.screens.myworkoutsscreens.screens.workoutscreens.CreateWorkoutScreen
+import info.upump.jymlight.ui.screens.myworkoutsscreens.screens.workoutscreens.EditSoundTimerScreen
 import info.upump.jymlight.ui.screens.myworkoutsscreens.screens.workoutscreens.EditeWorkoutScreen
 import info.upump.jymlight.ui.screens.myworkoutsscreens.screens.workoutscreens.WorkoutDetailScreenM3
 import info.upump.jymlight.ui.screens.myworkoutsscreens.screens.workoutscreens.WorkoutReview
@@ -183,6 +184,7 @@ fun NavGraphBuilder.myCycleGraph(
 
         }
 
+
         composable(
             route = NavigationItem.CreateEditeCycleNavigationItem.route,
             arguments = listOf(navArgument("id") {
@@ -229,17 +231,27 @@ fun NavGraphBuilder.myCycleGraph(
             appBarStyle.value = WHITE_STYLE
             EditeWorkoutScreen(id!!, navHostController, paddingValues, appBarTitle)
         }
-    }
-    composable(
-        route = NavigationItem.ReviewWorkoutNavigationItem.route,
-        arguments = listOf(navArgument("id") {
-            type = NavType.LongType
-        }),
-    ) {
-        //topBarState.value = false он уже должен был быть убран
-        val id = it.arguments?.getLong("id")
-        appBarStyle.value = DEFAULT_STYLE
-        WorkoutReview(id!!, navHostController, paddingValues, appBarTitle, appBarActions)
+
+
+        composable(
+            route = NavigationItem.ReviewWorkoutNavigationItem.route,
+            arguments = listOf(navArgument("id") {
+                type = NavType.LongType
+            }),
+        ) {
+            //topBarState.value = false он уже должен был быть убран
+            val id = it.arguments?.getLong("id")
+            appBarStyle.value = DEFAULT_STYLE
+            WorkoutReview(id!!, navHostController, paddingValues, appBarTitle, appBarActions)
+        }
+
+        composable(
+            route = NavigationItem.EditSoundTimerWorkoutItem.route,
+
+            ) {
+            appBarStyle.value = WHITE_STYLE
+            EditSoundTimerScreen(navHostController, paddingValues)
+        }
     }
 }
 
