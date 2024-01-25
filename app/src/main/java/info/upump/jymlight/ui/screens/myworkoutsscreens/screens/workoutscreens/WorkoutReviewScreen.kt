@@ -109,6 +109,12 @@ fun WorkoutReview(
         mutableStateOf(soundTimerVM.formatedTime)
     }
 
+
+    val statusSound = remember {
+        mutableStateOf(soundTimerVM.status)
+    }
+
+
     val startAction: () -> Unit = {
         Log.d("sound", "start")
         soundTimerVM.start(context)
@@ -117,6 +123,11 @@ fun WorkoutReview(
     val editAction: () -> Unit = {
         Log.d("sound", "edit")
         navHostController.navigate(NavigationItem.EditSoundTimerWorkoutItem.route)
+    }
+
+    val stopAction: () -> Unit = {
+        Log.d("sound", "edit")
+       soundTimerVM.stop()
     }
 
     appBarTitle.value = title.value.collectAsState().value
@@ -175,10 +186,12 @@ fun WorkoutReview(
                 )
 
                 SoundTimer(
+                    status = statusSound.value.collectAsState().value,
                     soundTime = soundTime.value.collectAsState().value,
                     start = startSoundMiles.value.collectAsState().value,
                     finish = finishSoundMiles.value.collectAsState().value,
                     startAction = startAction,
+                    stopAction = stopAction,
                     editAction = editAction
                 )
                 StopWatch(

@@ -3,6 +3,7 @@ package info.upump.jymlight.ui.screens.viewmodel.workout
 import android.content.Context
 import android.media.MediaPlayer
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.longPreferencesKey
@@ -15,6 +16,7 @@ import info.upump.jymlight.utils.KeysForDataStore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,6 +25,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.yield
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -32,7 +35,7 @@ import java.util.Locale
 
 class SoundTimerVM() : ViewModel() {
     private var isSound = true
-    private val _formatedTime = MutableStateFlow("00:00:00")
+    private val _formatedTime = MutableStateFlow("00:00")
     val formatedTime = _formatedTime.asStateFlow()
     private val _status = MutableStateFlow(StopWatchState.STOP)
     val status = _status.asStateFlow()
@@ -46,7 +49,7 @@ class SoundTimerVM() : ViewModel() {
 
     private val _finishSoundMiles = MutableStateFlow(0)
     val finishSoundMiles = _finishSoundMiles.asStateFlow()
-
+    private var job: Job? = null
     fun init(context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
             _startSoundMiles.update {
@@ -65,9 +68,8 @@ class SoundTimerVM() : ViewModel() {
     @RequiresApi(Build.VERSION_CODES.O)
     fun start(context: Context) {
         val player = MediaPlayer.create(context, R.raw.pik)
-
-        scope.launch(Dispatchers.IO) {
-            _status.update { StopWatchState.RESUME }
+        _status.update { StopWatchState.RESUME }
+        viewModelScope.launch(Dispatchers.IO) {
             while (status.value == StopWatchState.RESUME && timeMile / 1000 < _finishSoundMiles.value) {
                 lastTimeStamp = System.currentTimeMillis()
                 delay(10L)
@@ -95,7 +97,7 @@ class SoundTimerVM() : ViewModel() {
         )
 
         val formater = DateTimeFormatter.ofPattern(
-            "mm:ss:SSS",
+            "mm:ss",
             Locale.getDefault()
         )
 
@@ -105,5 +107,9 @@ class SoundTimerVM() : ViewModel() {
     override fun onCleared() {
         super.onCleared()
         scope.cancel()
+    }
+
+    fun stop() {
+        _status.update { StopWatchState.STOP }
     }
 }

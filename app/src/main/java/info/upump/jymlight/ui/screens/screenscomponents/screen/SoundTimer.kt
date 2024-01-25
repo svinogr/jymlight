@@ -12,7 +12,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DividerDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -32,11 +31,13 @@ import info.upump.jymlight.ui.theme.MyWatchTitleLabel20
 @Composable
 fun SoundTimer(
     modifier: Modifier = Modifier,
+    status: StopWatchState,
     soundTime: String,
     start: Int,
     finish: Int,
     editAction: () -> Unit,
-    startAction: () -> Unit
+    startAction: () -> Unit,
+    stopAction: () -> Unit
 ) {
     val context = LocalContext.current
     Card(
@@ -80,10 +81,11 @@ fun SoundTimer(
                     textAlign = TextAlign.Center,
                     modifier = Modifier
                         .padding(start = 4.dp, top = 8.dp, end = 4.dp, bottom = 8.dp)
-                        .weight(1.5f).align(Alignment.CenterVertically)
+                        .weight(1.5f)
+                        .align(Alignment.CenterVertically)
                 )
                 OutlinedButton(
-                    onClick = {editAction()},
+                    onClick = { editAction() },
                     modifier
                         .padding(start = 4.dp, top = 8.dp, end = 4.dp, bottom = 8.dp)
                         .weight(1f)
@@ -95,18 +97,34 @@ fun SoundTimer(
                         tint = colorResource(id = R.color.colorBackgroundCardView)
                     )
                 }
-                OutlinedButton(
-                    onClick = {startAction()},
-                    modifier
-                        .padding(start = 4.dp, top = 8.dp, end = 8.dp, bottom = 8.dp)
-                        .weight(1f)
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_btn_play_24),
-                        modifier = Modifier.size(24.dp),
-                        contentDescription = "drawable icons",
-                        tint = colorResource(id = R.color.colorBackgroundCardView)
-                    )
+                if (status == StopWatchState.RESUME) {
+                    OutlinedButton(
+                        onClick = { stopAction() },
+                        modifier
+                            .padding(start = 4.dp, top = 8.dp, end = 8.dp, bottom = 8.dp)
+                            .weight(1f)
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_btn_stop_24),
+                            modifier = Modifier.size(24.dp),
+                            contentDescription = "drawable icons",
+                            tint = colorResource(id = R.color.colorBackgroundCardView)
+                        )
+                    }
+                } else {
+                    OutlinedButton(
+                        onClick = { startAction() },
+                        modifier
+                            .padding(start = 4.dp, top = 8.dp, end = 8.dp, bottom = 8.dp)
+                            .weight(1f)
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_btn_play_24),
+                            modifier = Modifier.size(24.dp),
+                            contentDescription = "drawable icons",
+                            tint = colorResource(id = R.color.colorBackgroundCardView)
+                        )
+                    }
                 }
             }
         }
@@ -116,5 +134,13 @@ fun SoundTimer(
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun PreviewSoundTimer() {
-    SoundTimer(modifier = Modifier.fillMaxWidth(), soundTime = "0000000", start = 10, finish = 60, {}, {})
+    SoundTimer(
+        status = StopWatchState.STOP,
+        modifier = Modifier.fillMaxWidth(),
+        soundTime = "0000000",
+        start = 10,
+        finish = 60,
+        startAction = {},
+        editAction = {},
+        stopAction = {})
 }
