@@ -5,14 +5,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material3.Icon
+import androidx.compose.material.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,9 +33,10 @@ fun MyBottomNavigation(
         val backStackEntry by navController.currentBackStackEntryAsState()
         val currentRout = backStackEntry?.destination?.route
         listScreens.forEach { item ->
+            Log.d("bar", "${currentRout == item.route}")
             BottomNavigationItem(
                 modifier = Modifier.background(MaterialTheme.colorScheme.primary),
-                selected = currentRout == item.route,
+
                 onClick = { navController.navigate(item.route) },
                 icon = {
                     Icon(
@@ -46,12 +44,12 @@ fun MyBottomNavigation(
                         contentDescription = stringResource(
                             id = item.title
                         ),
-                     //   tint = MaterialTheme.colorScheme.onPrimary
+                  //      tint = MaterialTheme.colorScheme.onPrimary
                     )
                 },
-
-                selectedContentColor = MaterialTheme.colorScheme.onPrimary,
-                unselectedContentColor = MaterialTheme.colorScheme.onBackground
+                selectedContentColor = MaterialTheme.colorScheme.onPrimary, // если импорт Icon Matherial 3 то цвет не будет меняться
+                unselectedContentColor = MaterialTheme.colorScheme.onPrimary,
+                selected = currentRout == item.route,
             )
         }
     }
