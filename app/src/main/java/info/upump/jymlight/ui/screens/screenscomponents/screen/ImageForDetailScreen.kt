@@ -2,14 +2,13 @@ package info.upump.jymlight.ui.screens.screenscomponents.screen
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
-import info.upump.jymlight.ui.screens.screenscomponents.BitmapCreator
+import info.upump.jymlight.utils.BitmapCreator
 import info.upump.jymlight.ui.screens.viewmodel.cycle.CycleDetailVM
 
 @Composable

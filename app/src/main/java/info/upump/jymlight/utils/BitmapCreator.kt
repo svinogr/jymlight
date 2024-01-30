@@ -1,4 +1,4 @@
-package info.upump.jymlight.ui.screens.screenscomponents
+package info.upump.jymlight.utils
 
 import android.net.Uri
 

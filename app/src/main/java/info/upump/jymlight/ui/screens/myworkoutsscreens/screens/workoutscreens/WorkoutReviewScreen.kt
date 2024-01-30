@@ -210,6 +210,7 @@ fun WorkoutReview(
         coroutine.launch {
             if (status.value != (StopWatchState.STOP))
                 snackBarHostState.showSnackbar("") else {
+                appBarActions.value = listOf()
                 navHostController.popBackStack()
             }
         }

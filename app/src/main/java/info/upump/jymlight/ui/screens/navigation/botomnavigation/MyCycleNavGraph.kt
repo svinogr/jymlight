@@ -153,20 +153,6 @@ fun NavGraphBuilder.myCycleGraph(
 
         // Sets end
 
-        /*   composable(
-               route = NavigationItem.DetailSetDetailNavigationItem.route,
-               arguments = listOf(navArgument("id") {
-                   type = NavType.LongType
-               }),
-           ) {
-
-               //topBarState.value = false он уже должен был быть убран
-               val id = it.arguments?.getLong("id")
-               Log.d("TAG", "id = $id")
-
-               //   MySetsDetailScreen(id!!, navHostController, paddingValues, appBarTitle)
-           }*/
-
         // Workout start
         // workout detail
         composable(
@@ -232,7 +218,7 @@ fun NavGraphBuilder.myCycleGraph(
             EditeWorkoutScreen(id!!, navHostController, paddingValues, appBarTitle)
         }
 
-
+       // превью тренировки
         composable(
             route = NavigationItem.ReviewWorkoutNavigationItem.route,
             arguments = listOf(navArgument("id") {
