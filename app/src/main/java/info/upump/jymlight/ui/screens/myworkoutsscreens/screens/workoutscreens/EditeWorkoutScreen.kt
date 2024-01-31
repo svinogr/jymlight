@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -70,11 +71,11 @@ fun EditeWorkoutScreen(
             }
 
         }) { it ->
-        Column(
-            modifier = Modifier
+        Column(modifier = Modifier.padding(top = it.calculateTopPadding()
+          /*  modifier = Modifier
                 .fillMaxHeight()
                 .fillMaxWidth()
-                .background(color = colorResource(id = R.color.colorBackgroundConstrateLayout)),
+                .background(color = colorResource(id = R.color.colorBackgroundConstrateLayout)*/),
         ) {
             Box(
                 modifier = Modifier.height(200.dp)
@@ -113,7 +114,7 @@ fun EditeWorkoutScreen(
             CardDescriptionWithEdit(
                 workoutVM.comment.collectAsState().value,
                 workoutVM::updateComment,
-                Modifier.weight(3F)
+                Modifier.weight(3F).padding(bottom = 16.dp)
             )
         }
     }

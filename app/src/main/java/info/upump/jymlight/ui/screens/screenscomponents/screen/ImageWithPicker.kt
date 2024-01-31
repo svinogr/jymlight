@@ -9,17 +9,19 @@ import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
+import info.upump.jymlight.R
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
@@ -43,7 +45,7 @@ fun ImageWithPicker(image: String, defaultImage: String, updateImage: (String) -
     }
 
     val permissionState = rememberPermissionState(
-            Manifest.permission.CAMERA
+        Manifest.permission.CAMERA
     ) {
         if (it) {
             launcher.launch(
@@ -53,13 +55,24 @@ fun ImageWithPicker(image: String, defaultImage: String, updateImage: (String) -
             )
         }
     }
-    ImageForDetailScreen(
-        image = image,
-        defaultImage = defaultImage,
-        modifier = Modifier.clickable {
-            permissionState.launchPermissionRequest()
-        }
-    )
+    Box() {
+        ImageForDetailScreen(
+            image = image,
+            defaultImage = defaultImage,
+            modifier = Modifier.clickable {
+                //permissionState.launchPermissionRequest()
+            }
+        )
+        RowChips(
+            modifier = Modifier.align(Alignment.BottomEnd),
+            Chips(
+                "фото",
+                R.drawable.ic_edit_black_24dp,
+            ) {
+                permissionState.launchPermissionRequest()
+            }
+        )
+    }
 }
 
 private fun getImagePicker(image: String, context: Context): Bitmap {
@@ -99,4 +112,31 @@ private fun getImagePicker(image: String, context: Context): Bitmap {
         }
     }
     return bitmap
+}
+
+@Preview
+@Composable
+fun Button() {
+    Box() {
+        ImageForDetailScreen(
+            image = "drew",
+            defaultImage = "drew",
+            modifier = Modifier.clickable {
+                //permissionState.launchPermissionRequest()
+            }
+        )
+
+        RowChips(
+            modifier = Modifier.align(Alignment.BottomEnd),
+            Chips(
+                "фото",
+                R.drawable.ic_edit_black_24dp,
+            ) {
+                /*       coroutine.launch {
+                           snackBarHostState.showSnackbar("")
+                       }*/
+            }
+        )
+
+    }
 }

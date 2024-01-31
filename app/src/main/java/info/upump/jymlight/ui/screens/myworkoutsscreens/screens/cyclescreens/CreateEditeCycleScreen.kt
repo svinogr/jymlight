@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -50,11 +51,11 @@ fun CreateEditeCycleScreen(
     val cycleVM: CycleVMCreateEdit = viewModel()
 
     val context = LocalContext.current
-    val columnModifier = Modifier
+   /* val columnModifier = Modifier
         .fillMaxHeight()
         .fillMaxWidth()
         .verticalScroll(rememberScrollState())
-        .background(color = colorResource(id = R.color.colorBackgroundCardView))
+        .background(color = colorResource(id = R.color.colorBackgroundCardView))*/
 
     if (action == ActionState.CREATE) {
         appBarTitle.value = context.resources.getString(R.string.cycle_dialog_create_new)
@@ -85,7 +86,7 @@ fun CreateEditeCycleScreen(
             }
         }
     ) {
-        Column(modifier = columnModifier)
+        Column(modifier = Modifier.padding(top = it.calculateTopPadding()))
         {
             ImageTitleImageTitle(
                 Modifier.height(200.dp),
