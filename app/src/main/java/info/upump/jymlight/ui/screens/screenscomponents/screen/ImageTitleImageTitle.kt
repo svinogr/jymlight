@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
 @Composable
 fun ImageTitleImageTitle(modifier: Modifier = Modifier, title: String, isTitleError: Boolean, updateText: (String) -> Unit,  content: @Composable() ()-> Unit) {
@@ -21,6 +22,7 @@ fun ImageTitleImageTitle(modifier: Modifier = Modifier, title: String, isTitleEr
         CardTitle(title, isTitleError, updateText)
     }
 }
+@OptIn(ExperimentalPermissionsApi::class)
 @Preview(showBackground = false)
 @Composable
 fun ImageTitleImageTitlePreviewCycleWithDefaultImage() {
