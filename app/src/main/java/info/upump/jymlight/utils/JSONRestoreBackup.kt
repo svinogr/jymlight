@@ -49,50 +49,50 @@ class JSONRestoreBackup : ReadToBackupRestorable {
 
     override suspend fun restoreFromUri(uri: Uri, context: Context): List<Cycle> =
 
-    withContext(Dispatchers.IO)
-    {
-        Log.d("uri", " 2 $uri")
-        var fromJson = listOf<Cycle>()
+        withContext(Dispatchers.IO)
+        {
+            var fromJson = listOf<Cycle>()
 
-        context.contentResolver.openInputStream(uri)?.use { inS ->
-            inS.bufferedReader().use {
-                val readText = it.readText()
-                val type = object : TypeToken<List<Cycle>>() {}.type
-                try {
-                    fromJson = Gson().fromJson(readText, type)
-                } catch (e: JsonSyntaxException) {
-                    return@withContext listOf()
+            context.contentResolver.openInputStream(uri)?.use { inS ->
+                inS.bufferedReader().use {
+                    val readText = it.readText()
+                    val type = object : TypeToken<List<Cycle>>() {}.type
+                    try {
+                        fromJson = Gson().fromJson(readText, type)
+                    } catch (e: JsonSyntaxException) {
+                        return@withContext listOf()
+                    }
                 }
             }
-        }
 
-        return@withContext fromJson
+         //   fromJson.forEach { println(" id = ${it.id}") }
+            return@withContext fromJson
 
-        /*   val listFullEntities = mutableListOf<Deferred<CycleFullEntity>>()
-           //    val start = System.currentTimeMillis()
+            /*   val listFullEntities = mutableListOf<Deferred<CycleFullEntity>>()
+               //    val start = System.currentTimeMillis()
 
 
 
-           for (cE in fromJson) {
+               for (cE in fromJson) {
 
-               val cycleFE = async {
+                   val cycleFE = async {
 
-                   val cycleE = CycleEntity().apply {
-                       _id = cE.id
-                       title = cE.title
-                       comment = cE.comment
-                       default_type = if (cE.isDefaultType) 1 else 0
-                       //img = cE.image
-                       img = null
-                       start_date = cE.startStringFormatDate
-                       finish_date = cE.finishStringFormatDate
-                       default_img = cE.imageDefault
-                   }
+                       val cycleE = CycleEntity().apply {
+                           _id = cE.id
+                           title = cE.title
+                           comment = cE.comment
+                           default_type = if (cE.isDefaultType) 1 else 0
+                           //img = cE.image
+                           img = null
+                           start_date = cE.startStringFormatDate
+                           finish_date = cE.finishStringFormatDate
+                           default_img = cE.imageDefault
+                       }
 
-                   val listWFE = mutableListOf<WorkoutFullEntity>()
+                       val listWFE = mutableListOf<WorkoutFullEntity>()
 
-                   for (w in cE.workoutList) {
-                       *//* async {*//*
+                       for (w in cE.workoutList) {
+                           *//* async {*//*
                             val wE = WorkoutEntity().apply {
                                 _id = 0
                                 title = w.title
@@ -164,7 +164,7 @@ class JSONRestoreBackup : ReadToBackupRestorable {
                 //     Log.d("restore time", "${System.currentTimeMillis() - start}")
                 val cycleRepo = CycleRepo.get() as CycleRepo
                 cycleRepo.saveFullEntitiesOnlyFromOtherDB(listFullEntities.awaitAll())*/
-    }
+        }
 
 
 }

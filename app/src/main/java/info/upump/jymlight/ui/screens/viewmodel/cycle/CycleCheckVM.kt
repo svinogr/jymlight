@@ -40,7 +40,6 @@ class CycleCheckVM() : BaseVMWithStateLoad() {
                     return@map cycleCheck
                 }
             }.collect { list ->
-                Log.d("update", "${list.size}")
                 _cycleList.update { list }
                 _stateLoading.value = false
             }

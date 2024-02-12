@@ -80,11 +80,9 @@ fun ProfileChooseRestoreScreen(
                 isVisible = listState.isScrollingUp(), icon = R.drawable.ic_down_to_db
             ) {
                 coroutine.launch {
-                    Log.d("check", "${cycleVM.getCheckedCycle().size}")
                     writeToDb(context, cycleVM.getCheckedCycle()) {
                         navController.popBackStack()
                     }
-
                 }
             }
         }
@@ -114,7 +112,6 @@ suspend fun writeToDb(context: Context, list: List<Cycle>, function: () -> Unit)
                     title = cE.title
                     comment = cE.comment
                     default_type = if (cE.isDefaultType) 1 else 0
-                    //img = cE.image
                     img = null
                     start_date = cE.startStringFormatDate
                     finish_date = cE.finishStringFormatDate

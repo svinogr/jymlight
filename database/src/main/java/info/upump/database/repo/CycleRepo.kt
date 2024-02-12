@@ -131,7 +131,6 @@ class CycleRepo private constructor(db: RoomDB) :
                         for (workout in cycle.listWorkoutEntity) {
                             val repoW = workoutsRepo
 
-                            async {
                                 workout.workoutEntity._id = 0
                                 workout.workoutEntity.parent_id = id
 
@@ -145,7 +144,7 @@ class CycleRepo private constructor(db: RoomDB) :
                                 val repoE = ExerciseRepo.get()
 
                                 for (exercise in workout.listExerciseEntity) {
-                                    async {
+
                                         exercise.exerciseEntity._id = 0
                                         exercise.exerciseEntity.parent_id = idW
                                         val idE = repoE.save(exercise.exerciseEntity)._id
@@ -153,16 +152,12 @@ class CycleRepo private constructor(db: RoomDB) :
                                         val repoS = SetsRepo.get()
 
                                         for (sets in exercise.listSetsEntity) {
-                                            async {
+
                                                 sets._id = 0
                                                 sets.parent_id = idE
                                                 repoS.save(sets)
-
                                             }
-                                        }
                                     }
-                                }
-                            }
                         }
 
                         return@async c
