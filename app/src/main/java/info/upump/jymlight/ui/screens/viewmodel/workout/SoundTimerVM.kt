@@ -49,7 +49,6 @@ class SoundTimerVM() : ViewModel() {
 
     private val _finishSoundMiles = MutableStateFlow(0)
     val finishSoundMiles = _finishSoundMiles.asStateFlow()
-    private var job: Job? = null
     fun init(context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
             _startSoundMiles.update {

@@ -57,7 +57,8 @@ fun CardDescriptionWithEdit(
                 disabledIndicatorColor = colorResource(R.color.colorBackgroundChips),
                // containerColor = colorResource(R.color.colorBackgroundCardView),
                 containerColor =MaterialTheme.colorScheme.background,
-                textColor = MaterialTheme.colorScheme.onBackground
+                textColor = MaterialTheme.colorScheme.onBackground,
+                cursorColor = MaterialTheme.colorScheme.onBackground
             ),
             value = textComment,
             onValueChange = {
