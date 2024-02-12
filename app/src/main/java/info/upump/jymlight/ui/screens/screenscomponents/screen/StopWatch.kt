@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DividerDefaults
 import androidx.compose.material3.Icon
@@ -16,15 +17,16 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import info.upump.jymlight.R
-import info.upump.jymlight.ui.theme.MyTextTitleLabel16
 import info.upump.jymlight.ui.theme.MyWatchTitleLabel20
 
 enum class StopWatchState {
@@ -33,9 +35,11 @@ enum class StopWatchState {
 
 @Composable
 fun StopWatch(
+    modifier: Modifier = Modifier,
     time: String,
     stopwatchState: StopWatchState,
-    modifier: Modifier = Modifier,
+    stateSoundEveryTime: Boolean = false,
+    checkSoundEveryTime: () -> Unit,
     stop: () -> Unit,
     start: () -> Unit,
     pause: () -> Unit,
@@ -71,7 +75,14 @@ fun StopWatch(
                     text = time,
                     modifier = Modifier.padding(start = 8.dp, top = 8.dp, end = 8.dp, bottom = 8.dp)
                 )
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Checkbox(checked = stateSoundEveryTime, onCheckedChange = {
+                        checkSoundEveryTime()
+                    })
+                    Text(text = stringResource(R.string.title_sound_every_minute))
+                }
             }
+
             Row {
                 if (stopwatchState == StopWatchState.STOP) {
                     OutlinedButton(
@@ -167,7 +178,8 @@ fun StopWatch(
 fun StopWatchStopPreview() {
     StopWatch(
         time = "00:00:00",
-        StopWatchState.STOP,
+        stopwatchState = StopWatchState.STOP,
+        checkSoundEveryTime = {},
         start = ::println,
         stop = ::println,
         pause = ::println,
@@ -179,8 +191,9 @@ fun StopWatchStopPreview() {
 @Composable
 fun StopWatchPausePreview() {
     StopWatch(
-        "00:00:00",
-        StopWatchState.PAUSE,
+        time = "00:00:00",
+        stopwatchState = StopWatchState.STOP,
+        checkSoundEveryTime = {},
         start = ::println,
         stop = ::println,
         pause = ::println,
@@ -192,8 +205,9 @@ fun StopWatchPausePreview() {
 @Composable
 fun StopWatchResumePreview() {
     StopWatch(
-        "00:00:00",
-        StopWatchState.RESUME,
+        time = "00:00:00",
+        stopwatchState = StopWatchState.STOP,
+        checkSoundEveryTime = {},
         start = ::println,
         stop = ::println,
         pause = ::println,

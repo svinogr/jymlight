@@ -354,5 +354,6 @@
     <string name="label_sound_timer_finish">Граница для второго сигнала</string>
     <string name="label_edit_sound_timer_screen">Создайте интервал нагрузки</string>
     <string name="label_edit_sound_timer_screen_info">Создайте интервал нагрузки</string>
+    <string name="title_sound_every_minute">сигнал</string>
 
 </resources>
