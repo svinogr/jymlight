@@ -11,8 +11,8 @@ android {
         applicationId ="info.upump.jymlight"
         minSdk = 29
         targetSdk = 34
-        versionCode = 5
-        versionName ="1.05"
+        versionCode = 6
+        versionName ="1.06"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
