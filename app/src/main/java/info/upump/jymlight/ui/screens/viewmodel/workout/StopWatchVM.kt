@@ -58,15 +58,16 @@ class StopWatchVM : ViewModel() {
         val player = MediaPlayer.create(context, R.raw.everytimesound)
         scope.launch(Dispatchers.IO) {
             _status.update { StopWatchState.RESUME }
-            var chet = 0
+            var chet = 0L
             while (status.value == StopWatchState.RESUME) {
                 lastTimeStamp = System.currentTimeMillis()
                 delay(10L)
-                chet += 10
-                timeMile += System.currentTimeMillis() - lastTimeStamp
+                val delta = System.currentTimeMillis() - lastTimeStamp
+                timeMile += delta
+                chet += delta
                 _formatedTime.update { formatTime(timeMile) }
 
-                if(chet >= 2000 && _isSoundEveryTime.value) {
+                if(chet >= 60000 && _isSoundEveryTime.value) {
                     player.start()
                     chet = 0
                 }
