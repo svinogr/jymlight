@@ -64,7 +64,6 @@ class SoundTimerVM() : ViewModel() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun start(context: Context) {
         val player = MediaPlayer.create(context, R.raw.pik)
         _status.update { StopWatchState.RESUME }
@@ -88,7 +87,6 @@ class SoundTimerVM() : ViewModel() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun formatTime(timeMiles: Long): String {
         val localDateTime = LocalDateTime.ofInstant(
             Instant.ofEpochMilli(timeMiles),
