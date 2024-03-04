@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 rootProject.name = "jymlight"
 include(":app")
 include(":database")
+include(":web")

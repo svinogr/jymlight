@@ -17,7 +17,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_new_round"
         android:theme="@style/JymTheme.NoActionBar"
-        android:supportsRtl="true">
+        android:supportsRtl="true"
+        android:usesCleartextTraffic="true">
         <provider
             android:name=".utils.DBProvider"
             android:authorities="info.upump.jymlight"
