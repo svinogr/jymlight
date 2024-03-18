@@ -56,9 +56,9 @@ import info.upump.jymlight.ui.screens.screenscomponents.screen.SnackBar
 import info.upump.jymlight.ui.screens.screenscomponents.screen.SoundTimer
 import info.upump.jymlight.ui.screens.screenscomponents.screen.StopWatch
 import info.upump.jymlight.ui.screens.screenscomponents.screen.StopWatchState
-import info.upump.jymlight.ui.screens.viewmodel.workout.SoundTimerVM
-import info.upump.jymlight.ui.screens.viewmodel.workout.StopWatchVM
-import info.upump.jymlight.ui.screens.viewmodel.workout.WorkoutDetailVM
+import info.upump.jymlight.ui.screens.viewmodel.db.workout.SoundTimerVM
+import info.upump.jymlight.ui.screens.viewmodel.db.workout.StopWatchVM
+import info.upump.jymlight.ui.screens.viewmodel.db.workout.WorkoutDetailVM
 import info.upump.jymlight.ui.theme.MyOutlineTextTitleLabel20Text
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

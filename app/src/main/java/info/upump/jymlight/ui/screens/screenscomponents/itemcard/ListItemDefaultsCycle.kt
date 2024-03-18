@@ -68,7 +68,6 @@ fun ListItemDefaultsCycle(
                     )
                 },
                 dismissContent = {
-
                     Column(modifier = Modifier) {
                         CycleItemCard(cycle = it, action = action)
                         DividerCustom(dismissState, state = state.value)

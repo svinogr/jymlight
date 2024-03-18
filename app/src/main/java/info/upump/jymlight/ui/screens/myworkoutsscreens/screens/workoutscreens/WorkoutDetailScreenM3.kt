@@ -44,7 +44,7 @@ import info.upump.jymlight.ui.screens.screenscomponents.screen.Chips
 import info.upump.jymlight.ui.screens.screenscomponents.screen.ImageByDay
 import info.upump.jymlight.ui.screens.screenscomponents.screen.RowChips
 import info.upump.jymlight.ui.screens.screenscomponents.screen.SnackBar
-import info.upump.jymlight.ui.screens.viewmodel.workout.WorkoutDetailVM
+import info.upump.jymlight.ui.screens.viewmodel.db.workout.WorkoutDetailVM
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch

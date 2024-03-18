@@ -14,7 +14,7 @@ import info.upump.jymlight.ui.screens.defaultscreen.screen.cyclescreen.DefaultCy
 import info.upump.jymlight.ui.screens.defaultscreen.screen.exercise.DefaultExerciseDetailScreen
 import info.upump.jymlight.ui.screens.defaultscreen.screen.workoutscreens.DefaultWorkoutDetailScreenM3
 import info.upump.jymlight.ui.screens.mainscreen.DEFAULT_STYLE
-import info.upump.jymlight.ui.screens.mainscreen.DefaultStartScreen
+import info.upump.jymlight.ui.screens.mainscreen.TemplateStartScreen
 import info.upump.jymlight.ui.screens.mainscreen.WHITE_STYLE
 
 const val DEFAULT_CYCLE_ROOT_ROUTE = "default_cycle_root_route"
@@ -41,7 +41,7 @@ fun NavGraphBuilder.defaultCycleGraph(
             topBarState.value = true
             bottomBarState.value = true
             appBarStyle.value = DEFAULT_STYLE
-            DefaultStartScreen(navHostController, paddingValues)
+            TemplateStartScreen(navHostController, paddingValues)
         }
 
         composable(

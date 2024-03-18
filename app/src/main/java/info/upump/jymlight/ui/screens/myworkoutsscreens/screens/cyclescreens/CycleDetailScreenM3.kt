@@ -46,7 +46,7 @@ import info.upump.jymlight.ui.screens.screenscomponents.screen.Chips
 import info.upump.jymlight.ui.screens.screenscomponents.screen.ImageForDetailScreen
 import info.upump.jymlight.ui.screens.screenscomponents.screen.RowChips
 import info.upump.jymlight.ui.screens.screenscomponents.screen.SnackBar
-import info.upump.jymlight.ui.screens.viewmodel.cycle.CycleDetailVM
+import info.upump.jymlight.ui.screens.viewmodel.db.cycle.CycleDetailVM
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -59,7 +59,7 @@ fun AlterCycleDetailScreenM3(
     paddingValues: PaddingValues,
     appBarTitle: MutableState<String>
 ) {
-    val cycleVM: info.upump.jymlight.ui.screens.viewmodel.cycle.CycleDetailVM = viewModel()
+    val cycleVM: CycleDetailVM = viewModel()
     val listState = rememberLazyListState()
 
     val coroutine = rememberCoroutineScope()

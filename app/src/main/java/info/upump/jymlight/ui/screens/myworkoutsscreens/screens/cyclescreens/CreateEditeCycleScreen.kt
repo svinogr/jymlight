@@ -34,7 +34,7 @@ import info.upump.jymlight.ui.screens.screenscomponents.screen.CardTitle
 import info.upump.jymlight.ui.screens.screenscomponents.screen.DateCardWithDatePicker
 import info.upump.jymlight.ui.screens.screenscomponents.screen.ImageTitleImageTitle
 import info.upump.jymlight.ui.screens.screenscomponents.screen.ImageWithPicker
-import info.upump.jymlight.ui.screens.viewmodel.cycle.CycleVMCreateEdit
+import info.upump.jymlight.ui.screens.viewmodel.db.cycle.CycleVMCreateEdit
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 

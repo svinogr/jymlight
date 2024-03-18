@@ -33,7 +33,7 @@ import info.upump.jymlight.R
 import info.upump.jymlight.ui.screens.screenscomponents.FloatButtonWithState
 import info.upump.jymlight.ui.screens.screenscomponents.NumberPicker
 import info.upump.jymlight.ui.screens.screenscomponents.NumberPickerWithStep
-import info.upump.jymlight.ui.screens.viewmodel.sets.SetsVM
+import info.upump.jymlight.ui.screens.viewmodel.db.sets.SetsVM
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch

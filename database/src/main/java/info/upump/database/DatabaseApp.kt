@@ -4,11 +4,11 @@ package info.upump.database
 import android.content.Context
 import android.util.Log
 import androidx.room.Room
-import info.upump.database.repo.CycleRepo
-import info.upump.database.repo.ExerciseDescriptionRepo
-import info.upump.database.repo.ExerciseRepo
-import info.upump.database.repo.SetsRepo
-import info.upump.database.repo.WorkoutRepo
+import info.upump.database.repo.db.CycleRepoDB
+import info.upump.database.repo.db.ExerciseDescriptionRepo
+import info.upump.database.repo.db.ExerciseRepo
+import info.upump.database.repo.db.SetsRepo
+import info.upump.database.repo.db.WorkoutRepo
 
 import java.io.File
 
@@ -49,7 +49,7 @@ open class DatabaseApp (val context: Context) {
             SetsRepo.initialize(db)
             ExerciseRepo.initialize(db)
             WorkoutRepo.initialize(db)
-            CycleRepo.initialize(db)
+            CycleRepoDB.initialize(db)
             ExerciseDescriptionRepo.initialize(db)
         }
     }

@@ -32,7 +32,7 @@ import info.upump.jymlight.ui.screens.screenscomponents.itemcard.ListExercise
 import info.upump.jymlight.ui.screens.screenscomponents.screen.CheckChips
 import info.upump.jymlight.ui.screens.screenscomponents.screen.ImageByDay
 import info.upump.jymlight.ui.screens.screenscomponents.screen.RowChooseChips
-import info.upump.jymlight.ui.screens.viewmodel.exercise.ExerciseChooseVM
+import info.upump.jymlight.ui.screens.viewmodel.db.exercise.ExerciseChooseVM
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

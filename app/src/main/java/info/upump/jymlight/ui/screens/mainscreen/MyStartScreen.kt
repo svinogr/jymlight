@@ -3,7 +3,6 @@ package info.upump.jymlight.ui.screens.mainscreen
 
 import android.content.Context
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -31,7 +30,7 @@ import info.upump.jymlight.R
 import info.upump.jymlight.ui.screens.navigation.botomnavigation.NavigationItem
 import info.upump.jymlight.ui.screens.screenscomponents.FloatButtonWithState
 import info.upump.jymlight.ui.screens.screenscomponents.itemcard.ListCycle
-import info.upump.jymlight.ui.screens.viewmodel.cycle.CycleVM
+import info.upump.jymlight.ui.screens.viewmodel.db.cycle.CycleVMDB
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
@@ -43,14 +42,14 @@ fun MyCycleScreen(
 ) {
     val listState = rememberLazyListState()
 
-    val cycleVM: CycleVM = viewModel()
+    val cycleVMDB: CycleVMDB = viewModel()
 
     val listCycle = remember {
-        mutableStateOf(cycleVM.cycleList)
+        mutableStateOf(cycleVMDB.cycleList)
     }
 
     LaunchedEffect(key1 = true) {
-        cycleVM.getAllPersonal()
+        cycleVMDB.getAllPersonal()
     }
     val list = remember {
         listCycle.value
@@ -65,7 +64,7 @@ fun MyCycleScreen(
                 navHost.navigate(NavigationItem.CreateEditeCycleNavigationItem.routeWith(0))
             }
         }, content = { it ->
-            val del: (Context, String, Long) -> Unit = cycleVM::delete
+            val del: (Context, String, Long) -> Unit = cycleVMDB::delete
             ListCycle(
                 lazyListState = listState,
                 list = list.collectAsState().value,

@@ -21,7 +21,7 @@ import info.upump.jymlight.models.entity.TypeMuscle
 import info.upump.jymlight.ui.screens.screenscomponents.screen.CardDescription
 import info.upump.jymlight.ui.screens.screenscomponents.screen.CardTypeMuscle
 import info.upump.jymlight.ui.screens.screenscomponents.screen.ImageForDetailScreen
-import info.upump.jymlight.ui.screens.viewmodel.exercise.ExerciseReviewVM
+import info.upump.jymlight.ui.screens.viewmodel.db.exercise.ExerciseReviewVM
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 

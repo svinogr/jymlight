@@ -26,7 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import info.upump.jymlight.R
 import info.upump.jymlight.models.entity.Entity
-import info.upump.jymlight.ui.screens.viewmodel.cycle.CycleVMCreateEdit
+import info.upump.jymlight.ui.screens.viewmodel.db.cycle.CycleVMCreateEdit
 import info.upump.jymlight.ui.theme.MyTextTitleLabelWithColor
 import java.util.Date
 

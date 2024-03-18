@@ -2,7 +2,6 @@ package info.upump.jymlight.ui.screens.screenscomponents.itemcard.item
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -23,8 +22,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import info.upump.jymlight.IS_LOCALDB
 import info.upump.jymlight.models.entity.Cycle
 import info.upump.jymlight.ui.screens.screenscomponents.itemcard.ItemImage
+import info.upump.jymlight.ui.screens.screenscomponents.itemcard.ItemImageWeb
 import info.upump.jymlight.ui.theme.MyTextLabel12
 import info.upump.jymlight.ui.theme.MyTextTitleLabel16
 
@@ -58,10 +59,17 @@ fun CycleItemCard(
                     .height(50.dp)
                     .width(50.dp)
             ) {
-                ItemImage(
-                    image = cycle.image,
-                    defaultImage = cycle.imageDefault
-                ) {}
+                if (IS_LOCALDB) {
+                    ItemImage(
+                        image = cycle.image,
+                        defaultImage = cycle.imageDefault
+                    ) {}
+                } else {
+                    ItemImageWeb(
+                        image = cycle.image,
+                        defaultImage = cycle.imageDefault
+                    ) {}
+                }
             }
             Column(
                 modifier = modifier

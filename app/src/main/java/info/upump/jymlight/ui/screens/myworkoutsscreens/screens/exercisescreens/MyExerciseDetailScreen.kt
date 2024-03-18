@@ -36,7 +36,7 @@ import info.upump.jymlight.ui.screens.screenscomponents.screen.ImageForDetailScr
 import info.upump.jymlight.ui.screens.screenscomponents.screen.RowChips
 import info.upump.jymlight.ui.screens.screenscomponents.screen.SnackBar
 import info.upump.jymlight.ui.screens.screenscomponents.screen.TableHeader
-import info.upump.jymlight.ui.screens.viewmodel.exercise.ExerciseVM
+import info.upump.jymlight.ui.screens.viewmodel.db.exercise.ExerciseVM
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch

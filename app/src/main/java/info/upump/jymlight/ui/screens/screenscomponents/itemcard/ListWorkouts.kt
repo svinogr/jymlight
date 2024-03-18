@@ -37,6 +37,7 @@ import info.upump.jymlight.models.entity.Workout
 import info.upump.jymlight.ui.screens.navigation.botomnavigation.NavigationItem
 import info.upump.jymlight.ui.screens.screenscomponents.itemcard.item.WorkoutItemCard
 import info.upump.jymlight.ui.screens.screenscomponents.screen.DividerCustom
+import info.upump.jymlight.ui.screens.viewmodel.db.cycle.CycleDetailVM
 
 @Composable
 fun ListWorkouts(
@@ -231,7 +232,7 @@ fun listWithGroup(
 fun ListWorkoutsPreview() {
     val nav = NavHostController(LocalContext.current)
     ListWorkouts(
-        info.upump.jymlight.ui.screens.viewmodel.cycle.CycleDetailVM.vmOnlyForPreview.subItems.collectAsState().value,
+        CycleDetailVM.vmOnlyForPreview.subItems.collectAsState().value,
         LazyListState(),
         nav
     ) {}

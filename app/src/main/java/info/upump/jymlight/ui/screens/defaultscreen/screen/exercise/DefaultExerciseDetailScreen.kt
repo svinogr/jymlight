@@ -29,7 +29,7 @@ import info.upump.jymlight.ui.screens.screenscomponents.itemcard.ListDefaultSets
 import info.upump.jymlight.ui.screens.screenscomponents.screen.ImageForDetailScreen
 import info.upump.jymlight.ui.screens.screenscomponents.screen.SnackBar
 import info.upump.jymlight.ui.screens.screenscomponents.screen.TableHeader
-import info.upump.jymlight.ui.screens.viewmodel.exercise.ExerciseVM
+import info.upump.jymlight.ui.screens.viewmodel.db.exercise.ExerciseVM
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -34,7 +34,7 @@ import info.upump.jymlight.models.entity.CycleCheck
 import info.upump.jymlight.ui.screens.mainscreen.isScrollingUp
 import info.upump.jymlight.ui.screens.screenscomponents.FloatButtonWithState
 import info.upump.jymlight.ui.screens.screenscomponents.itemcard.ListItemCycleWithCheck
-import info.upump.jymlight.ui.screens.viewmodel.cycle.CycleCheckVM
+import info.upump.jymlight.ui.screens.viewmodel.db.cycle.CycleCheckVM
 import info.upump.jymlight.utils.ReadToBackupRestorable
 import kotlinx.coroutines.launch
 

@@ -29,7 +29,7 @@ import info.upump.jymlight.models.entity.Exercise
 import info.upump.jymlight.ui.screens.navigation.botomnavigation.NavigationItem
 import info.upump.jymlight.ui.screens.screenscomponents.itemcard.item.ExerciseItemCard
 import info.upump.jymlight.ui.screens.screenscomponents.screen.DividerCustom
-import info.upump.jymlight.ui.screens.viewmodel.workout.WorkoutDetailVM
+import info.upump.jymlight.ui.screens.viewmodel.db.workout.WorkoutDetailVM
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable

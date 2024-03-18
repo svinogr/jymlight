@@ -39,7 +39,7 @@ import info.upump.jymlight.ui.screens.mainscreen.AppBarAction
 import info.upump.jymlight.ui.screens.screenscomponents.BottomSheet
 import info.upump.jymlight.ui.screens.screenscomponents.FloatButtonWithState
 import info.upump.jymlight.ui.screens.screenscomponents.NumberPicker
-import info.upump.jymlight.ui.screens.viewmodel.workout.SoundTimerEditVM
+import info.upump.jymlight.ui.screens.viewmodel.db.workout.SoundTimerEditVM
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable

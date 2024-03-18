@@ -41,6 +41,8 @@ android {
 dependencies {
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.room:room-runtime:2.6.1")
+    implementation(project(":web"))
+    implementation(project(":web"))
     annotationProcessor("androidx.room:room-compiler:2.6.1")
 
     // To use Kotlin annotation processing tool (kapt)

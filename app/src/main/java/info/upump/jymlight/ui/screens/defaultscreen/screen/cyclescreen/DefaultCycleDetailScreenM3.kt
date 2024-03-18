@@ -39,7 +39,7 @@ import info.upump.jymlight.ui.screens.screenscomponents.screen.Chips
 import info.upump.jymlight.ui.screens.screenscomponents.screen.ImageForDetailScreen
 import info.upump.jymlight.ui.screens.screenscomponents.screen.RowChips
 import info.upump.jymlight.ui.screens.screenscomponents.screen.SnackBar
-import info.upump.jymlight.ui.screens.viewmodel.cycle.CycleDetailVM
+import info.upump.jymlight.ui.screens.viewmodel.db.cycle.CycleDetailVM
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)

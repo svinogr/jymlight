@@ -30,4 +30,9 @@ data class CycleEntity(
     var finish_date: String = "",
 
     @ColumnInfo
-    var default_img: String? = "")
+    var default_img: String? = "",
+
+    @Transient
+    var parent_id: Long = 0
+
+)

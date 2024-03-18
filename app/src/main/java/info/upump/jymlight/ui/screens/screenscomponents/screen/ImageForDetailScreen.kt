@@ -9,7 +9,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
 import info.upump.jymlight.utils.BitmapCreator
-import info.upump.jymlight.ui.screens.viewmodel.cycle.CycleDetailVM
+import info.upump.jymlight.ui.screens.viewmodel.db.cycle.CycleDetailVM
 
 @Composable
 fun ImageForDetailScreen(

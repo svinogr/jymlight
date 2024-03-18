@@ -24,7 +24,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.net.toUri
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import info.upump.database.entities.CycleEntity
@@ -35,7 +34,7 @@ import info.upump.database.entities.ExerciseFullEntity
 import info.upump.database.entities.SetsEntity
 import info.upump.database.entities.WorkoutEntity
 import info.upump.database.entities.WorkoutFullEntity
-import info.upump.database.repo.CycleRepo
+import info.upump.database.repo.db.CycleRepoDB
 import info.upump.jym.utils.JSONRestoreBackup
 import info.upump.jymlight.R
 import info.upump.jymlight.models.entity.Cycle
@@ -43,7 +42,7 @@ import info.upump.jymlight.models.entity.CycleCheck
 import info.upump.jymlight.ui.screens.mainscreen.isScrollingUp
 import info.upump.jymlight.ui.screens.screenscomponents.FloatButtonWithState
 import info.upump.jymlight.ui.screens.screenscomponents.itemcard.ListItemCycleWithCheck
-import info.upump.jymlight.ui.screens.viewmodel.cycle.CycleCheckVM
+import info.upump.jymlight.ui.screens.viewmodel.db.cycle.CycleCheckVM
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -191,8 +190,8 @@ suspend fun writeToDb(context: Context, list: List<Cycle>, function: () -> Unit)
         }
         //}
         //     Log.d("restore time", "${System.currentTimeMillis() - start}")
-        val cycleRepo = CycleRepo.get() as CycleRepo
-        cycleRepo.saveFullEntitiesOnlyFromOtherDB(listFullEntities.awaitAll())
+        val cycleRepoDB = CycleRepoDB.get() as CycleRepoDB
+        cycleRepoDB.saveFullEntitiesOnlyFromOtherDB(listFullEntities.awaitAll())
         withContext(Dispatchers.Main) { function() }
     }
 }

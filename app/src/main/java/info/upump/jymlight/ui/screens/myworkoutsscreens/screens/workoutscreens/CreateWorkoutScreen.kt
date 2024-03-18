@@ -36,7 +36,7 @@ import info.upump.jymlight.ui.screens.screenscomponents.screen.CardTitle
 import info.upump.jymlight.ui.screens.screenscomponents.screen.DateCardWithDatePicker
 import info.upump.jymlight.ui.screens.screenscomponents.screen.ImageByDay
 import info.upump.jymlight.ui.screens.screenscomponents.screen.LabelTitleForImage
-import info.upump.jymlight.ui.screens.viewmodel.workout.WorkoutVM
+import info.upump.jymlight.ui.screens.viewmodel.db.workout.WorkoutVM
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
