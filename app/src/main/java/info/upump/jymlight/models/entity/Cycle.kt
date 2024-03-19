@@ -4,6 +4,7 @@ import androidx.compose.runtime.Immutable
 import info.upump.database.entities.CycleEntity
 import info.upump.database.entities.CycleFullEntityWithWorkouts
 import info.upump.jymlight.models.entity.Workout
+import info.upump.web.model.CycleRet
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -132,6 +133,30 @@ open class Cycle(
             }
 
             return date
+        }
+
+        fun mapToCycleRet(cycle: Cycle): CycleRet {
+            val cycleRet = CycleRet().apply {
+                id = cycle.id
+                title = cycle.title
+                startDate = cycle.startStringFormatDate
+                finishDate = cycle.finishStringFormatDate
+                comment = cycle.comment
+                parentId = 0
+            }
+            if (cycle.image.isBlank()) {
+                cycleRet.image = ""
+            } else {
+                cycleRet.image = cycle.image
+            }
+
+            if (cycle.imageDefault.isBlank()) {
+                cycleRet.imageDefault = ""
+            } else {
+                cycleRet.imageDefault = cycle.imageDefault
+            }
+
+            return cycleRet
         }
     }
 

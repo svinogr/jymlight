@@ -2,15 +2,10 @@ package info.upump.jymlight.ui.screens.myworkoutsscreens.screens.cyclescreens
 
 import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -19,7 +14,6 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -34,7 +28,8 @@ import info.upump.jymlight.ui.screens.screenscomponents.screen.CardTitle
 import info.upump.jymlight.ui.screens.screenscomponents.screen.DateCardWithDatePicker
 import info.upump.jymlight.ui.screens.screenscomponents.screen.ImageTitleImageTitle
 import info.upump.jymlight.ui.screens.screenscomponents.screen.ImageWithPicker
-import info.upump.jymlight.ui.screens.viewmodel.db.cycle.CycleVMCreateEdit
+import info.upump.jymlight.ui.screens.viewmodel.db.cycle.CycleVMCreateEditDB
+import info.upump.jymlight.ui.screens.viewmodel.web.cycle.CycleVMCreateEditWEB
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
@@ -48,7 +43,8 @@ fun CreateEditeCycleScreen(
     appBarTitle: MutableState<String>,
     action: ActionState
 ) {
-    val cycleVM: CycleVMCreateEdit = viewModel()
+   // val cycleVM: CycleVMCreateEditDB = viewModel()
+    val cycleVM: CycleVMCreateEditWEB = viewModel()
 
     val context = LocalContext.current
    /* val columnModifier = Modifier

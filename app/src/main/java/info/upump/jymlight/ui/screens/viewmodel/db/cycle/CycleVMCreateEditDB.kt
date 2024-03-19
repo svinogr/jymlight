@@ -23,7 +23,7 @@ import java.io.FileOutputStream
 import java.util.Date
 import java.util.UUID
 
-class CycleVMCreateEdit() : BaseVMWithStateLoad(),
+class CycleVMCreateEditDB() : BaseVMWithStateLoad(),
     CycleEditVMInterface {
     companion object {
         val vmOnlyForPreview by lazy {
