@@ -3,12 +3,12 @@ package info.upump.jymlight.models.entity
 import androidx.compose.runtime.Immutable
 import info.upump.database.entities.CycleEntity
 import info.upump.database.entities.CycleFullEntityWithWorkouts
-import info.upump.jymlight.models.entity.Workout
 import info.upump.web.model.CycleRet
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+
 @Immutable
 open class Cycle(
     var workoutList: List<Workout> = ArrayList(),
@@ -135,7 +135,7 @@ open class Cycle(
             return date
         }
 
-        fun mapToCycleRet(cycle: Cycle): CycleRet {
+        fun mapToRetEntity(cycle: Cycle): CycleRet {
             val cycleRet = CycleRet().apply {
                 id = cycle.id
                 title = cycle.title
@@ -144,6 +144,7 @@ open class Cycle(
                 comment = cycle.comment
                 parentId = 0
             }
+
             if (cycle.image.isBlank()) {
                 cycleRet.image = ""
             } else {
@@ -157,6 +158,29 @@ open class Cycle(
             }
 
             return cycleRet
+        }
+
+        fun mapFullFromRetEntity(cR: CycleRet): Cycle {
+            val listRetWorkout = cR.workoutList
+            val listWorkouts = listRetWorkout.map { w ->
+                Workout.mapFromRetEntity(w)
+            }
+
+            val cycle = Cycle().apply {
+                id = cR.id
+                title = cR.title
+                image = cR.image
+                imageDefault = cR.imageDefault
+                isDefaultType = cR.isDefaultType
+                comment = cR.comment
+                startDate = Entity.formatStringToDate(cR.startDate)
+                finishDate = Entity.formatStringToDate(cR.finishDate)
+                parentId = cR.parentId
+            }
+
+            cycle.workoutList = listWorkouts
+
+            return cycle
         }
     }
 

@@ -1,6 +1,7 @@
 package info.upump.jymlight.ui.screens.myworkoutsscreens.screens.cyclescreens
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -115,6 +116,7 @@ fun CreateEditeCycleScreen(
     }
 
     LaunchedEffect(key1 = true) {
+        Log.d("luanc", "$id")
         cycleVM.getBy(id)
     }
 

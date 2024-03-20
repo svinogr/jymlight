@@ -1,6 +1,5 @@
 package info.upump.jymlight.ui.screens.myworkoutsscreens.screens.cyclescreens
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -15,7 +14,6 @@ import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -46,7 +44,8 @@ import info.upump.jymlight.ui.screens.screenscomponents.screen.Chips
 import info.upump.jymlight.ui.screens.screenscomponents.screen.ImageForDetailScreen
 import info.upump.jymlight.ui.screens.screenscomponents.screen.RowChips
 import info.upump.jymlight.ui.screens.screenscomponents.screen.SnackBar
-import info.upump.jymlight.ui.screens.viewmodel.db.cycle.CycleDetailVM
+import info.upump.jymlight.ui.screens.viewmodel.db.cycle.CycleDetailVMBD
+import info.upump.jymlight.ui.screens.viewmodel.web.cycle.CycleDetailVMWEB
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -59,7 +58,10 @@ fun AlterCycleDetailScreenM3(
     paddingValues: PaddingValues,
     appBarTitle: MutableState<String>
 ) {
-    val cycleVM: CycleDetailVM = viewModel()
+   // val cycleVM: CycleDetailVMBD = viewModel()
+    val cycleVM: CycleDetailVMWEB = viewModel()
+
+
     val listState = rememberLazyListState()
 
     val coroutine = rememberCoroutineScope()
@@ -182,7 +184,7 @@ fun AlterCycleDetailScreenPreview() {
         MutableStateFlow<String>(" ").asStateFlow().collectAsState() as MutableState<String>
    val navHostController = NavHostController(LocalContext.current)
 
-    val cycleVM: CycleDetailVM = viewModel()
+    val cycleVM: CycleDetailVMBD = viewModel()
     val listState = rememberLazyListState()
     val id = 1L
     val coroutine = rememberCoroutineScope()

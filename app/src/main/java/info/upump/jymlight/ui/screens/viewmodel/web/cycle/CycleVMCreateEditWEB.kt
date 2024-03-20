@@ -155,10 +155,12 @@ class CycleVMCreateEditWEB() : BaseVMWithStateLoad(),
     override val imgDefault: StateFlow<String> = _imgDefault
 
     private var tempImage = ""
+    private var fileOnlyToSend: File? = null
 
     override fun getBy(id: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             if (id == 0L) {
+                Log.d("id", "id = 0")
                 /*    _cycle.update {
                         Cycle()
                     }*/
@@ -198,25 +200,24 @@ class CycleVMCreateEditWEB() : BaseVMWithStateLoad(),
     override fun save(context: Context, callback: (id: Long) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
             val cS = collectToSave(context)
-            val cR = Cycle.mapToCycleRet(cS)
+            val cR = Cycle.mapToRetEntity(cS)
 
 
             // TODO сначало запрос на сохранение картинки с проверкой потом после получения ее названия
             // сохраняем обьект
 
             val requestFile: RequestBody =
-                File.createTempFile("file", "exe").asRequestBody(MultipartBody.FORM)
-
-            val body = MultipartBody.Part.createFormData("file", "exe2", requestFile)
+                fileOnlyToSend?.asRequestBody(MultipartBody.FORM) ?: File.createTempFile("ttt", "ttt")
+                    .asRequestBody()
+            val body = MultipartBody.Part.createFormData("file", fileOnlyToSend!!.extension, requestFile)
 
             val response = RetrofitServiceWEB.getCycleService().saveCycle(cR, body)
             if (response.isSuccessful) {
                 val id = response.headers().get("Location")!!.split("/").last()
                 Log.d("header", id)
                 launch(Dispatchers.Main) {
-                     callback(id.toLong())
+                    callback(id.toLong())
                 }
-
             }
         }
     }
@@ -260,9 +261,11 @@ class CycleVMCreateEditWEB() : BaseVMWithStateLoad(),
         }
 
         if (img.value.isNotBlank()) {
-            val file: File = writeToFile(img.value, context)
-            c.image = file.toUri().toString()
-            deleteTempImg(tempImage, context)
+            fileOnlyToSend = writeToFile(img.value, context)
+            Log.d("file", fileOnlyToSend!!.name)
+            //val file: File = writeToFile(img.value, context)
+            //  c.image = file.toUri().toString()
+            //  deleteTempImg(tempImage, context)
         }
 
         return c
@@ -287,7 +290,7 @@ class CycleVMCreateEditWEB() : BaseVMWithStateLoad(),
         val uuid = UUID.randomUUID().toString()
         val file = File(context.filesDir, "${uuid}.jpg")
 
-        FileOutputStream(file)?.use {
+        FileOutputStream(file).use {
             it.write(bytes)
         }
 

@@ -5,7 +5,6 @@ import info.upump.jymlight.models.entity.Workout
 import kotlinx.coroutines.flow.StateFlow
 
 interface CycleDetailVMInterface {
-    val item: StateFlow<Cycle>
     val id: StateFlow<Long>
     val title: StateFlow<String>
     val comment: StateFlow<String>

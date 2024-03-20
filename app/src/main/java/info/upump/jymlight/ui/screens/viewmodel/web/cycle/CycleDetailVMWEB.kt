@@ -1,5 +1,6 @@
-package info.upump.jymlight.ui.screens.viewmodel.db.cycle
+package info.upump.jymlight.ui.screens.viewmodel.web.cycle
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import info.upump.database.RepoActions
 import info.upump.database.RepoActionsSpecific
@@ -11,24 +12,26 @@ import info.upump.database.repo.db.WorkoutRepo
 import info.upump.jymlight.models.entity.Cycle
 import info.upump.jymlight.models.entity.Day
 import info.upump.jymlight.models.entity.Workout
+import info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad
 import info.upump.jymlight.ui.screens.viewmodel.CycleDetailVMInterface
+import info.upump.web.RetrofitServiceWEB
+import info.upump.web.model.CycleRet
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.Date
 
-class CycleDetailVM : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad(),
+class CycleDetailVMWEB : BaseVMWithStateLoad(),
     CycleDetailVMInterface {
     private val workoutRepo: RepoActions<WorkoutEntity> = WorkoutRepo.get()
     private val cycleRepoDB: RepoActionsSpecific<CycleEntity, CycleFullEntityWithWorkouts> =
         CycleRepoDB.get()
-
-    private var _cycle = MutableStateFlow(Cycle())
-    override val item: StateFlow<Cycle> = _cycle.asStateFlow()
 
     private var _workouts = MutableStateFlow<List<Workout>>(mutableListOf())
     override val subItems: StateFlow<List<Workout>> = _workouts
@@ -56,22 +59,33 @@ class CycleDetailVM : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLo
     override val finishDate: StateFlow<String> = _finishDate.asStateFlow()
 
     override fun getBy(id: Long) {
+        Log.d("id", "get by $id in CycDeW")
+
         viewModelScope.launch(Dispatchers.IO) {
             _stateLoading.value = true
-            cycleRepoDB.getFullEntityBy(id).map {
-                Cycle.mapFullFromDbEntity(it)
-            }.collect { cycle ->
-                _workouts.update { cycle.workoutList }
-                _cycle.update { cycle }
-                _id.update { cycle.id }
-                _title.update { cycle.title }
-                _comment.update { cycle.comment }
-                _startDate.update { cycle.startStringFormatDate }
-                _finishDate.update { cycle.finishStringFormatDate }
-                _image.update { cycle.image }
-                _imageDefault.update { cycle.imageDefault }
-                _stateLoading.value = false
-            }
+            val call = RetrofitServiceWEB.getCycleService().getCycleById(id)
+            call.enqueue(object : Callback<CycleRet> {
+                override fun onResponse(call: Call<CycleRet>, response: Response<CycleRet>) {
+                    Log.d("id", "get by $id resp")
+                    val cR = response.body()
+                    val cycle: Cycle = Cycle.mapFullFromRetEntity(cR!!)
+
+                    _workouts.update { cycle.workoutList }
+                    _id.update { cycle.id }
+                    _title.update { cycle.title }
+                    _comment.update { cycle.comment }
+                    _startDate.update { cycle.startStringFormatDate }
+                    _finishDate.update { cycle.finishStringFormatDate }
+                    _image.update { cycle.image }
+                    _imageDefault.update { cycle.imageDefault }
+                    _stateLoading.value = false
+                }
+
+                override fun onFailure(call: Call<CycleRet>, t: Throwable) {
+
+                }
+            })
+
         }
     }
 
@@ -116,7 +130,7 @@ class CycleDetailVM : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLo
                     comment = "это Preview"
                 })
 
-                override val item: StateFlow<Cycle> = _cycle
+
 
                 private var _workouts = MutableStateFlow<List<Workout>>(listOf(
                     Workout(

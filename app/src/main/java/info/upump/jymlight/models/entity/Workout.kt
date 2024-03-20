@@ -2,6 +2,7 @@ package info.upump.jymlight.models.entity
 
 import info.upump.database.entities.WorkoutEntity
 import info.upump.database.entities.WorkoutFullEntity
+import info.upump.web.model.WorkoutRet
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -95,6 +96,24 @@ class Workout(
             }
 
             return date
+        }
+
+        fun mapFromRetEntity(workoutRet: WorkoutRet): Workout {
+            val workout = Workout(
+                isWeekEven = workoutRet.isWeekEven,
+                isDefaultType = workoutRet.isDefaultType,
+                isTemplate = workoutRet.isTemplate,
+                day = Day.valueOf(workoutRet.day),
+                exercises = mutableListOf<Exercise>()
+            )
+            workout.title = workoutRet.title
+            workout.parentId = workoutRet.parentId
+            workout.id = workoutRet.id
+            workout.comment = workoutRet.comment
+            workout.setStartDate(Entity.formatDateToString(workoutRet.startDate))
+            workout.setFinishDate(Entity.formatDateToString(workoutRet.finishDate))
+
+            return workout
         }
     }
 

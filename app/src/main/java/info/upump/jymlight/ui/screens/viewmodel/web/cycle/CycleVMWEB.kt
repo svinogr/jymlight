@@ -34,13 +34,15 @@ class CycleVMWEB : BaseVMWithStateLoad(), CycleVMInterface {
         viewModelScope.launch(
             Dispatchers.IO
         ) {
+            Log.d("init", "send")
             val allTemplateCycle = cycleService.getAllTemplateCycle()
             allTemplateCycle.enqueue(object : Callback<MutableList<CycleRet>> {
                 override fun onResponse(
                     call: Call<MutableList<CycleRet>>,
                     response: Response<MutableList<CycleRet>>
                 ) {
-                    Log.d("init", "${response.body()}")
+                    Log.d("init", "succ")
+
                     val list = response.body()!!.map { cR ->
                         val cycle = Cycle().apply {
                             id = cR.id
