@@ -33,6 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import info.upump.jymlight.IS_LOCALDB
 import info.upump.jymlight.R
 import info.upump.jymlight.ui.screens.mainscreen.isScrollingUp
 import info.upump.jymlight.ui.screens.navigation.botomnavigation.NavigationItem
@@ -44,6 +45,7 @@ import info.upump.jymlight.ui.screens.screenscomponents.screen.Chips
 import info.upump.jymlight.ui.screens.screenscomponents.screen.ImageForDetailScreen
 import info.upump.jymlight.ui.screens.screenscomponents.screen.RowChips
 import info.upump.jymlight.ui.screens.screenscomponents.screen.SnackBar
+import info.upump.jymlight.ui.screens.screenscomponents.screen.web.ImageForDetailScreenWEB
 import info.upump.jymlight.ui.screens.viewmodel.db.cycle.CycleDetailVMBD
 import info.upump.jymlight.ui.screens.viewmodel.web.cycle.CycleDetailVMWEB
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -58,9 +60,7 @@ fun AlterCycleDetailScreenM3(
     paddingValues: PaddingValues,
     appBarTitle: MutableState<String>
 ) {
-   // val cycleVM: CycleDetailVMBD = viewModel()
     val cycleVM: CycleDetailVMWEB = viewModel()
-
 
     val listState = rememberLazyListState()
 
@@ -119,11 +119,17 @@ fun AlterCycleDetailScreenM3(
 
             ) {
                 Box(modifier = Modifier.height(200.dp)) {
-                    ImageForDetailScreen(
-                        image = cycleVM.img.collectAsState().value,
-                        defaultImage = cycleVM.imgDefault.collectAsState().value,
-                    )
-
+                    if(IS_LOCALDB) {
+                        ImageForDetailScreen(
+                            image = cycleVM.img.collectAsState().value,
+                            defaultImage = cycleVM.imgDefault.collectAsState().value,
+                        )
+                    } else{
+                        ImageForDetailScreenWEB(
+                            image = cycleVM.img.collectAsState().value,
+                            defaultImage = cycleVM.imgDefault.collectAsState().value,
+                        )
+                    }
                     RowChips(
                         modifier = Modifier.align(Alignment.BottomCenter),
                         Chips(
@@ -244,10 +250,17 @@ fun AlterCycleDetailScreenPreview() {
                     .fillMaxHeight()
             ) {
                 Box(modifier = Modifier.height(200.dp)) {
-                    ImageForDetailScreen(
-                        image = cycleVM.img.collectAsState().value,
-                        defaultImage = cycleVM.imgDefault.collectAsState().value,
-                    )
+                    if(IS_LOCALDB) {
+                        ImageForDetailScreen(
+                            image = cycleVM.img.collectAsState().value,
+                            defaultImage = cycleVM.imgDefault.collectAsState().value,
+                        )
+                    } else{
+                        ImageForDetailScreenWEB(
+                            image = cycleVM.img.collectAsState().value,
+                            defaultImage = cycleVM.imgDefault.collectAsState().value,
+                        )
+                    }
 
                     RowChips(
                         modifier = Modifier.align(Alignment.BottomCenter),

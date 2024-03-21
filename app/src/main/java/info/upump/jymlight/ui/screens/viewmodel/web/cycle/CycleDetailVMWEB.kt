@@ -82,7 +82,6 @@ class CycleDetailVMWEB : BaseVMWithStateLoad(),
                 }
 
                 override fun onFailure(call: Call<CycleRet>, t: Throwable) {
-
                 }
             })
 

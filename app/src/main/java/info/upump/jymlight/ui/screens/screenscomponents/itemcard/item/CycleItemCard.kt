@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import info.upump.jymlight.IS_LOCALDB
 import info.upump.jymlight.models.entity.Cycle
 import info.upump.jymlight.ui.screens.screenscomponents.itemcard.ItemImage
-import info.upump.jymlight.ui.screens.screenscomponents.itemcard.ItemImageWeb
+import info.upump.jymlight.ui.screens.screenscomponents.itemcard.item.web.ItemImageWeb
 import info.upump.jymlight.ui.theme.MyTextLabel12
 import info.upump.jymlight.ui.theme.MyTextTitleLabel16
 

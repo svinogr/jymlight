@@ -155,7 +155,10 @@ class CycleVMCreateEditWEB() : BaseVMWithStateLoad(),
     override val imgDefault: StateFlow<String> = _imgDefault
 
     private var tempImage = ""
-    private var fileOnlyToSend: File? = null
+    private var fileOnlyToSend: File = File.createTempFile(
+        "xxx",
+        "xxx"
+    )
 
     override fun getBy(id: Long) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -202,16 +205,12 @@ class CycleVMCreateEditWEB() : BaseVMWithStateLoad(),
             val cS = collectToSave(context)
             val cR = Cycle.mapToRetEntity(cS)
 
-
-            // TODO сначало запрос на сохранение картинки с проверкой потом после получения ее названия
-            // сохраняем обьект
-
             val requestFile: RequestBody =
-                fileOnlyToSend?.asRequestBody(MultipartBody.FORM) ?: File.createTempFile("ttt", "ttt")
-                    .asRequestBody()
-            val body = MultipartBody.Part.createFormData("file", fileOnlyToSend!!.extension, requestFile)
-
+                fileOnlyToSend.asRequestBody(MultipartBody.FORM)
+            val body =
+                MultipartBody.Part.createFormData("file", fileOnlyToSend.extension, requestFile)
             val response = RetrofitServiceWEB.getCycleService().saveCycle(cR, body)
+
             if (response.isSuccessful) {
                 val id = response.headers().get("Location")!!.split("/").last()
                 Log.d("header", id)
@@ -262,10 +261,6 @@ class CycleVMCreateEditWEB() : BaseVMWithStateLoad(),
 
         if (img.value.isNotBlank()) {
             fileOnlyToSend = writeToFile(img.value, context)
-            Log.d("file", fileOnlyToSend!!.name)
-            //val file: File = writeToFile(img.value, context)
-            //  c.image = file.toUri().toString()
-            //  deleteTempImg(tempImage, context)
         }
 
         return c

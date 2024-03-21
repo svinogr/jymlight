@@ -1,8 +1,9 @@
-package info.upump.jymlight.ui.screens.screenscomponents.itemcard
+package info.upump.jymlight.ui.screens.screenscomponents.itemcard.item.web
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -22,7 +23,7 @@ fun ItemImageWeb(
     action: () -> Unit
 ) {
     val requestId = remember {
-        mutableStateOf(0)
+        mutableIntStateOf(0)
     }
     val request = ImageRequest.Builder(LocalContext.current)
         .data(BitmapCreator.getImageWithWeb(image, defaultImage))

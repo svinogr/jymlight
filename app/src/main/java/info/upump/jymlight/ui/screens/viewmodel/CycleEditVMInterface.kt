@@ -20,7 +20,7 @@ interface CycleEditVMInterface {
     fun getBy(id: Long)
     fun save(context: Context, callback: (id: Long) -> Unit)
     fun saveWith(parentId: Long, callback: (id: Long) -> Unit)
-    fun updateTitle(it: String)
+    fun updateTitle(title: String)
     fun updateImage(imgStr: String)
     fun updateStartDate(date: Date)
     fun updateFinishDate(date: Date)
