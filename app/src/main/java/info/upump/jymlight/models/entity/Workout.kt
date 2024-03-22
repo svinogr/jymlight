@@ -3,10 +3,7 @@ package info.upump.jymlight.models.entity
 import info.upump.database.entities.WorkoutEntity
 import info.upump.database.entities.WorkoutFullEntity
 import info.upump.web.model.WorkoutRet
-import java.text.ParseException
-import java.text.SimpleDateFormat
 import java.util.Date
-import java.util.Locale
 
 class Workout(
     var isWeekEven: Boolean = false,
@@ -81,37 +78,35 @@ class Workout(
             return workout
         }
 
-        fun formatDateToString(date: Date): String {
-            val simpleDateFormat = SimpleDateFormat(FORMAT_DATE, Locale.getDefault())
-            return simpleDateFormat.format(date)
-        }
-
-        fun formatStringToDate(stringDate: String): Date {
-            val simpleDateFormat = SimpleDateFormat(FORMAT_DATE, Locale.getDefault())
-            var date = Date()
-            try {
-                date = simpleDateFormat.parse(stringDate)!!
-            } catch (e: ParseException) {
-                e.printStackTrace()
-            }
-
-            return date
-        }
-
         fun mapFromRetEntity(workoutRet: WorkoutRet): Workout {
             val workout = Workout(
                 isWeekEven = workoutRet.isWeekEven,
                 isDefaultType = workoutRet.isDefaultType,
                 isTemplate = workoutRet.isTemplate,
                 day = Day.valueOf(workoutRet.day),
-                exercises = mutableListOf<Exercise>()
+                // list exercise
+                title = workoutRet.title,
+                parentId = workoutRet.parentId,
+                id = workoutRet.id,
+                comment = workoutRet.comment
             )
-            workout.title = workoutRet.title
-            workout.parentId = workoutRet.parentId
-            workout.id = workoutRet.id
-            workout.comment = workoutRet.comment
-            workout.setStartDate(Entity.formatDateToString(workoutRet.startDate))
-            workout.setFinishDate(Entity.formatDateToString(workoutRet.finishDate))
+
+            workout.setStartDate(workoutRet.startDate)
+            workout.setFinishDate(workoutRet.finishDate)
+
+            return workout
+        }
+
+        fun mapFullFromRetEntity(workoutEntity: WorkoutRet): Workout {
+            val listExerciseEntityWorkout = workoutEntity.exercises
+            val listExercises = mutableListOf<Exercise>()
+
+            listExerciseEntityWorkout.forEach() {
+                listExercises.add(Exercise.mapFromFullRetEntity(it)) // TODO
+            }
+
+            val workout = mapFromRetEntity(workoutEntity)
+            workout.exercises = listExercises
 
             return workout
         }

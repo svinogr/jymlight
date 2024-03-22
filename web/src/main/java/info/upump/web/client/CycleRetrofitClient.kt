@@ -14,7 +14,7 @@ import retrofit2.http.Path
 const val API_PATH_CYCLE = "api/cycle"
 
 interface CycleRetrofitClient {
-    @GET("api/cycle/templates")
+    @GET("$API_PATH_CYCLE/templates")
     fun getAllTemplateCycle(): Call<MutableList<CycleRet>>
 
     // названия file и переменная cycle должны совпадать с отправлеными данными в клиенте
@@ -24,4 +24,7 @@ interface CycleRetrofitClient {
 
     @GET("$API_PATH_CYCLE/{id}")
      fun getCycleById(@Path("id") id: Long): Call<CycleRet>
+
+    @GET("$API_PATH_CYCLE/full/{id}")
+    fun getCycleFullById(@Path("id") id: Long): Call<CycleRet>
 }

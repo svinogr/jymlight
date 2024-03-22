@@ -114,7 +114,6 @@ fun SetsItemCardWithoutClick(
             .fillMaxWidth(),
         elevation = CardDefaults.cardElevation(0.dp),
         shape = RoundedCornerShape(0.dp),
-
         )
     {
         ConstraintLayout(
@@ -138,38 +137,36 @@ fun SetsItemCardWithoutClick(
             val modifierOneThree = Modifier.padding(start = 0.dp)
             Text(
                 text = "${number + 1}",
-                modifier = modifierOneThree
-                    .constrainAs(textNumber) {
-                        start.linkTo(guiOne)
-                     //   end.linkTo(guiTwo)
-                    }
-                    .fillMaxWidth(), style = MyTextTitleLabel16,
-                textAlign = TextAlign.End
-            )
-            Text(
+                modifier = modifierOneThree.constrainAs(textNumber) {
+                    start.linkTo(guiOne)
+                    //     end.linkTo(guiTwo)
+                },
+                style = MyTextTitleLabel16,
+
+                )
+
+            Text(modifier = Modifier.
+            constrainAs(textWeight) {
+                //start.linkTo(guiTwo)
+                end.linkTo(guiThree)
+            }.padding(end = 0.dp),
                 text = sets.weight.toString(),
-                modifier = modifierOneThree
-                    .constrainAs(textWeight) {
-                       // start.linkTo(guiTwo)
-                        end.linkTo(guiThree)
-                    }
-                    .fillMaxWidth(), style = MyTextTitleLabel16,
+                style = MyTextTitleLabel16,
                 textAlign = TextAlign.End
             )
+
             Text(
                 text = sets.weightPast.toString(),
-                modifier = modifierOneThree
-                    .constrainAs(textPasWeight) {
-                      //  start.linkTo(guiThree)
-                        end.linkTo(guiFour)
-                    }
-                    .fillMaxWidth(), style = MyTextLabel16,
+                modifier = modifierOneThree.constrainAs(textPasWeight) {
+                    // start.linkTo(guiThree)
+                    end.linkTo(guiFour)
+                }, style = MyTextLabel16,
                 textAlign = TextAlign.End
             )
             Text(
                 text = sets.reps.toString(),
                 modifier = modifierOneThree.constrainAs(textReps) {
-                 //   start.linkTo(guiFour)
+                    // start.linkTo(guiFour)
                     end.linkTo(guiFive)
                 }, style = MyTextTitleLabel16,
                 textAlign = TextAlign.End

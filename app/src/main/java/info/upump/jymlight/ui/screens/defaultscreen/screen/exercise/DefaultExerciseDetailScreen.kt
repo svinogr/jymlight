@@ -24,12 +24,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import info.upump.jymlight.IS_LOCALDB
 import info.upump.jymlight.R
 import info.upump.jymlight.ui.screens.screenscomponents.itemcard.ListDefaultSets
 import info.upump.jymlight.ui.screens.screenscomponents.screen.ImageForDetailScreen
 import info.upump.jymlight.ui.screens.screenscomponents.screen.SnackBar
 import info.upump.jymlight.ui.screens.screenscomponents.screen.TableHeader
+import info.upump.jymlight.ui.screens.screenscomponents.screen.web.ImageForDetailScreenWEB
 import info.upump.jymlight.ui.screens.viewmodel.db.exercise.ExerciseVM
+import info.upump.jymlight.ui.screens.viewmodel.web.exercise.ExerciseVMWEB
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -39,7 +42,8 @@ fun DefaultExerciseDetailScreen(
     paddingValues: PaddingValues,
     appBarTitle: MutableState<String>
 ) {
-    val exerciseVM: ExerciseVM = viewModel()
+    //val exerciseVM: ExerciseVM = viewModel()
+    val exerciseVM: ExerciseVMWEB = viewModel()
     val load = exerciseVM.isLoading.collectAsState()
     val lazyListState = LazyListState()
 
@@ -77,10 +81,17 @@ fun DefaultExerciseDetailScreen(
     ) { it ->
         Column(modifier = Modifier.padding(top = it.calculateTopPadding())) {
             Box(modifier = Modifier.height(200.dp)) {
-                ImageForDetailScreen(
-                    image = exerciseVM.imageDescription.collectAsState().value,
-                    defaultImage = exerciseVM.imageDescriptionDefault.collectAsState().value
-                )
+                if(IS_LOCALDB) {
+                    ImageForDetailScreen(
+                        image = exerciseVM.imageDescription.collectAsState().value,
+                        defaultImage = exerciseVM.imageDescriptionDefault.collectAsState().value
+                    )
+                }else {
+                    ImageForDetailScreenWEB(
+                        image = exerciseVM.imageDescription.collectAsState().value,
+                        defaultImage = exerciseVM.imageDescriptionDefault.collectAsState().value
+                    )
+                }
             }
             TableHeader()
             val deleteSets: (Long) -> Unit = { exerciseVM.deleteSub(it) }

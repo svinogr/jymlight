@@ -1,7 +1,9 @@
 package info.upump.jymlight.models.entity
 
+import android.util.Log
 import info.upump.database.entities.ExerciseEntity
 import info.upump.database.entities.ExerciseFullEntity
+import info.upump.web.model.ExerciseRet
 
 class Exercise(
     var typeMuscle: TypeMuscle = TypeMuscle.CALVES,
@@ -97,5 +99,34 @@ class Exercise(
 
             return exercise
         }
-    }
+
+        fun mapFromRetEntity(entity: ExerciseRet): Exercise {
+            val exercise = Exercise()
+            exercise.id = entity.id
+            exercise.parentId = entity.parentId
+            exercise.descriptionId = entity.descriptionId
+            exercise.typeMuscle = TypeMuscle.valueOf(entity.typeMuscle)
+            exercise.isTemplate = entity.isTemplate
+            exercise.comment = entity.comment
+Log.d("id", entity.comment)
+            return exercise
+        }
+
+        fun mapFromFullRetEntity(entity: ExerciseRet): Exercise {
+            val exercise = mapFromRetEntity(entity)
+            val exerciseDescription =
+                ExerciseDescription.mapFromFullRetEntity(entity.exerciseDescription!!)
+            val listSets = mutableListOf<Sets>()
+
+            entity.setsList.forEach {
+                val set = Sets.mapFromFullRetEntity(it)
+                listSets.add(set)
+            }
+
+            exercise.exerciseDescription = exerciseDescription
+            exercise.setsList = listSets
+
+            return exercise
+        }
+     }
 }

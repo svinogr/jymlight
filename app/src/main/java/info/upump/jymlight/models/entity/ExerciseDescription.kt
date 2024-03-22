@@ -1,6 +1,7 @@
 package info.upump.jymlight.models.entity
 
 import info.upump.database.entities.ExerciseDescriptionEntity
+import info.upump.web.model.ExerciseDescriptionRet
 
 class ExerciseDescription(
     var id: Long = 0,
@@ -44,6 +45,16 @@ class ExerciseDescription(
             exerciseDescription.img = entity.img ?: ""
             exerciseDescription.defaultImg = entity.default_img ?: ""
             exerciseDescription.title = entity.title!!
+
+            return exerciseDescription
+        }
+
+        fun mapFromFullRetEntity(entity: ExerciseDescriptionRet): ExerciseDescription {
+            val exerciseDescription = ExerciseDescription()
+            exerciseDescription.id = entity.id
+            exerciseDescription.img = entity.img
+            exerciseDescription.title = entity.title
+            exerciseDescription.defaultImg = entity.defaultImg
 
             return exerciseDescription
         }

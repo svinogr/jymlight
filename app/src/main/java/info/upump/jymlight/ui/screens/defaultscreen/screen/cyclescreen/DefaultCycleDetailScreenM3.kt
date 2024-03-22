@@ -31,6 +31,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import info.upump.jymlight.IS_LOCALDB
 import info.upump.jymlight.R
 import info.upump.jymlight.ui.screens.screenscomponents.BottomSheet
 import info.upump.jymlight.ui.screens.screenscomponents.itemcard.ListItemDefaultsWorkouts
@@ -39,7 +40,9 @@ import info.upump.jymlight.ui.screens.screenscomponents.screen.Chips
 import info.upump.jymlight.ui.screens.screenscomponents.screen.ImageForDetailScreen
 import info.upump.jymlight.ui.screens.screenscomponents.screen.RowChips
 import info.upump.jymlight.ui.screens.screenscomponents.screen.SnackBar
+import info.upump.jymlight.ui.screens.screenscomponents.screen.web.ImageForDetailScreenWEB
 import info.upump.jymlight.ui.screens.viewmodel.db.cycle.CycleDetailVMBD
+import info.upump.jymlight.ui.screens.viewmodel.web.cycle.CycleDetailVMWEB
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
@@ -50,7 +53,8 @@ fun DefaultCycleDetailScreenM3(
     paddingValues: PaddingValues,
     appBarTitle: MutableState<String>
 ) {
-    val cycleVM: CycleDetailVMBD = viewModel()
+    //val cycleVM: CycleDetailVMBD = viewModel()
+    val cycleVM: CycleDetailVMWEB = viewModel()
     val listState = rememberLazyListState()
 
     val coroutine = rememberCoroutineScope()
@@ -102,10 +106,17 @@ fun DefaultCycleDetailScreenM3(
                     .fillMaxHeight()
             ) {
                 Box(modifier = Modifier.height(200.dp)) {
-                    ImageForDetailScreen(
-                        image = cycleVM.img.collectAsState().value,
-                        defaultImage = cycleVM.imgDefault.collectAsState().value,
-                    )
+                    if(IS_LOCALDB) {
+                        ImageForDetailScreen(
+                            image = cycleVM.img.collectAsState().value,
+                            defaultImage = cycleVM.imgDefault.collectAsState().value,
+                        )
+                    } else{
+                        ImageForDetailScreenWEB(
+                            image = cycleVM.img.collectAsState().value,
+                            defaultImage = cycleVM.imgDefault.collectAsState().value,
+                        )
+                    }
 
                     RowChips(
                         modifier = Modifier.align(Alignment.BottomEnd),

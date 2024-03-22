@@ -39,6 +39,7 @@ import info.upump.jymlight.ui.screens.screenscomponents.screen.Chips
 import info.upump.jymlight.ui.screens.screenscomponents.screen.ImageByDay
 import info.upump.jymlight.ui.screens.screenscomponents.screen.RowChips
 import info.upump.jymlight.ui.screens.viewmodel.db.workout.WorkoutDetailVM
+import info.upump.jymlight.ui.screens.viewmodel.web.workout.WorkoutDetailVMWEB
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
@@ -49,7 +50,9 @@ fun DefaultWorkoutDetailScreenM3(
     paddingValues: PaddingValues,
     appBarTitle: MutableState<String>
 ) {
-    val workoutVM: WorkoutDetailVM = viewModel()
+    //val workoutVM: WorkoutDetailVM = viewModel()
+    val workoutVM: WorkoutDetailVMWEB = viewModel()
+
     val context = LocalContext.current
     val listState = rememberLazyListState()
 

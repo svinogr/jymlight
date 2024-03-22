@@ -1,6 +1,7 @@
 package info.upump.jymlight.models.entity
 
 import info.upump.database.entities.SetsEntity
+import info.upump.web.model.SetsRet
 
 class Sets(
     var weight: Double = 0.0,
@@ -12,7 +13,7 @@ class Sets(
         return "Sets{" +
                 "weight=" + weight +
                 ", reps=" + reps +
-                ", formatDate='" +  '\'' +
+                ", formatDate='" + '\'' +
                 ", id=" + id +
                 ", comment='" + comment + '\'' +
                 ", parentId=" + parentId +
@@ -43,7 +44,7 @@ class Sets(
 
     companion object {
         fun mapFromDbEntity(entity: SetsEntity): Sets {
-           val sets =  Sets(
+            val sets = Sets(
                 weight = entity.weight!!,
                 reps = entity.reps!!,
                 weightPast = entity.past_set!!
@@ -55,16 +56,22 @@ class Sets(
         }
 
         fun mapToEntity(newSets: Sets): SetsEntity {
-            val sets = SetsEntity(
-                _id = newSets.id)
-            sets.parent_id = newSets.parentId
-            sets.weight = newSets.weight
-            sets.reps = newSets.reps
-            sets.past_set = newSets.weightPast
+            return SetsEntity().apply {
+                _id = newSets.id
+                parent_id = newSets.parentId
+                weight = newSets.weight
+                reps = newSets.reps
+                past_set = newSets.weightPast
+            }
+        }
 
-            return sets
+        fun mapFromFullRetEntity(entity: SetsRet): Sets {
+            return Sets().apply {
+                id = entity.id
+                weight = entity.weight
+                weightPast = entity.weightPast
+                reps = entity.reps
+            }
         }
     }
-
-
 }

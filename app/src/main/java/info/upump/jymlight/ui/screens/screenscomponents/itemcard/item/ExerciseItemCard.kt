@@ -23,11 +23,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import info.upump.jymlight.IS_LOCALDB
 import info.upump.jymlight.models.entity.Exercise
 import info.upump.jymlight.models.entity.ExerciseDescription
 import info.upump.jymlight.models.entity.Sets
 import info.upump.jymlight.ui.screens.navigation.botomnavigation.NavigationItem
 import info.upump.jymlight.ui.screens.screenscomponents.itemcard.ItemImage
+import info.upump.jymlight.ui.screens.screenscomponents.itemcard.item.web.ItemImageWeb
 import info.upump.jymlight.ui.theme.MyTextLabel12
 import info.upump.jymlight.ui.theme.MyTextTitleLabel16
 
@@ -60,16 +62,32 @@ fun ExerciseItemCard(
                     .height(50.dp)
                     .width(50.dp)
             ) {
-                ItemImage(
-                    image = exercise.exerciseDescription!!.img,
-                    defaultImage = exercise.exerciseDescription!!.defaultImg
-                ) {
-                    Log.d("click", "click")
-                    navHost.navigate(
-                        NavigationItem.ReviewExerciseScreenNavigationItem.routeWithId(
-                            exercise.id
+                if(IS_LOCALDB) {
+                    ItemImage(
+                        image = exercise.exerciseDescription!!.img,
+                        defaultImage = exercise.exerciseDescription!!.defaultImg
+                    ) {
+                        Log.d("click", "click")
+                        navHost.navigate(
+                            NavigationItem.ReviewExerciseScreenNavigationItem.routeWithId(
+                                exercise.id
+                            )
                         )
-                    )
+                    }
+
+                } else{
+                    Log.d("id", "image ${exercise.exerciseDescription!!.defaultImg}")
+                    ItemImageWeb(
+                        image = exercise.exerciseDescription!!.img,
+                        defaultImage = exercise.exerciseDescription!!.defaultImg
+                    ) {
+                        Log.d("click", "click")
+                        navHost.navigate(
+                            NavigationItem.ReviewExerciseScreenNavigationItem.routeWithId(
+                                exercise.id
+                            )
+                        )
+                    }
                 }
             }
             Column(modifier = modifier.fillMaxWidth()) {

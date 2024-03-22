@@ -17,11 +17,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import info.upump.jymlight.IS_LOCALDB
 import info.upump.jymlight.models.entity.TypeMuscle
 import info.upump.jymlight.ui.screens.screenscomponents.screen.CardDescription
 import info.upump.jymlight.ui.screens.screenscomponents.screen.CardTypeMuscle
 import info.upump.jymlight.ui.screens.screenscomponents.screen.ImageForDetailScreen
+import info.upump.jymlight.ui.screens.screenscomponents.screen.web.ImageForDetailScreenWEB
 import info.upump.jymlight.ui.screens.viewmodel.db.exercise.ExerciseReviewVM
+import info.upump.jymlight.ui.screens.viewmodel.web.exercise.ExerciseReviewVMWEB
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
@@ -33,7 +36,8 @@ fun ExerciseReviewScreen(
     paddingValues: PaddingValues,
     appBarTitle: MutableState<String>,
 ) {
-    val exerciseVM: ExerciseReviewVM = viewModel()
+   // val exerciseVM: ExerciseReviewVM = viewModel()
+    val exerciseVM: ExerciseReviewVMWEB = viewModel()
     appBarTitle.value = exerciseVM.item.collectAsState().value.exerciseDescription!!.title
 
     LaunchedEffect(key1 = true) {
@@ -41,10 +45,20 @@ fun ExerciseReviewScreen(
     }
     Scaffold { it ->
         Column(modifier = Modifier.padding(top = it.calculateTopPadding(), bottom = it.calculateBottomPadding())) {
-            ImageForDetailScreen(modifier = Modifier.height(200.dp),
-                image = exerciseVM.item.collectAsState().value.exerciseDescription!!.img,
-                defaultImage = exerciseVM.item.collectAsState().value.exerciseDescription!!.defaultImg
-            )
+
+           if(IS_LOCALDB) {
+               ImageForDetailScreen(
+                   modifier = Modifier.height(200.dp),
+                   image = exerciseVM.item.collectAsState().value.exerciseDescription!!.img,
+                   defaultImage = exerciseVM.item.collectAsState().value.exerciseDescription!!.defaultImg
+               )
+           }else{
+               ImageForDetailScreenWEB(
+                   modifier = Modifier.height(200.dp),
+                   image = exerciseVM.item.collectAsState().value.exerciseDescription!!.img,
+                   defaultImage = exerciseVM.item.collectAsState().value.exerciseDescription!!.defaultImg
+               )
+           }
 
             CardTypeMuscle(text = stringResource(id = exerciseVM.item.collectAsState().value.typeMuscle.title))
 

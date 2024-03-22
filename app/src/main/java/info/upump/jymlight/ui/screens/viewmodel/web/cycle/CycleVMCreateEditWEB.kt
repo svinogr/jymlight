@@ -170,7 +170,7 @@ class CycleVMCreateEditWEB() : BaseVMWithStateLoad(),
                 return@launch
             }
 
-            CycleRepoDB.get().getFullEntityBy(id).map {
+           /* CycleRepoDB.get().getFullEntityBy(id).map {
                 Cycle.mapFullFromDbEntity(it)
             }.collect {
                 updateId(it.id)
@@ -184,7 +184,7 @@ class CycleVMCreateEditWEB() : BaseVMWithStateLoad(),
                 tempImage = it.image
 
                 Log.d("ret", "$tempImage  / ${it.image}  / ${_img.value} / ${it.imageDefault}")
-            }
+            }*/
         }
     }
 
