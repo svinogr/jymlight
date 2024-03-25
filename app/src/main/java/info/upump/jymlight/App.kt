@@ -5,9 +5,13 @@ import android.content.Context
 import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
 import info.upump.database.DatabaseApp
 import info.upump.database.RoomDB
+import info.upump.jymlight.utils.KeysForDataStore
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.runBlocking
 
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
@@ -20,10 +24,16 @@ class App : Application() {
 
         if (IS_LOCALDB) {
             DatabaseApp.initilizeDb(this@App, RoomDB.BASE_NAME, RoomDB.DB_PATH)
-        } else{
+        } else {
             // TODO убрать когда будет готов web
             DatabaseApp.initilizeDb(this@App, RoomDB.BASE_NAME, RoomDB.DB_PATH)
         }
+        runBlocking() {
+            dataStore.edit { p ->
+                p[KeysForDataStore.ID_USER] = 1
+            }
+        }
+
 
         /*val l = CoroutineScope(Job())
         l.launch(Dispatchers.IO) {

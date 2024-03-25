@@ -31,6 +31,7 @@ import info.upump.jymlight.ui.screens.navigation.botomnavigation.NavigationItem
 import info.upump.jymlight.ui.screens.screenscomponents.FloatButtonWithState
 import info.upump.jymlight.ui.screens.screenscomponents.itemcard.ListCycle
 import info.upump.jymlight.ui.screens.viewmodel.db.cycle.CycleVMDB
+import info.upump.jymlight.ui.screens.viewmodel.web.cycle.CycleVMWEB
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
@@ -42,15 +43,19 @@ fun MyCycleScreen(
 ) {
     val listState = rememberLazyListState()
 
-    val cycleVMDB: CycleVMDB = viewModel()
+  //  val cycleVMDB: CycleVMDB = viewModel()
+    val cycleVMDB: CycleVMWEB = viewModel()
 
     val listCycle = remember {
         mutableStateOf(cycleVMDB.cycleList)
     }
 
+    val context = LocalContext.current
+
     LaunchedEffect(key1 = true) {
-        cycleVMDB.getAllPersonal()
+        cycleVMDB.getAllPersonal(context)
     }
+
     val list = remember {
         listCycle.value
     }

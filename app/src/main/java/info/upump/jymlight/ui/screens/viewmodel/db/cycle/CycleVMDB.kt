@@ -26,7 +26,7 @@ class CycleVMDB : BaseVMWithStateLoad(), CycleVMInterface {
 
     private val cycleRepoDB = CycleRepoDB.get()
 
-    override suspend fun getAllPersonal() {
+    override suspend fun getAllPersonal(context: Context) {
         Log.d("getAllPersonal", "getAllPersonal")
         _stateLoading.value = true
 

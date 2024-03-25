@@ -25,8 +25,7 @@ class Exercise(
                 ", id=" + id +
                 ", title='" + title + '\'' +
                 ", comment='" + comment + '\'' +
-                ", parentId=" + parentId + "descr" + exerciseDescription.toString()
-        '}'
+                ", parentId=" + parentId + "descr" + exerciseDescription.toString() +"}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -54,7 +53,6 @@ class Exercise(
         result = 31 * result + (exerciseDescription?.hashCode() ?: 0)
         return result
     }
-
 
     companion object {
         fun mapFromDbEntity(entity: ExerciseEntity): Exercise {

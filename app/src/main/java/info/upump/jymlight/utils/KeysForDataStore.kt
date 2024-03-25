@@ -9,5 +9,7 @@ class KeysForDataStore {
         val START_KEY = intPreferencesKey("start")
         val FINISH_KEY = intPreferencesKey("finish")
         val SOUND_EVERY_TIME = booleanPreferencesKey("soundEveryTime")
+
+        val ID_USER = longPreferencesKey("id")
     }
 }

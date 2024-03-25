@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.asStateFlow
 
 interface CycleVMInterface {
     val cycleList: StateFlow<List<Cycle>>
-    suspend fun getAllPersonal()
+    suspend fun getAllPersonal(context: Context)
     fun getAllDefault()
     fun delete(context: Context, image: String, id: Long)
 

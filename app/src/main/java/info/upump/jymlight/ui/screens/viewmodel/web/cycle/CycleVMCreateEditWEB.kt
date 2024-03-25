@@ -12,6 +12,7 @@ import info.upump.jymlight.models.entity.Entity
 import info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad
 import info.upump.jymlight.ui.screens.viewmodel.CycleEditVMInterface
 import info.upump.web.RetrofitServiceWEB
+import info.upump.web.model.CycleRet
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -22,6 +23,9 @@ import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.File
 import java.io.FileOutputStream
 import java.util.Date
@@ -162,6 +166,8 @@ class CycleVMCreateEditWEB() : BaseVMWithStateLoad(),
 
     override fun getBy(id: Long) {
         viewModelScope.launch(Dispatchers.IO) {
+            _stateLoading.value = true
+
             if (id == 0L) {
                 Log.d("id", "id = 0")
                 /*    _cycle.update {
@@ -170,21 +176,31 @@ class CycleVMCreateEditWEB() : BaseVMWithStateLoad(),
                 return@launch
             }
 
-           /* CycleRepoDB.get().getFullEntityBy(id).map {
-                Cycle.mapFullFromDbEntity(it)
-            }.collect {
-                updateId(it.id)
-                updateTitle(it.title)
-                updateComment(it.comment)
-                updateStartDate(it.startDate)
-                updateFinishDate(it.finishDate)
-                updateImage(it.image)
-                updateImageDefault(it.imageDefault)
+            val call = RetrofitServiceWEB.getCycleService().getCycleFullById(id)
+            call.enqueue(object : Callback<CycleRet> {
+                override fun onResponse(call: Call<CycleRet>, response: Response<CycleRet>) {
+                    Log.d("id", "get by $id resp")
+                    val cR = response.body()
+                    val cycle = Cycle.mapFullFromRetEntity(cR!!)
+                    Log.d("id", "get by $cycle resp")
+                    _cycle.update { cycle }
+                    _title.update { cycle.title }
+                    updateId(cycle.id)
+                    updateTitle(cycle.title)
+                    updateComment(cycle.comment)
+                    updateStartDate(cycle.startDate)
+                    updateFinishDate(cycle.finishDate)
+                    updateImage(cycle.image)
+                    updateImageDefault(cycle.imageDefault)
+                    tempImage = cycle.image
 
-                tempImage = it.image
+                    _stateLoading.value = false
+                }
 
-                Log.d("ret", "$tempImage  / ${it.image}  / ${_img.value} / ${it.imageDefault}")
-            }*/
+                override fun onFailure(call: Call<CycleRet>, t: Throwable) {
+
+                }
+            })
         }
     }
 
