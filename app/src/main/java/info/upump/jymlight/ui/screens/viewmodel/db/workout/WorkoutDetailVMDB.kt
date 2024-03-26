@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class WorkoutDetailVM : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad(),
+class WorkoutDetailVMDB : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad(),
     info.upump.jymlight.ui.screens.viewmodel.WorkoutDetailVMInterface {
     private val workoutRepo = WorkoutRepo.get()
 

@@ -57,6 +57,7 @@ fun CreateEditeCycleScreen(
     if (action == ActionState.CREATE) {
         appBarTitle.value = context.resources.getString(R.string.cycle_dialog_create_new)
     }
+
     if (action == ActionState.UPDATE) {
         appBarTitle.value = context.resources.getString(R.string.edit)
     }

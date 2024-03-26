@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,19 +40,6 @@ class ExerciseVMWEB : BaseVMWithStateLoad(),
     override fun getBy(id: Long) {
         _stateLoading.value = true
         parentId = id
-        /*     viewModelScope.launch(Dispatchers.IO) {
-                 ExerciseRepo.get().getFullEntityBy(id).map { entity ->
-                     Exercise.mapFromFullDbEntity(entity)
-                 }.collect() {
-
-                     //  _listSets.value = mutableListOf()
-                     _listSets.value = it.setsList
-                     _imageDescription.value = it.exerciseDescription!!.img
-                     _imageDescriptionDefault.value = it.exerciseDescription!!.defaultImg
-                 }
-                 Log.d("get", "get")
-                 _stateLoading.value = false
-             }*/
 
         val call = RetrofitServiceWEB.getExerciseService().getExerciseFullById(id)
         call.enqueue(object : Callback<ExerciseRet> {
@@ -75,14 +63,25 @@ class ExerciseVMWEB : BaseVMWithStateLoad(),
 
     override fun deleteSub(id: Long) {
         viewModelScope.launch(Dispatchers.IO) {
-            val sets = Sets.mapToEntity(Sets().apply { this.id = id })
-            val repo = SetsRepo.get().delete(id)
+            val setsService = RetrofitServiceWEB.getSetService().deleteById(id)
+            setsService.enqueue(object : Callback<ResponseBody> {
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+                    if (response.code() == 200) {
+                        val index = _listSets.value.indexOfFirst { it.id == id }
+                        val list = _listSets.value.toMutableList()
+                        list.removeAt(index)
+                        _listSets.update { list }
+                    }
+                }
 
-            Log.d("delete", "${_listSets.value.size}")
-            _listSets.value.removeIf {
-                it.id == id
-            }
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
 
+            })
         }
     }
 

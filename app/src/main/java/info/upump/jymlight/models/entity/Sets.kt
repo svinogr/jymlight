@@ -73,5 +73,14 @@ class Sets(
                 reps = entity.reps
             }
         }
+
+        fun mapToRetSets(sets: Sets): SetsRet {
+            return SetsRet().apply {
+                id = sets.id
+                weight = sets.weight
+                weightPast = sets.weightPast
+                reps = sets.reps
+            }
+        }
     }
 }

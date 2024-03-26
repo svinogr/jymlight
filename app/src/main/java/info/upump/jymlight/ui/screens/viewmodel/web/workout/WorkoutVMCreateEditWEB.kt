@@ -1,4 +1,4 @@
-package info.upump.jymlight.ui.screens.viewmodel.db.workout
+package info.upump.jymlight.ui.screens.viewmodel.web.workout
 
 
 import android.util.Log
@@ -7,6 +7,9 @@ import info.upump.database.repo.db.WorkoutRepo
 import info.upump.jymlight.models.entity.Day
 import info.upump.jymlight.models.entity.Entity
 import info.upump.jymlight.models.entity.Workout
+import info.upump.jymlight.ui.screens.viewmodel.db.workout.WorkoutVMInterface
+import info.upump.web.RetrofitServiceWEB
+import info.upump.web.model.WorkoutRet
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,9 +17,12 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.Date
 
-class WorkoutVMCreateEditDB() : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad(),
+class WorkoutVMCreateEditWEB() : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad(),
     WorkoutVMInterface {
     companion object {
         val vmOnlyForPreview by lazy {
@@ -166,6 +172,27 @@ class WorkoutVMCreateEditDB() : info.upump.jymlight.ui.screens.viewmodel.BaseVMW
 
                 return@launch
             }
+
+            val service = RetrofitServiceWEB.getWorkoutService().getWorkoutFullById(id)
+            service.enqueue(object : Callback<WorkoutRet>{
+                override fun onResponse(call: Call<WorkoutRet>, response: Response<WorkoutRet>) {
+                    val workoutRet = response.body()
+                    if (response.code() == 200) {
+                        _title.update { workoutRet!!.title }
+                        _id.update {workoutRet!!.id }
+                        _parentId.update { workoutRet!!.parentId }
+                        _comment.update { workoutRet!!.comment }
+                        _isEven.update { workoutRet!!.isWeekEven }
+                        _startDate.update { workoutRet!!.startDate }
+                        _finishDate.update { workoutRet!!.finishDate }
+                        _day.update { Day.valueOf(workoutRet!!.day) }
+                    }
+                }
+
+                override fun onFailure(call: Call<WorkoutRet>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+            })
 
             WorkoutRepo.get().getFullEntityBy(id).map {
                 Workout.mapFromFullDbEntity(it)

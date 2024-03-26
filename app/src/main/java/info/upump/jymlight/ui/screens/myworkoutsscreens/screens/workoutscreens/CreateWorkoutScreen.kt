@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -36,7 +35,7 @@ import info.upump.jymlight.ui.screens.screenscomponents.screen.CardTitle
 import info.upump.jymlight.ui.screens.screenscomponents.screen.DateCardWithDatePicker
 import info.upump.jymlight.ui.screens.screenscomponents.screen.ImageByDay
 import info.upump.jymlight.ui.screens.screenscomponents.screen.LabelTitleForImage
-import info.upump.jymlight.ui.screens.viewmodel.db.workout.WorkoutVM
+import info.upump.jymlight.ui.screens.viewmodel.db.workout.WorkoutVMCreateEditDB
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
@@ -50,7 +49,8 @@ fun CreateWorkoutScreen(
     paddingValues: PaddingValues,
     appBarTitle: MutableState<String>,
 ) {
-    val workoutVM: WorkoutVM = viewModel()
+    //val workoutVM: WorkoutVMDB = viewModel()
+    val workoutVM: WorkoutVMCreateEditDB = viewModel()
     val isLoad by workoutVM.isLoading.collectAsState()
 
     val context = LocalContext.current

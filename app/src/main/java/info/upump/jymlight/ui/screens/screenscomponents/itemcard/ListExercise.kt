@@ -29,7 +29,7 @@ import info.upump.jymlight.models.entity.Exercise
 import info.upump.jymlight.ui.screens.navigation.botomnavigation.NavigationItem
 import info.upump.jymlight.ui.screens.screenscomponents.itemcard.item.ExerciseItemCard
 import info.upump.jymlight.ui.screens.screenscomponents.screen.DividerCustom
-import info.upump.jymlight.ui.screens.viewmodel.db.workout.WorkoutDetailVM
+import info.upump.jymlight.ui.screens.viewmodel.db.workout.WorkoutDetailVMDB
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -104,7 +104,7 @@ fun ListExercise(
 fun ListExercisePreview() {
     val nav = NavHostController(LocalContext.current)
     ListExercise(
-        WorkoutDetailVM.vmOnlyForPreview.subItems.collectAsState().value,
+        WorkoutDetailVMDB.vmOnlyForPreview.subItems.collectAsState().value,
         LazyListState(),
         nav
     ) {}

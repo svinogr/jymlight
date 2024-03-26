@@ -58,7 +58,7 @@ import info.upump.jymlight.ui.screens.screenscomponents.screen.StopWatch
 import info.upump.jymlight.ui.screens.screenscomponents.screen.StopWatchState
 import info.upump.jymlight.ui.screens.viewmodel.db.workout.SoundTimerVM
 import info.upump.jymlight.ui.screens.viewmodel.db.workout.StopWatchVM
-import info.upump.jymlight.ui.screens.viewmodel.db.workout.WorkoutDetailVM
+import info.upump.jymlight.ui.screens.viewmodel.db.workout.WorkoutDetailVMDB
 import info.upump.jymlight.ui.theme.MyOutlineTextTitleLabel20Text
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -75,7 +75,7 @@ fun WorkoutReview(
 ) {
     val bottomState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
     val context = LocalContext.current
-    val workoutVM: WorkoutDetailVM = viewModel()
+    val workoutVM: WorkoutDetailVMDB = viewModel()
     val stopwatchVM: StopWatchVM = viewModel()
     val soundTimerVM: SoundTimerVM = viewModel()
 
@@ -314,7 +314,7 @@ fun WorkoutReviewPreview() {
         }
     )
 
-    val workout = WorkoutDetailVM.vmOnlyForPreview.item.collectAsState()
+    val workout = WorkoutDetailVMDB.vmOnlyForPreview.item.collectAsState()
     val coroutine = rememberCoroutineScope()
     ModalBottomSheetLayout(
         sheetState = bottomState,

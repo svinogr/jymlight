@@ -1,10 +1,13 @@
-package info.upump.jymlight.ui.screens.viewmodel.db.sets
+package info.upump.jymlight.ui.screens.viewmodel.web.sets
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import info.upump.database.repo.db.SetsRepo
 import info.upump.jymlight.models.entity.Sets
 import info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad
+import info.upump.jymlight.ui.screens.viewmodel.db.sets.SetsVMInterface
+import info.upump.web.RetrofitServiceWEB
+import info.upump.web.model.SetsRet
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,8 +15,12 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class SetsVM : BaseVMWithStateLoad(), SetsVMInterface {
+class SetsVMWEB : BaseVMWithStateLoad(), SetsVMInterface {
     private val _sets = MutableStateFlow<Sets>(Sets())
     override val item: StateFlow<Sets> = _sets.asStateFlow()
 
@@ -63,51 +70,116 @@ class SetsVM : BaseVMWithStateLoad(), SetsVMInterface {
 
     override fun getBy(id: Long) {
         viewModelScope.launch(Dispatchers.IO) {
-            val setsRepo = SetsRepo.get()
-            setsRepo.getFullEntityBy(id).map { entity ->
-                Sets.mapFromDbEntity(entity)
-            }.collect() { sets ->
-                Log.d("sets", "$sets ")
-                with(sets) {
-                    _id.update { id }
-                    tempWeight = weight
-                    _reps.update { reps }
-                    _weight.update { weight }
-                    _weightPast.update { weightPast }
-                    _parentId.update { parentId }
+            val setsService = RetrofitServiceWEB.getSetService().getById(id)
+            setsService.enqueue(object : Callback<SetsRet> {
+                override fun onResponse(call: Call<SetsRet>, response: Response<SetsRet>) {
+                    if (response.code() == 200) {
+                        with(Sets.mapFromFullRetEntity(response.body()!!)) {
+                            _id.update { id }
+                            tempWeight = weight
+                            _reps.update { reps }
+                            _weight.update { weight }
+                            _weightPast.update { weightPast }
+                            _parentId.update { parentId }
+                        }
+
+                    }
                 }
-            }
+
+                override fun onFailure(call: Call<SetsRet>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+            })
         }
     }
 
-    override fun save() {
+    override fun save(backFunction: () -> Unit) {
         if (quantity.value == 0 && id.value == 0L) return
 
-        viewModelScope.launch(Dispatchers.IO) {
-            Log.d("save set", "${weight.value} ${reps.value} ${quantity.value} ${parentId.value} ")
-            val sets = Sets().apply {
-                id = this@SetsVM.id.value
-                parentId = this@SetsVM.parentId.value
-                reps = this@SetsVM.reps.value
-                weight = this@SetsVM.weight.value
-                weightPast = this@SetsVM._weightPast.value
-            }
-            sets.weightPast = tempWeight
+        Log.d("save set", "${weight.value} ${reps.value} ${quantity.value} ${parentId.value} ")
+        val sets = Sets().apply {
+            id = this@SetsVMWEB.id.value
+            parentId = this@SetsVMWEB.parentId.value
+            reps = this@SetsVMWEB.reps.value
+            weight = this@SetsVMWEB.weight.value
+            weightPast = this@SetsVMWEB._weightPast.value
+        }
+        sets.weightPast = tempWeight
 
-            if ( _weight.value != tempWeight) {
+        if (quantity.value != 0) {
+            val listSets = mutableListOf<SetsRet>()
+            for (i in 0..<quantity.value) {
+                listSets.add(Sets.mapToRetSets(sets))
             }
 
-            val setsRepo = SetsRepo.get()
 
-            if (quantity.value != 0) {
-                for (i in 0..<quantity.value) {
-                    setsRepo.save(Sets.mapToEntity(sets))
-                }
-            } else {
-                setsRepo.update(Sets.mapToEntity(sets))
+            viewModelScope.launch(Dispatchers.IO) {
+                val setsService = RetrofitServiceWEB.getSetService().save(listSets)
+                setsService.enqueue(object : Callback<ResponseBody> {
+                    override fun onResponse(
+                        call: Call<ResponseBody>,
+                        response: Response<ResponseBody>
+                    ) {
+                        if (response.code() == 200) {
+                            backFunction()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                        //TODO("Not yet implemented")
+                    }
+                })
             }
+
+        } else {
+            viewModelScope.launch(Dispatchers.IO) {
+                val setsService = RetrofitServiceWEB.getSetService().update(Sets.mapToRetSets(sets))
+                setsService.enqueue(object : Callback<ResponseBody> {
+                    override fun onResponse(
+                        call: Call<ResponseBody>,
+                        response: Response<ResponseBody>
+                    ) {
+                        Log.d("code", "${response.code()}")
+                        if (response.code() == 204) {
+                            backFunction()
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+
+                    }
+                })
+            }
+
         }
     }
+
+
+    /*   Log.d("save set", "${weight.value} ${reps.value} ${quantity.value} ${parentId.value} ")
+       val sets = Sets().apply {
+           id = this@SetsVM.id.value
+           parentId = this@SetsVM.parentId.value
+           reps = this@SetsVM.reps.value
+           weight = this@SetsVM.weight.value
+           weightPast = this@SetsVM._weightPast.value
+       }
+       sets.weightPast = tempWeight
+
+       if (_weight.value != tempWeight) {
+       }
+
+       val setsRepo = SetsRepo.get()
+
+       if (quantity.value != 0) {
+           for (i in 0..<quantity.value) {
+               setsRepo.save(Sets.mapToEntity(sets))
+           }
+       } else {
+           setsRepo.update(Sets.mapToEntity(sets))
+       }
+   }*/
+
 
     companion object {
         val vmOnlyForPreview by lazy {
@@ -161,7 +233,7 @@ class SetsVM : BaseVMWithStateLoad(), SetsVMInterface {
                     TODO("Not yet implemented")
                 }
 
-                override fun save() {
+                override fun save(backFunction: () -> Unit) {
                     TODO("Not yet implemented")
                 }
 

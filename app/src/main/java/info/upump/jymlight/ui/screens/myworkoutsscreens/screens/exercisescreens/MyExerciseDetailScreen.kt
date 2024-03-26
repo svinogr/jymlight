@@ -1,5 +1,6 @@
 package info.upump.jymlight.ui.screens.myworkoutsscreens.screens.exercisescreens
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -26,6 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import info.upump.jymlight.IS_LOCALDB
 import info.upump.jymlight.R
 import info.upump.jymlight.ui.screens.mainscreen.isScrollingUp
 import info.upump.jymlight.ui.screens.navigation.botomnavigation.NavigationItem
@@ -36,7 +38,9 @@ import info.upump.jymlight.ui.screens.screenscomponents.screen.ImageForDetailScr
 import info.upump.jymlight.ui.screens.screenscomponents.screen.RowChips
 import info.upump.jymlight.ui.screens.screenscomponents.screen.SnackBar
 import info.upump.jymlight.ui.screens.screenscomponents.screen.TableHeader
-import info.upump.jymlight.ui.screens.viewmodel.db.exercise.ExerciseVM
+import info.upump.jymlight.ui.screens.screenscomponents.screen.web.ImageForDetailScreenWEB
+import info.upump.jymlight.ui.screens.viewmodel.db.exercise.ExerciseVMDB
+import info.upump.jymlight.ui.screens.viewmodel.web.exercise.ExerciseVMWEB
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -49,7 +53,8 @@ fun MyExerciseDetailScreen(
     paddingValues: PaddingValues,
     appBarTitle: MutableState<String>
 ) {
-    val exerciseVM: ExerciseVM = viewModel()
+    //val exerciseVM: ExerciseVMDB = viewModel()
+    val exerciseVM: ExerciseVMWEB = viewModel()
     val load = exerciseVM.isLoading.collectAsState()
     val lazyListState = LazyListState()
 
@@ -60,6 +65,7 @@ fun MyExerciseDetailScreen(
         mutableStateOf(exerciseVM.subItems)}
     val snackBarHostState = remember { SnackbarHostState() }
     LaunchedEffect(key1 = true) {
+        Log.d("detail", "in")
         exerciseVM.getBy(id)
     }
 
@@ -96,10 +102,18 @@ fun MyExerciseDetailScreen(
     ) { it ->
         Column(modifier = Modifier.padding(top = it.calculateTopPadding())) {
             Box(modifier = Modifier.height(200.dp)) {
-                ImageForDetailScreen(
-                    image = exerciseVM.imageDescription.collectAsState().value,
-                    defaultImage = exerciseVM.imageDescriptionDefault.collectAsState().value
-                )
+                if(IS_LOCALDB) {
+                    ImageForDetailScreen(
+                        image = exerciseVM.imageDescription.collectAsState().value,
+                        defaultImage = exerciseVM.imageDescriptionDefault.collectAsState().value
+                    )
+                }else{
+                    ImageForDetailScreenWEB(
+                        image = exerciseVM.imageDescription.collectAsState().value,
+                        defaultImage = exerciseVM.imageDescriptionDefault.collectAsState().value
+                    )
+                }
+
                 RowChips(modifier = Modifier.align(Alignment.BottomEnd),
                     Chips(
                         stringResource(id = R.string.snack_exersice_delete_sets),
@@ -154,7 +168,7 @@ fun PreviewMyExerciseDetailScreen2() {
         TableHeader()
         ListSets(
             navHost = NavHostController(LocalContext.current),
-            list = ExerciseVM.vmOnlyForPreview.subItems.collectAsState().value,
+            list = ExerciseVMDB.vmOnlyForPreview.subItems.collectAsState().value,
             listState = LazyListState()) {
                   println(it)
             }

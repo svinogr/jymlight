@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
-class ExerciseVM : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad(),
+class ExerciseVMDB : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad(),
     ExerciseVMInterface {
     private val _imageDescription = MutableStateFlow("")
     val imageDescription = _imageDescription.asStateFlow()

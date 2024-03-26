@@ -33,7 +33,8 @@ import info.upump.jymlight.R
 import info.upump.jymlight.ui.screens.screenscomponents.FloatButtonWithState
 import info.upump.jymlight.ui.screens.screenscomponents.NumberPicker
 import info.upump.jymlight.ui.screens.screenscomponents.NumberPickerWithStep
-import info.upump.jymlight.ui.screens.viewmodel.db.sets.SetsVM
+import info.upump.jymlight.ui.screens.viewmodel.db.sets.SetsVMDB
+import info.upump.jymlight.ui.screens.viewmodel.web.sets.SetsVMWEB
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
@@ -47,7 +48,7 @@ fun SetsCreateScreen(
     paddingValues: PaddingValues,
     appBarTitle: MutableState<String>
 ) {
-    val setVM: SetsVM = viewModel()
+    val setVM: SetsVMWEB = viewModel()
     val isLoad = setVM.isLoading.collectAsState()
     val titleModifier = Modifier.padding(start = 8.dp, top = 8.dp)
     val colModifier = Modifier.background(colorResource(id = R.color.colorBackgroundCardView))
@@ -61,8 +62,10 @@ fun SetsCreateScreen(
                 isVisible = true,
                 icon = R.drawable.ic_save_black
             ) {
-                setVM.save()
-                navHostController.navigateUp()
+                setVM.save{
+                    navHostController.navigateUp()
+                }
+
             }
         })
     { it ->

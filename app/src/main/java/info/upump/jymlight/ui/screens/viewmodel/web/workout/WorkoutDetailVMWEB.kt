@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -123,10 +124,24 @@ class WorkoutDetailVMWEB : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithSt
 
     }
 
-    override fun deleteSub(it: Long) {
+    override fun deleteSub(id: Long) {
         viewModelScope.launch(Dispatchers.IO) {
-            val repo = ExerciseRepo.get()
-            repo.delete(it)
+            val service = RetrofitServiceWEB.getWorkoutService().deleteById(id)
+            service.enqueue(object : Callback<ResponseBody>{
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+                    if(response.code() == 200) {
+                        val index = 0
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+            })
+
         }
     }
 

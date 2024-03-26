@@ -31,7 +31,6 @@ import info.upump.jymlight.ui.screens.screenscomponents.screen.ImageForDetailScr
 import info.upump.jymlight.ui.screens.screenscomponents.screen.SnackBar
 import info.upump.jymlight.ui.screens.screenscomponents.screen.TableHeader
 import info.upump.jymlight.ui.screens.screenscomponents.screen.web.ImageForDetailScreenWEB
-import info.upump.jymlight.ui.screens.viewmodel.db.exercise.ExerciseVM
 import info.upump.jymlight.ui.screens.viewmodel.web.exercise.ExerciseVMWEB
 
 @OptIn(ExperimentalMaterial3Api::class)

@@ -1,11 +1,9 @@
 package info.upump.jymlight.ui.screens.myworkoutsscreens.screens.workoutscreens
 
-import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -44,7 +42,8 @@ import info.upump.jymlight.ui.screens.screenscomponents.screen.Chips
 import info.upump.jymlight.ui.screens.screenscomponents.screen.ImageByDay
 import info.upump.jymlight.ui.screens.screenscomponents.screen.RowChips
 import info.upump.jymlight.ui.screens.screenscomponents.screen.SnackBar
-import info.upump.jymlight.ui.screens.viewmodel.db.workout.WorkoutDetailVM
+import info.upump.jymlight.ui.screens.viewmodel.db.workout.WorkoutDetailVMDB
+import info.upump.jymlight.ui.screens.viewmodel.web.workout.WorkoutDetailVMWEB
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -57,7 +56,8 @@ fun WorkoutDetailScreenM3(
     paddingValues: PaddingValues,
     appBarTitle: MutableState<String>
 ) {
-    val workoutVM: WorkoutDetailVM = viewModel()
+    //val workoutVM: WorkoutDetailVMDB = viewModel()
+    val workoutVM: WorkoutDetailVMWEB = viewModel()
     val context = LocalContext.current
     val listState = rememberLazyListState()
 

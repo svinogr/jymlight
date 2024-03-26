@@ -25,7 +25,7 @@ class Exercise(
                 ", id=" + id +
                 ", title='" + title + '\'' +
                 ", comment='" + comment + '\'' +
-                ", parentId=" + parentId + "descr" + exerciseDescription.toString() +"}"
+                ", parentId=" + parentId + "descr" + exerciseDescription.toString() + "}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -73,8 +73,8 @@ class Exercise(
             exerciseEntity.description_id = exercise.descriptionId
             exerciseEntity.comment = exercise.comment
             exerciseEntity.type_exercise = exercise.typeMuscle.toString()
-            exerciseEntity.default_type = if(exercise.isDefaultType) 1 else 0
-            exerciseEntity.template = if(exercise.isTemplate) 1 else 0
+            exerciseEntity.default_type = if (exercise.isDefaultType) 1 else 0
+            exerciseEntity.template = if (exercise.isTemplate) 1 else 0
             exerciseEntity.start_date = exercise.startStringFormatDate
             exerciseEntity.finish_date = exercise.finishStringFormatDate
 
@@ -106,7 +106,7 @@ class Exercise(
             exercise.typeMuscle = TypeMuscle.valueOf(entity.typeMuscle)
             exercise.isTemplate = entity.isTemplate
             exercise.comment = entity.comment
-Log.d("id", entity.comment)
+
             return exercise
         }
 
@@ -122,9 +122,11 @@ Log.d("id", entity.comment)
             }
 
             exercise.exerciseDescription = exerciseDescription
-            exercise.setsList = listSets
+            listSets.sortedBy { it.id }
+
+            exercise.setsList = listSets.sortedBy { it.id }.toMutableList()
 
             return exercise
         }
-     }
+    }
 }

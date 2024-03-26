@@ -19,5 +19,5 @@ interface SetsVMInterface {
     fun updateParentId(parentId: Long)
     fun getByParent(parentId: Long)
     fun getBy(id: Long)
-    fun save()
+    fun save(backFunction: ()-> Unit)
 }

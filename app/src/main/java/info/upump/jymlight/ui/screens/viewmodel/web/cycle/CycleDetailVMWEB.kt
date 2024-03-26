@@ -22,10 +22,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.Date
 
 class CycleDetailVMWEB : BaseVMWithStateLoad(),
     CycleDetailVMInterface {
@@ -91,27 +91,62 @@ class CycleDetailVMWEB : BaseVMWithStateLoad(),
 
     override fun deleteSubItem(id: Long) {
         viewModelScope.launch(Dispatchers.IO) {
-            _stateLoading.value = true
-            workoutRepo.delete(id)
+            val service = RetrofitServiceWEB.getWorkoutService().deleteById(id)
+            service.enqueue(object : Callback<ResponseBody> {
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+                    if (response.code() == 200) {
+                        val index = _workouts.value.indexOfFirst { it.id == id }
+                        val list = _workouts.value.toMutableList()
+                        list.removeAt(index)
+                        _workouts.update { list }
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+            })
+
         }
     }
 
     override fun cleanItem() {
         viewModelScope.launch(Dispatchers.IO) {
-            _stateLoading.value = true
-            cycleRepoDB.deleteChilds(id.value)
+            val service = RetrofitServiceWEB.getWorkoutService().clean(_id.value)
+            service.enqueue(object : Callback<ResponseBody> {
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+                    if (response.code() == 200) {
+                        _workouts.update { listOf() }
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+            })
+
         }
+        /*  viewModelScope.launch(Dispatchers.IO) {
+              _stateLoading.value = true
+              cycleRepoDB.deleteChilds(id.value)
+          }*/
     }
 
     override fun copyToPersonal(id: Long) {
-        _stateLoading.value = true
-        viewModelScope.launch(Dispatchers.IO) {
-            val cycleRepoDB = CycleRepoDB.get() as CycleRepoDB
-            val today = Cycle.formatDateToString(Date())
-            cycleRepoDB.copyToPersonal(id, today)
-            _stateLoading.value = false
+        /*        _stateLoading.value = true
+                viewModelScope.launch(Dispatchers.IO) {
+                    val cycleRepoDB = CycleRepoDB.get() as CycleRepoDB
+                    val today = Cycle.formatDateToString(Date())
+                    cycleRepoDB.copyToPersonal(id, today)
+                    _stateLoading.value = false
 
-        }
+                }*/
     }
 
     companion object {
@@ -129,7 +164,6 @@ class CycleDetailVMWEB : BaseVMWithStateLoad(),
                     title = "Preview"
                     comment = "это Preview"
                 })
-
 
 
                 private var _workouts = MutableStateFlow<List<Workout>>(listOf(

@@ -10,4 +10,6 @@ const val API_PATH_EXERCISE = "api/exercise"
 interface ExerciseRetrofitClient {
     @GET("$API_PATH_EXERCISE/{id}")
     fun getExerciseFullById(@Path("id") id: Long): Call<ExerciseRet>
+
+
 }
