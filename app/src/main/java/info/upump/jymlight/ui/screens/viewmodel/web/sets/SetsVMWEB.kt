@@ -208,7 +208,6 @@ class SetsVMWEB : BaseVMWithStateLoad(), SetsVMInterface {
                 override fun save(backFunction: () -> Unit) {
                     TODO("Not yet implemented")
                 }
-
             }
         }
     }
