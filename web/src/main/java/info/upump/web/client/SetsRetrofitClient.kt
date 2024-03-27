@@ -25,4 +25,5 @@ interface SetsRetrofitClient {
 
     @POST("$API_PATH_SETS/list")
     fun save(@Body listSets: List<SetsRet>): Call<ResponseBody>
+
 }

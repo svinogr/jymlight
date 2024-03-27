@@ -87,7 +87,21 @@ class ExerciseVMWEB : BaseVMWithStateLoad(),
 
     override fun cleanItem() {
         viewModelScope.launch(Dispatchers.IO) {
-            SetsRepo.get().deleteByParent(parentId)
+            val setsService = RetrofitServiceWEB.getExerciseService().clean(parentId)
+            setsService.enqueue(object : Callback<ResponseBody> {
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+                    if (response.code() == 200) {
+                        _listSets.update { mutableListOf<Sets>() }
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+            })
         }
     }
 
