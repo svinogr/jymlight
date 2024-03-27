@@ -39,7 +39,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 
-@RequiresApi(Build.VERSION_CODES.Q)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SetsCreateScreen(
@@ -53,6 +52,7 @@ fun SetsCreateScreen(
     val titleModifier = Modifier.padding(start = 8.dp, top = 8.dp)
     val colModifier = Modifier.background(colorResource(id = R.color.colorBackgroundCardView))
     appBarTitle.value = stringResource(id = R.string.set_create_title)
+    Log.d("parent", "$parentId")
     setVM.updateParentId(parentId)
 
     Scaffold(modifier = Modifier.padding(top = paddingValues.calculateTopPadding()),

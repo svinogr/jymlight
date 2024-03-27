@@ -80,6 +80,7 @@ class Sets(
                 weight = sets.weight
                 weightPast = sets.weightPast
                 reps = sets.reps
+                parentId = sets.parentId
             }
         }
     }

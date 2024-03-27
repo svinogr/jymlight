@@ -96,7 +96,6 @@ class SetsVMWEB : BaseVMWithStateLoad(), SetsVMInterface {
     override fun save(backFunction: () -> Unit) {
         if (quantity.value == 0 && id.value == 0L) return
 
-        Log.d("save set", "${weight.value} ${reps.value} ${quantity.value} ${parentId.value} ")
         val sets = Sets().apply {
             id = this@SetsVMWEB.id.value
             parentId = this@SetsVMWEB.parentId.value
@@ -111,7 +110,6 @@ class SetsVMWEB : BaseVMWithStateLoad(), SetsVMInterface {
             for (i in 0..<quantity.value) {
                 listSets.add(Sets.mapToRetSets(sets))
             }
-
 
             viewModelScope.launch(Dispatchers.IO) {
                 val setsService = RetrofitServiceWEB.getSetService().save(listSets)
@@ -154,32 +152,6 @@ class SetsVMWEB : BaseVMWithStateLoad(), SetsVMInterface {
 
         }
     }
-
-
-    /*   Log.d("save set", "${weight.value} ${reps.value} ${quantity.value} ${parentId.value} ")
-       val sets = Sets().apply {
-           id = this@SetsVM.id.value
-           parentId = this@SetsVM.parentId.value
-           reps = this@SetsVM.reps.value
-           weight = this@SetsVM.weight.value
-           weightPast = this@SetsVM._weightPast.value
-       }
-       sets.weightPast = tempWeight
-
-       if (_weight.value != tempWeight) {
-       }
-
-       val setsRepo = SetsRepo.get()
-
-       if (quantity.value != 0) {
-           for (i in 0..<quantity.value) {
-               setsRepo.save(Sets.mapToEntity(sets))
-           }
-       } else {
-           setsRepo.update(Sets.mapToEntity(sets))
-       }
-   }*/
-
 
     companion object {
         val vmOnlyForPreview by lazy {
