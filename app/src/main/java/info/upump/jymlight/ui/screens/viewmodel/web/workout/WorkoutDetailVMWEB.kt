@@ -3,7 +3,6 @@ package info.upump.jymlight.ui.screens.viewmodel.web.workout
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import info.upump.database.repo.db.ExerciseRepo
-import info.upump.database.repo.db.WorkoutRepo
 import info.upump.jymlight.models.entity.Day
 import info.upump.jymlight.models.entity.Exercise
 import info.upump.jymlight.models.entity.ExerciseDescription
@@ -126,14 +125,17 @@ class WorkoutDetailVMWEB : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithSt
 
     override fun deleteSub(id: Long) {
         viewModelScope.launch(Dispatchers.IO) {
-            val service = RetrofitServiceWEB.getWorkoutService().deleteById(id)
-            service.enqueue(object : Callback<ResponseBody>{
+            val serviceExercise = RetrofitServiceWEB.getExerciseService().deleteById(id)
+            serviceExercise.enqueue(object : Callback<ResponseBody> {
                 override fun onResponse(
                     call: Call<ResponseBody>,
                     response: Response<ResponseBody>
                 ) {
-                    if(response.code() == 200) {
-                        val index = 0
+                    if (response.code() == 200) {
+                        val index = _exercises.value.indexOfFirst { it.id == id }
+                        val list = _exercises.value.toMutableList()
+                        list.removeAt(index)
+                        _exercises.update { list }
                     }
                 }
 
@@ -146,6 +148,31 @@ class WorkoutDetailVMWEB : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithSt
     }
 
     override fun cleanItem() {
+        _stateLoading.value = true
+        viewModelScope.launch(Dispatchers.IO) {
+            val workoutService = RetrofitServiceWEB.getWorkoutService().clean(_id.value)
+            workoutService.enqueue(object : Callback<ResponseBody> {
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+                    if (response.code() == 200) {
+                        _exercises.update {
+                            mutableListOf<Exercise>()
+                        }
+                    }
+
+                    _stateLoading.value = false
+                }
+
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+            })
+
+
+        }
+
         viewModelScope.launch(Dispatchers.IO) {
             _stateLoading.value = true
             ExerciseRepo.get().deleteByParent(_id.value)

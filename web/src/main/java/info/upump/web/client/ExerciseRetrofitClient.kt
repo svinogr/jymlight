@@ -22,4 +22,6 @@ interface ExerciseRetrofitClient {
 
     @POST("$API_PATH_EXERCISE/{id}/copy")
     fun copy(@Path("id") id: Long, @Body workoutRet: WorkoutRet): Call<ResponseBody>
+    @DELETE("$API_PATH_EXERCISE/{id}")
+    fun deleteById(@Path("id") id: Long): Call<ResponseBody>
 }

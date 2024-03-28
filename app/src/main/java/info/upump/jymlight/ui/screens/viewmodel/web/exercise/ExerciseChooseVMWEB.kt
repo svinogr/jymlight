@@ -86,10 +86,4 @@ class ExerciseChooseVMWEB : BaseVMWithStateLoad(),
             })
         }
     }
-
-    fun filterBy(type: TypeMuscle) {
-        _subItems.value.filter {
-            it.typeMuscle == type
-        }
-    }
 }
