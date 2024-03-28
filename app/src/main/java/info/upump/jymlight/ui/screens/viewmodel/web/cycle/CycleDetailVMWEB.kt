@@ -114,7 +114,7 @@ class CycleDetailVMWEB : BaseVMWithStateLoad(),
     }
 
     override fun cleanItem() {
-        viewModelScope.launch(Dispatchers.IO) {
+     /*   viewModelScope.launch(Dispatchers.IO) {
             val service = RetrofitServiceWEB.getWorkoutService().clean(_id.value)
             service.enqueue(object : Callback<ResponseBody> {
                 override fun onResponse(
@@ -131,7 +131,7 @@ class CycleDetailVMWEB : BaseVMWithStateLoad(),
                 }
             })
 
-        }
+        }*/
         /*  viewModelScope.launch(Dispatchers.IO) {
               _stateLoading.value = true
               cycleRepoDB.deleteChilds(id.value)

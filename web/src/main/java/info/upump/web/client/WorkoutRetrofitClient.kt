@@ -17,8 +17,6 @@ interface WorkoutRetrofitClient {
     @DELETE("$API_PATH_WORKOUT/{id}")
      fun deleteById(@Path("id") id: Long): Call<ResponseBody>
 
-    @DELETE("$API_PATH_WORKOUT/clean/{id}")
-     fun clean(@Path("id")id: Long): Call<ResponseBody>
-
-
+    @DELETE("$API_PATH_WORKOUT/{id}/clean")
+     fun clean(@Path("id") id: Long): Call<ResponseBody>
 }
