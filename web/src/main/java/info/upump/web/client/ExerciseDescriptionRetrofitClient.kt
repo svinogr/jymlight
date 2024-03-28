@@ -8,6 +8,6 @@ import retrofit2.http.Path
 const val API_PATH_EXERCISE_DESCRIPTION = "api/exercise_description"
 interface ExerciseDescriptionRetrofitClient {
 
-    @GET("API_PATH_EXERCISE_DESCRIPTION/{id}")
+    @GET("$API_PATH_EXERCISE_DESCRIPTION/{id}")
     fun getExerciseDescriptionById(@Path("id") id: Long): Call<ExerciseDescriptionRet>
 }

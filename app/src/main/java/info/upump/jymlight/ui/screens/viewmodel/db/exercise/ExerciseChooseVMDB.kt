@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 
 
-class ExerciseChooseVM : BaseVMWithStateLoad(),
+class ExerciseChooseVMDB : BaseVMWithStateLoad(),
     ExerciseChooseVMInterface {
     private val exerciseRepo = ExerciseRepo.get()
     private var parentId: Long = 0L

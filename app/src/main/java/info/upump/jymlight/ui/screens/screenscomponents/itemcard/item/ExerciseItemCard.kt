@@ -76,7 +76,7 @@ fun ExerciseItemCard(
                     }
 
                 } else{
-                    Log.d("id", "image ${exercise.exerciseDescription!!.defaultImg}")
+              //      Log.d("id", "image ${exercise.exerciseDescription!!.defaultImg}")
                     ItemImageWeb(
                         image = exercise.exerciseDescription!!.img,
                         defaultImage = exercise.exerciseDescription!!.defaultImg

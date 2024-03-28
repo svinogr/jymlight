@@ -15,9 +15,6 @@ import retrofit2.http.Path
 const val API_PATH_CYCLE = "api/cycle"
 
 interface CycleRetrofitClient {
-    @GET("$API_PATH_CYCLE/templates")
-     fun getAllTemplateCycle(): Call<MutableList<CycleRet>>
-
     @GET("$API_PATH_CYCLE/all/{id}")
      fun getAllByParentId(@Path("id") id: Long): Call<List<CycleRet>>
 

@@ -32,7 +32,8 @@ import info.upump.jymlight.ui.screens.screenscomponents.itemcard.ListExercise
 import info.upump.jymlight.ui.screens.screenscomponents.screen.CheckChips
 import info.upump.jymlight.ui.screens.screenscomponents.screen.ImageByDay
 import info.upump.jymlight.ui.screens.screenscomponents.screen.RowChooseChips
-import info.upump.jymlight.ui.screens.viewmodel.db.exercise.ExerciseChooseVM
+import info.upump.jymlight.ui.screens.viewmodel.db.exercise.ExerciseChooseVMDB
+import info.upump.jymlight.ui.screens.viewmodel.web.exercise.ExerciseChooseVMWEB
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -44,7 +45,8 @@ fun ExerciseChooseScreen(
     modifier: Modifier = Modifier
 ) {
     appBarTitle.value = stringResource(id = R.string.exercise_choose_title_add_exercise)
-    val exerciseVM: ExerciseChooseVM = viewModel()
+    //val exerciseVM: ExerciseChooseVMDB = viewModel()
+    val exerciseVM: ExerciseChooseVMWEB = viewModel()
     val listState = rememberLazyListState()
 
     val valuesMuscle = TypeMuscle.values()

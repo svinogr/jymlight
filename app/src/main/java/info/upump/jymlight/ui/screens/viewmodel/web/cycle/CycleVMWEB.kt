@@ -27,7 +27,6 @@ import kotlin.coroutines.coroutineContext
 
 class CycleVMWEB : BaseVMWithStateLoad(), CycleVMInterface {
     private val _cycleList = MutableStateFlow<List<Cycle>>(listOf())
-    private val cycleService = RetrofitServiceWEB.getCycleService()
     override val cycleList: StateFlow<List<Cycle>>
         get() = _cycleList.asStateFlow()
 
@@ -77,11 +76,12 @@ class CycleVMWEB : BaseVMWithStateLoad(), CycleVMInterface {
             Dispatchers.IO
         ) {
             Log.d("init", "send")
+            val cycleService = RetrofitServiceWEB.getTemplateService()
             val allTemplateCycle = cycleService.getAllTemplateCycle()
-            allTemplateCycle.enqueue(object : Callback<MutableList<CycleRet>> {
+            allTemplateCycle.enqueue(object : Callback<List<CycleRet>> {
                 override fun onResponse(
-                    call: Call<MutableList<CycleRet>>,
-                    response: Response<MutableList<CycleRet>>
+                    call: Call<List<CycleRet>>,
+                    response: Response<List<CycleRet>>
                 ) {
                     Log.d("init", "succ")
 
@@ -105,7 +105,7 @@ class CycleVMWEB : BaseVMWithStateLoad(), CycleVMInterface {
                     _cycleList.update { list }
                 }
 
-                override fun onFailure(call: Call<MutableList<CycleRet>>, t: Throwable) {
+                override fun onFailure(call: Call<List<CycleRet>>, t: Throwable) {
                     Log.d("init", "faulire")
                     _cycleList.update { listOf() }
                 }

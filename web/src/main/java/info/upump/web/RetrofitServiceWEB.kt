@@ -5,6 +5,7 @@ import info.upump.web.client.ExerciseDescriptionRetrofitClient
 import info.upump.web.client.ExerciseRetrofitClient
 import info.upump.web.client.RetrofitClient
 import info.upump.web.client.SetsRetrofitClient
+import info.upump.web.client.TemplateRetrofitClient
 import info.upump.web.client.WorkoutRetrofitClient
 import info.upump.web.model.ExerciseDescriptionRet
 
@@ -28,6 +29,10 @@ class RetrofitServiceWEB {
 
         fun getExerciseDescriptionService(): ExerciseDescriptionRetrofitClient {
             return RetrofitClient.getClient().create(ExerciseDescriptionRetrofitClient::class.java)
+        }
+
+        fun getTemplateService(): TemplateRetrofitClient {
+            return RetrofitClient.getClient().create(TemplateRetrofitClient::class.java)
         }
     }
 }
