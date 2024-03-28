@@ -29,10 +29,6 @@ import retrofit2.Response
 
 class CycleDetailVMWEB : BaseVMWithStateLoad(),
     CycleDetailVMInterface {
-    private val workoutRepo: RepoActions<WorkoutEntity> = WorkoutRepo.get()
-    private val cycleRepoDB: RepoActionsSpecific<CycleEntity, CycleFullEntityWithWorkouts> =
-        CycleRepoDB.get()
-
     private var _workouts = MutableStateFlow<List<Workout>>(mutableListOf())
     override val subItems: StateFlow<List<Workout>> = _workouts
 
@@ -114,24 +110,24 @@ class CycleDetailVMWEB : BaseVMWithStateLoad(),
     }
 
     override fun cleanItem() {
-     /*   viewModelScope.launch(Dispatchers.IO) {
-            val service = RetrofitServiceWEB.getWorkoutService().clean(_id.value)
-            service.enqueue(object : Callback<ResponseBody> {
-                override fun onResponse(
-                    call: Call<ResponseBody>,
-                    response: Response<ResponseBody>
-                ) {
-                    if (response.code() == 200) {
-                        _workouts.update { listOf() }
-                    }
-                }
+           viewModelScope.launch(Dispatchers.IO) {
+               val service = RetrofitServiceWEB.getCycleService().clean(_id.value)
+               service.enqueue(object : Callback<ResponseBody> {
+                   override fun onResponse(
+                       call: Call<ResponseBody>,
+                       response: Response<ResponseBody>
+                   ) {
+                       if (response.code() == 200) {
+                           _workouts.update { listOf() }
+                       }
+                   }
 
-                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    TODO("Not yet implemented")
-                }
-            })
+                   override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                       TODO("Not yet implemented")
+                   }
+               })
 
-        }*/
+           }
         /*  viewModelScope.launch(Dispatchers.IO) {
               _stateLoading.value = true
               cycleRepoDB.deleteChilds(id.value)

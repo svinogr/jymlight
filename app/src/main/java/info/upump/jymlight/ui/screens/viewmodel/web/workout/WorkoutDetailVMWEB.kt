@@ -157,7 +157,7 @@ class WorkoutDetailVMWEB : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithSt
                 ) {
                     if (response.code() == 200) {
                         _exercises.update {
-                            mutableListOf<Exercise>()
+                            mutableListOf()
                         }
                     }
 
@@ -170,12 +170,6 @@ class WorkoutDetailVMWEB : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithSt
             })
 
 
-        }
-
-        viewModelScope.launch(Dispatchers.IO) {
-            _stateLoading.value = true
-            ExerciseRepo.get().deleteByParent(_id.value)
-            _stateLoading.value = false
         }
     }
 
