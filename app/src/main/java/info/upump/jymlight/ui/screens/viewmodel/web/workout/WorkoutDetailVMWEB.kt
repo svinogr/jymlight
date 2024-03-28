@@ -143,7 +143,6 @@ class WorkoutDetailVMWEB : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithSt
                     TODO("Not yet implemented")
                 }
             })
-
         }
     }
 
