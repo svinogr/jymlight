@@ -3,6 +3,7 @@ package info.upump.jymlight.ui.screens.viewmodel
 import info.upump.jymlight.models.entity.Cycle
 import info.upump.jymlight.models.entity.Workout
 import kotlinx.coroutines.flow.StateFlow
+import retrofit2.Callback
 
 interface CycleDetailVMInterface {
     val id: StateFlow<Long>
@@ -16,5 +17,5 @@ interface CycleDetailVMInterface {
     fun getBy(id: Long)
     fun deleteSubItem(id: Long)
     fun cleanItem()
-    fun copyToPersonal(long: Long)
+    fun copyToPersonal(long: Long, callback: ()-> Unit = {})
 }

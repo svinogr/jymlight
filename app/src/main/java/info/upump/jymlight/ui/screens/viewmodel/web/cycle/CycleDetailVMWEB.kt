@@ -110,33 +110,45 @@ class CycleDetailVMWEB : BaseVMWithStateLoad(),
     }
 
     override fun cleanItem() {
-           viewModelScope.launch(Dispatchers.IO) {
-               val service = RetrofitServiceWEB.getCycleService().clean(_id.value)
-               service.enqueue(object : Callback<ResponseBody> {
-                   override fun onResponse(
-                       call: Call<ResponseBody>,
-                       response: Response<ResponseBody>
-                   ) {
-                       if (response.code() == 200) {
-                           _workouts.update { listOf() }
-                       }
-                   }
+        viewModelScope.launch(Dispatchers.IO) {
+            val service = RetrofitServiceWEB.getCycleService().clean(_id.value)
+            service.enqueue(object : Callback<ResponseBody> {
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+                    if (response.code() == 200) {
+                        _workouts.update { listOf() }
+                    }
+                }
 
-                   override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                       TODO("Not yet implemented")
-                   }
-               })
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+            })
 
-           }
-        /*  viewModelScope.launch(Dispatchers.IO) {
-              _stateLoading.value = true
-              cycleRepoDB.deleteChilds(id.value)
-          }*/
+        }
     }
 
-    override fun copyToPersonal(id: Long) {
-        /*        _stateLoading.value = true
-                viewModelScope.launch(Dispatchers.IO) {
+    override fun copyToPersonal(id: Long, callback: () -> Unit) {
+                _stateLoading.value = true
+                 val cycleService = RetrofitServiceWEB.getTemplateService().copyToPersonal(id)
+                 cycleService.enqueue(object : Callback<ResponseBody>{
+                     override fun onResponse(
+                         call: Call<ResponseBody>,
+                         response: Response<ResponseBody>
+                     ) {
+                        if(response.code() == 201) {
+                            callback()
+                        }
+                     }
+
+                     override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                         TODO("Not yet implemented")
+                     }
+                 })
+
+              /*  viewModelScope.launch(Dispatchers.IO) {
                     val cycleRepoDB = CycleRepoDB.get() as CycleRepoDB
                     val today = Cycle.formatDateToString(Date())
                     cycleRepoDB.copyToPersonal(id, today)
@@ -205,7 +217,7 @@ class CycleDetailVMWEB : BaseVMWithStateLoad(),
                     TODO("Not yet implemented")
                 }
 
-                override fun copyToPersonal(id: Long) {
+                override fun copyToPersonal(id: Long, callback: () -> Unit) {
                     TODO("Not yet implemented")
                 }
 

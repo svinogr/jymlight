@@ -300,6 +300,8 @@
     <string name="chips_edite">редактровать</string>
     <string name="chips_copy">скопировать</string>
 
+    <string name="toast_text_copied">скопировано</string>
+
 
     <string name="snack_cycle_delete_workouts">Удалить тренировки</string>
     <string name="snack_exersice_delete_sets">Удалить подходы</string>

@@ -1,5 +1,6 @@
 package info.upump.jymlight.ui.screens.defaultscreen.screen.cyclescreen
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -27,6 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -53,6 +55,7 @@ fun DefaultCycleDetailScreenM3(
     paddingValues: PaddingValues,
     appBarTitle: MutableState<String>
 ) {
+    val context = LocalContext.current
     //val cycleVM: CycleDetailVMBD = viewModel()
     val cycleVM: CycleDetailVMWEB = viewModel()
     val listState = rememberLazyListState()
@@ -94,7 +97,9 @@ fun DefaultCycleDetailScreenM3(
                         SnackBar(
                             text = stringResource(id = R.string.chips_copy),
                             icon = R.drawable.ic_copy, action = {
-                                cycleVM.copyToPersonal(id)
+                                cycleVM.copyToPersonal(id) {
+                                    Toast.makeText(context, R.string.toast_text_copied, Toast.LENGTH_LONG).show()
+                                }
                             }, data = it
                         )
                 }

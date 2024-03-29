@@ -37,4 +37,5 @@ interface CycleRetrofitClient {
 
     @DELETE("$API_PATH_CYCLE/{id}/clean")
     fun clean(@Path("id") id: Long): Call<ResponseBody>
+
 }

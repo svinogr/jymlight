@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import retrofit2.Callback
 import java.util.Date
 
 class CycleDetailVMBD : BaseVMWithStateLoad(),
@@ -86,7 +87,7 @@ class CycleDetailVMBD : BaseVMWithStateLoad(),
         }
     }
 
-    override fun copyToPersonal(id: Long) {
+    override fun copyToPersonal(id: Long, callback: () -> Unit) {
         _stateLoading.value = true
         viewModelScope.launch(Dispatchers.IO) {
             val cycleRepoDB = CycleRepoDB.get() as CycleRepoDB
@@ -157,7 +158,7 @@ class CycleDetailVMBD : BaseVMWithStateLoad(),
                     TODO("Not yet implemented")
                 }
 
-                override fun copyToPersonal(id: Long) {
+                override fun copyToPersonal(id: Long, callback: () -> Unit) {
                     TODO("Not yet implemented")
                 }
 
