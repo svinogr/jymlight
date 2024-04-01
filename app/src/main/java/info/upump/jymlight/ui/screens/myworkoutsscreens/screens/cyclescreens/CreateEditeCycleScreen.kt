@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import info.upump.jymlight.IS_LOCALDB
 import info.upump.jymlight.R
 import info.upump.jymlight.ui.screens.myworkoutsscreens.ActionState
 import info.upump.jymlight.ui.screens.navigation.botomnavigation.NavigationItem
@@ -73,6 +74,7 @@ fun CreateEditeCycleScreen(
                     cycleVM.save(context) {
                         if (action == ActionState.CREATE) {
                             navHostController.popBackStack()
+                            Log.d("save", "save")
                             navHostController.navigate(
                                 NavigationItem.DetailCycleNavigationItem.routeWithId(it)
                             )
@@ -92,11 +94,12 @@ fun CreateEditeCycleScreen(
                 cycleVM.isTitleError.collectAsState().value,
                 cycleVM::updateTitle,
             ) {
-                ImageWithPicker(
-                    cycleVM.img.collectAsState().value,
-                    cycleVM.imgDefault.collectAsState().value,
-                    cycleVM::updateImage
-                )
+                    ImageWithPicker(
+                        cycleVM.img.collectAsState().value,
+                        cycleVM.imgDefault.collectAsState().value,
+                        cycleVM.tempImage.collectAsState().value, action,
+                        cycleVM::updateImage
+                    )
             }
             CardTitle(
                 text = cycleVM.title.collectAsState().value,

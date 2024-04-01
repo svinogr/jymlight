@@ -21,18 +21,21 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
+import info.upump.jymlight.IS_LOCALDB
 import info.upump.jymlight.R
+import info.upump.jymlight.ui.screens.myworkoutsscreens.ActionState
+import info.upump.jymlight.ui.screens.screenscomponents.screen.web.ImageForDetailScreenWEB
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ImageWithPickerPreview() {
     // val cycleVMCreateEdit = CycleVMCreateEdit.vmOnlyForPreview
-    ImageWithPicker("", "uk", ::print)
+    ImageWithPicker("", "uk", "", ActionState.CREATE,  ::print)
 }
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
-fun ImageWithPicker(image: String, defaultImage: String, updateImage: (String) -> Unit) {
+fun ImageWithPicker(image: String, defaultImage: String, tempImage: String, typeAction: ActionState, updateImage: (String) -> Unit) {
     val context = LocalContext.current
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia()
@@ -56,13 +59,47 @@ fun ImageWithPicker(image: String, defaultImage: String, updateImage: (String) -
         }
     }
     Box() {
-        ImageForDetailScreen(
-            image = image,
-            defaultImage = defaultImage,
-            modifier = Modifier.clickable {
-                //permissionState.launchPermissionRequest()
+        //if (IS_LOCALDB) {
+
+        if (typeAction == ActionState.CREATE) {
+            ImageForDetailScreen(
+                image = image,
+                defaultImage = defaultImage,
+                modifier = Modifier.clickable {
+                    //permissionState.launchPermissionRequest()
+                }
+            )
+        } else{
+            if(tempImage == image) {
+                ImageForDetailScreenWEB(
+                    image = image,
+                    defaultImage = defaultImage,
+                    modifier = Modifier.clickable {
+                        //permissionState.launchPermissionRequest()
+                    }
+                )
+            }else{
+                ImageForDetailScreen(
+                    image = image,
+                    defaultImage = defaultImage,
+                    modifier = Modifier.clickable {
+                        //permissionState.launchPermissionRequest()
+                    }
+                )
             }
-        )
+        }
+
+
+        //} /*else {
+        /*    ImageForDetailScreenWEB(
+                image = image,
+                defaultImage = defaultImage,
+                modifier = Modifier.clickable {
+                    //permissionState.launchPermissionRequest()
+                }
+            )*/
+   //     }*/
+
         RowChips(
             modifier = Modifier.align(Alignment.BottomEnd),
             Chips(
@@ -74,6 +111,9 @@ fun ImageWithPicker(image: String, defaultImage: String, updateImage: (String) -
         )
     }
 }
+
+
+/*
 
 private fun getImagePicker(image: String, context: Context): Bitmap {
     var bitmap: Bitmap
@@ -113,6 +153,7 @@ private fun getImagePicker(image: String, context: Context): Bitmap {
     }
     return bitmap
 }
+*/
 
 @Preview
 @Composable

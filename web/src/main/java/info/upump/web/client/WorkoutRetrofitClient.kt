@@ -13,7 +13,7 @@ const val API_PATH_WORKOUT = "api/workout"
 
 interface WorkoutRetrofitClient {
 
-    @GET("$API_PATH_WORKOUT/full/{id}")
+    @GET("$API_PATH_WORKOUT/{id}/full")
     fun getWorkoutFullById(@Path("id") id: Long): Call<WorkoutRet>
 
     @POST(API_PATH_WORKOUT)

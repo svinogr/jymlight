@@ -14,7 +14,7 @@ interface TemplateRetrofitClient {
     fun getAllTemplateCycle(): Call<List<CycleRet>>
 
 
-    @POST("$API_PATH_TEMPLATE/{id}/copy")
+    @POST("$API_PATH_TEMPLATE/cycle/{id}/copy")
     fun copyToPersonal(@Path("id") id: Long): Call<ResponseBody>
 
 

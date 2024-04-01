@@ -15,7 +15,7 @@ import retrofit2.http.Path
 const val API_PATH_CYCLE = "api/cycle"
 
 interface CycleRetrofitClient {
-    @GET("$API_PATH_CYCLE/all/{id}")
+    @GET("$API_PATH_CYCLE/all/user/{id}")
     fun getAllByParentId(@Path("id") id: Long): Call<List<CycleRet>>
 
     // названия file и переменная cycle должны совпадать с отправлеными данными в клиенте
@@ -24,12 +24,12 @@ interface CycleRetrofitClient {
     fun saveCycle(
         @Part("cycle") cycle: CycleRet,
         @Part file: MultipartBody.Part
-    ): Response<ResponseBody>
+    ): Call<ResponseBody>
 
     @GET("$API_PATH_CYCLE/{id}")
     fun getCycleById(@Path("id") id: Long): Call<CycleRet>
 
-    @GET("$API_PATH_CYCLE/full/{id}")
+    @GET("$API_PATH_CYCLE/{id}/full")
     fun getCycleFullById(@Path("id") id: Long): Call<CycleRet>
 
     @DELETE("$API_PATH_CYCLE/{id}")
@@ -37,5 +37,4 @@ interface CycleRetrofitClient {
 
     @DELETE("$API_PATH_CYCLE/{id}/clean")
     fun clean(@Path("id") id: Long): Call<ResponseBody>
-
 }

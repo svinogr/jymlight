@@ -23,6 +23,7 @@ import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -158,7 +159,9 @@ class CycleVMCreateEditWEB() : BaseVMWithStateLoad(),
     private val _imgDefault = MutableStateFlow("")
     override val imgDefault: StateFlow<String> = _imgDefault
 
-    private var tempImage = ""
+    private val _tempImage = MutableStateFlow("")
+    val tempImage = _tempImage.asStateFlow()
+
     private var fileOnlyToSend: File = File.createTempFile(
         "xxx",
         "xxx"
@@ -192,7 +195,7 @@ class CycleVMCreateEditWEB() : BaseVMWithStateLoad(),
                     updateFinishDate(cycle.finishDate)
                     updateImage(cycle.image)
                     updateImageDefault(cycle.imageDefault)
-                    tempImage = cycle.image
+                    _tempImage.update { cycle.image }
 
                     _stateLoading.value = false
                 }
@@ -225,15 +228,25 @@ class CycleVMCreateEditWEB() : BaseVMWithStateLoad(),
                 fileOnlyToSend.asRequestBody(MultipartBody.FORM)
             val body =
                 MultipartBody.Part.createFormData("file", fileOnlyToSend.extension, requestFile)
-            val response = RetrofitServiceWEB.getCycleService().saveCycle(cR, body)
+            val cycleService = RetrofitServiceWEB.getCycleService().saveCycle(cR, body)
 
-            if (response.isSuccessful) {
-                val id = response.headers().get("Location")!!.split("/").last()
-                Log.d("header", id)
-                launch(Dispatchers.Main) {
-                    callback(id.toLong())
+            cycleService.enqueue(object : Callback<ResponseBody> {
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+                    if (response.code() == 201) {
+                        val id = response.headers().get("Location")!!.split("/").last()
+                        Log.d("header", id)
+                             callback(id.toLong())
+                    }
                 }
-            }
+
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+            })
+
         }
     }
 
@@ -270,7 +283,7 @@ class CycleVMCreateEditWEB() : BaseVMWithStateLoad(),
 
         c.imageDefault = _imgDefault.value
 
-        if (tempImage == img.value) {
+        if (tempImage.value == img.value) {
             c.image = _img.value
             return c
         }

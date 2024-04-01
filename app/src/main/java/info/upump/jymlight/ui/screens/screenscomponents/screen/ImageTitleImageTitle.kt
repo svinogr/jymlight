@@ -8,6 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import info.upump.jymlight.ui.screens.myworkoutsscreens.ActionState
 
 @Composable
 fun ImageTitleImageTitle(modifier: Modifier = Modifier, title: String, isTitleError: Boolean, updateText: (String) -> Unit,  content: @Composable() ()-> Unit) {
@@ -28,7 +29,7 @@ fun ImageTitleImageTitle(modifier: Modifier = Modifier, title: String, isTitleEr
 fun ImageTitleImageTitlePreviewCycleWithDefaultImage() {
     val f: (String) -> Unit = { println(it) }
         ImageTitleImageTitle(Modifier, "its a title", true, f){
-       ImageWithPicker("", "uk1", ::println)
+       ImageWithPicker("", "uk1", "",  ActionState.CREATE, ::println)
     }
 }
 
