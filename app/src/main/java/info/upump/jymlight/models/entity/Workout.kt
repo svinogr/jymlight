@@ -110,6 +110,22 @@ class Workout(
 
             return workout
         }
+
+        fun mapToWorkoutRet(workout: Workout): WorkoutRet {
+            val workoutRet = WorkoutRet()
+            workoutRet.id = workout.id
+            workoutRet.title = workout.title
+            workoutRet.startDate = workout.startStringFormatDate
+            workoutRet.finishDate = workout.finishStringFormatDate
+            workoutRet.comment = workout.comment
+            workoutRet.day = workout.day.toString()
+            workoutRet.isDefaultType = workout.isDefaultType
+            workoutRet.isWeekEven = workout.isWeekEven
+            workoutRet.isTemplate = workout.isTemplate
+            workoutRet.parentId = workout.parentId
+
+            return workoutRet
+        }
     }
 
     val startStringFormatDate: String

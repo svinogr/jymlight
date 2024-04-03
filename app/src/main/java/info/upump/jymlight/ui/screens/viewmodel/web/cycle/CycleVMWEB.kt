@@ -71,11 +71,9 @@ class CycleVMWEB : BaseVMWithStateLoad(), CycleVMInterface {
     }
 
     override fun getAllDefault() {
-        Log.d("init", "retro req")
         viewModelScope.launch(
             Dispatchers.IO
         ) {
-            Log.d("init", "send")
             val cycleService = RetrofitServiceWEB.getTemplateService()
             val allTemplateCycle = cycleService.getAllTemplateCycle()
             allTemplateCycle.enqueue(object : Callback<List<CycleRet>> {
@@ -83,8 +81,6 @@ class CycleVMWEB : BaseVMWithStateLoad(), CycleVMInterface {
                     call: Call<List<CycleRet>>,
                     response: Response<List<CycleRet>>
                 ) {
-                    Log.d("init", "succ")
-
                     val list = response.body()!!.map { cR ->
                         val cycle = Cycle().apply {
                             id = cR.id
@@ -106,8 +102,6 @@ class CycleVMWEB : BaseVMWithStateLoad(), CycleVMInterface {
                 }
 
                 override fun onFailure(call: Call<List<CycleRet>>, t: Throwable) {
-                    Log.d("init", "faulire")
-                    _cycleList.update { listOf() }
                 }
             })
         }

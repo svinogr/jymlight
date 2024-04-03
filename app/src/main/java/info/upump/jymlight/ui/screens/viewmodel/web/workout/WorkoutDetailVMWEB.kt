@@ -93,21 +93,23 @@ class WorkoutDetailVMWEB : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithSt
             val call = RetrofitServiceWEB.getWorkoutService().getWorkoutFullById(id)
             call.enqueue(object : Callback<WorkoutRet> {
                 override fun onResponse(call: Call<WorkoutRet>, response: Response<WorkoutRet>) {
-                    Log.d("id", "get by $id resp")
-                    val cR = response.body()
-                    val workout = Workout.mapFullFromRetEntity(cR!!)
-                    Log.d("id", "get by $workout resp")
-                    Log.d("id", "get by ${cR.exercises.size} resp")
-                    _workout.update { workout }
-                    _id.update { workout.id }
-                    _title.update { workout.title }
-                    _comment.update { workout.comment }
-                    _startDate.update { workout.startStringFormatDate }
-                    _finishDate.update { workout.finishStringFormatDate }
-                    _day.update { workout.day }
-                    _isEven.update { workout.isWeekEven }
-                    _exercises.update { workout.exercises }
-                    _stateLoading.value = false
+                    if (response.code() == 200) {
+                        Log.d("id", "get by $id resp")
+                        val cR = response.body()
+                        val workout = Workout.mapFullFromRetEntity(cR!!)
+                        Log.d("id", "get by $workout resp")
+                        Log.d("id", "get by ${cR.exercises.size} resp")
+                        _workout.update { workout }
+                        _id.update { workout.id }
+                        _title.update { workout.title }
+                        _comment.update { workout.comment }
+                        _startDate.update { workout.startStringFormatDate }
+                        _finishDate.update { workout.finishStringFormatDate }
+                        _day.update { workout.day }
+                        _isEven.update { workout.isWeekEven }
+                        _exercises.update { workout.exercises }
+                        _stateLoading.value = false
+                    }
                 }
 
                 override fun onFailure(call: Call<WorkoutRet>, t: Throwable) {

@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -174,18 +175,18 @@ class WorkoutVMCreateEditWEB() : info.upump.jymlight.ui.screens.viewmodel.BaseVM
             }
 
             val service = RetrofitServiceWEB.getWorkoutService().getWorkoutFullById(id)
-            service.enqueue(object : Callback<WorkoutRet>{
+            service.enqueue(object : Callback<WorkoutRet> {
                 override fun onResponse(call: Call<WorkoutRet>, response: Response<WorkoutRet>) {
-                    val workoutRet = response.body()
                     if (response.code() == 200) {
-                        _title.update { workoutRet!!.title }
-                        _id.update {workoutRet!!.id }
-                        _parentId.update { workoutRet!!.parentId }
-                        _comment.update { workoutRet!!.comment }
-                        _isEven.update { workoutRet!!.isWeekEven }
-                        _startDate.update { workoutRet!!.startDate }
-                        _finishDate.update { workoutRet!!.finishDate }
-                        _day.update { Day.valueOf(workoutRet!!.day) }
+                        val workoutRet = Workout.mapFromRetEntity(response.body()!!)
+                        _title.update { workoutRet.title }
+                        _id.update { workoutRet.id }
+                        _parentId.update { workoutRet.parentId }
+                        _comment.update { workoutRet.comment }
+                        _isEven.update { workoutRet.isWeekEven }
+                        _startDate.update { workoutRet.startStringFormatDate }
+                        _finishDate.update { workoutRet.finishStringFormatDate }
+                        _day.update { workoutRet.day }
                     }
                 }
 
@@ -193,43 +194,60 @@ class WorkoutVMCreateEditWEB() : info.upump.jymlight.ui.screens.viewmodel.BaseVM
                     TODO("Not yet implemented")
                 }
             })
-
-            WorkoutRepo.get().getFullEntityBy(id).map {
-                Workout.mapFromFullDbEntity(it)
-            }.collect {
-                with(it) {
-                    _title.update { title }
-                    _id.update { id }
-                    _parentId.update { parentId }
-                    _comment.update { comment }
-                    _isEven.update { isWeekEven }
-                    _startDate.update { startStringFormatDate }
-                    _finishDate.update { finishStringFormatDate }
-                    _day.update { day }
-                }
-            }
         }
     }
 
     override fun saveWith(parentId: Long, callback: (id: Long) -> Unit) {
+        val workout = collectToSave()
+        val workoutRet = Workout.mapToWorkoutRet(workout)
+        workoutRet.parentId = parentId
         viewModelScope.launch(Dispatchers.IO) {
-            val wC = collectToSave()
-            val wE = Workout.mapToEntity(wC)
-            wE.parent_id = parentId
-            val save = WorkoutRepo.get().save(wE)
-            launch(Dispatchers.Main) {
-                callback(save._id)
-            }
+            val workoutsService = RetrofitServiceWEB.getWorkoutService().save(workoutRet)
+            workoutsService.enqueue(object : Callback<ResponseBody> {
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+                    if (response.code() == 201) {
+                        val id = response.headers().get("Location")!!.split("/").last()
+                        callback(id.toLong())
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+            })
         }
     }
 
     override fun save(callback: (id: Long) -> Unit) {
+        val workout = collectToSave()
+        val workoutRet = Workout.mapToWorkoutRet(workout)
+
         viewModelScope.launch(Dispatchers.IO) {
+            val workoutsService = RetrofitServiceWEB.getWorkoutService().update(workoutRet)
+            workoutsService.enqueue(object : Callback<ResponseBody> {
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+                    if (response.code() == 204) {
+                     //   callback(workoutRet.id)
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+            })
+        }
+    /*    viewModelScope.launch(Dispatchers.IO) {
             val wC = collectToSave()
             Log.d("paren", "${parentId.value} ${wC.parentId}")
             val wE = Workout.mapToEntity(wC)
             WorkoutRepo.get().save(wE)
-        }
+        }*/
     }
 
     override fun collectToSave(): Workout {

@@ -31,6 +31,7 @@ import info.upump.jymlight.ui.screens.screenscomponents.screen.DateCardWithDateP
 import info.upump.jymlight.ui.screens.screenscomponents.screen.ImageByDay
 import info.upump.jymlight.ui.screens.screenscomponents.screen.LabelTitleForImage
 import info.upump.jymlight.ui.screens.viewmodel.db.workout.WorkoutVMCreateEditDB
+import info.upump.jymlight.ui.screens.viewmodel.web.workout.WorkoutVMCreateEditWEB
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
@@ -42,7 +43,7 @@ fun EditeWorkoutScreen(
     paddingValues: PaddingValues,
     appBarTitle: MutableState<String>,
 ) {
-    val workoutVM: WorkoutVMCreateEditDB = viewModel()
+    val workoutVM: WorkoutVMCreateEditWEB = viewModel()
     val isLoad by workoutVM.isLoading.collectAsState()
 
     appBarTitle.value = stringResource(id = R.string.edit)
@@ -60,18 +61,21 @@ fun EditeWorkoutScreen(
             ) {
                 if (!workoutVM.isBlankFields()) {
                     workoutVM.save {
+                        navHostController.popBackStack()
+                        navHostController.navigateUp()
                     }
-                    navHostController.popBackStack()
-                    navHostController.navigateUp()
                 }
             }
 
         }) { it ->
-        Column(modifier = Modifier.padding(top = it.calculateTopPadding()
-          /*  modifier = Modifier
-                .fillMaxHeight()
-                .fillMaxWidth()
-                .background(color = colorResource(id = R.color.colorBackgroundConstrateLayout)*/),
+        Column(
+            modifier = Modifier.padding(
+                top = it.calculateTopPadding()
+                /*  modifier = Modifier
+                      .fillMaxHeight()
+                      .fillMaxWidth()
+                      .background(color = colorResource(id = R.color.colorBackgroundConstrateLayout)*/
+            ),
         ) {
             Box(
                 modifier = Modifier.height(200.dp)
@@ -110,7 +114,9 @@ fun EditeWorkoutScreen(
             CardDescriptionWithEdit(
                 workoutVM.comment.collectAsState().value,
                 workoutVM::updateComment,
-                Modifier.weight(3F).padding(bottom = 16.dp)
+                Modifier
+                    .weight(3F)
+                    .padding(bottom = 16.dp)
             )
         }
     }

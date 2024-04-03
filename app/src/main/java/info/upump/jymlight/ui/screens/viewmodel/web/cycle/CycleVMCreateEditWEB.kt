@@ -182,10 +182,8 @@ class CycleVMCreateEditWEB() : BaseVMWithStateLoad(),
             val call = RetrofitServiceWEB.getCycleService().getCycleFullById(id)
             call.enqueue(object : Callback<CycleRet> {
                 override fun onResponse(call: Call<CycleRet>, response: Response<CycleRet>) {
-                    Log.d("id", "get by $id resp")
                     val cR = response.body()
                     val cycle = Cycle.mapFullFromRetEntity(cR!!)
-                    Log.d("id", "get by $cycle resp")
                     _cycle.update { cycle }
                     _title.update { cycle.title }
                     updateId(cycle.id)

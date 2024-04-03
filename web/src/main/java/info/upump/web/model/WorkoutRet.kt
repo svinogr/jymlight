@@ -1,11 +1,11 @@
 package info.upump.web.model
 
 class WorkoutRet(
+    var id: Long = 0,
     var isWeekEven: Boolean = false,
     var isDefaultType: Boolean = false,
     var isTemplate: Boolean = false,
     var day: String = "MONDAY",
-    var id: Long = 0,
     var title: String = "",
     var startDate: String = "",
     var finishDate: String ="",

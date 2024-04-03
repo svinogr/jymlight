@@ -36,6 +36,7 @@ import info.upump.jymlight.ui.screens.screenscomponents.screen.DateCardWithDateP
 import info.upump.jymlight.ui.screens.screenscomponents.screen.ImageByDay
 import info.upump.jymlight.ui.screens.screenscomponents.screen.LabelTitleForImage
 import info.upump.jymlight.ui.screens.viewmodel.db.workout.WorkoutVMCreateEditDB
+import info.upump.jymlight.ui.screens.viewmodel.web.workout.WorkoutVMCreateEditWEB
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
@@ -50,7 +51,7 @@ fun CreateWorkoutScreen(
     appBarTitle: MutableState<String>,
 ) {
     //val workoutVM: WorkoutVMDB = viewModel()
-    val workoutVM: WorkoutVMCreateEditDB = viewModel()
+    val workoutVM: WorkoutVMCreateEditWEB = viewModel()
     val isLoad by workoutVM.isLoading.collectAsState()
 
     val context = LocalContext.current
