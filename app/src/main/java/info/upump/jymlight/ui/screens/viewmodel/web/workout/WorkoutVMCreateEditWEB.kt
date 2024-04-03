@@ -233,7 +233,7 @@ class WorkoutVMCreateEditWEB() : info.upump.jymlight.ui.screens.viewmodel.BaseVM
                     response: Response<ResponseBody>
                 ) {
                     if (response.code() == 204) {
-                     //   callback(workoutRet.id)
+                       callback(workoutRet.id)
                     }
                 }
 
