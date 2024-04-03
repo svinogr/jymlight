@@ -23,7 +23,6 @@ fun ImageTitleImageTitle(modifier: Modifier = Modifier, title: String, isTitleEr
         CardTitle(title, isTitleError, updateText)
     }
 }
-@OptIn(ExperimentalPermissionsApi::class)
 @Preview(showBackground = false)
 @Composable
 fun ImageTitleImageTitlePreviewCycleWithDefaultImage() {
