@@ -242,12 +242,6 @@ class WorkoutVMCreateEditWEB() : info.upump.jymlight.ui.screens.viewmodel.BaseVM
                 }
             })
         }
-    /*    viewModelScope.launch(Dispatchers.IO) {
-            val wC = collectToSave()
-            Log.d("paren", "${parentId.value} ${wC.parentId}")
-            val wE = Workout.mapToEntity(wC)
-            WorkoutRepo.get().save(wE)
-        }*/
     }
 
     override fun collectToSave(): Workout {

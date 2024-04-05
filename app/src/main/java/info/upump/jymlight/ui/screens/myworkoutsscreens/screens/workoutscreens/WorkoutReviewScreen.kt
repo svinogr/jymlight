@@ -59,6 +59,7 @@ import info.upump.jymlight.ui.screens.screenscomponents.screen.StopWatchState
 import info.upump.jymlight.ui.screens.viewmodel.db.workout.SoundTimerVM
 import info.upump.jymlight.ui.screens.viewmodel.db.workout.StopWatchVM
 import info.upump.jymlight.ui.screens.viewmodel.db.workout.WorkoutDetailVMDB
+import info.upump.jymlight.ui.screens.viewmodel.web.workout.WorkoutDetailVMWEB
 import info.upump.jymlight.ui.theme.MyOutlineTextTitleLabel20Text
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -75,7 +76,7 @@ fun WorkoutReview(
 ) {
     val bottomState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
     val context = LocalContext.current
-    val workoutVM: WorkoutDetailVMDB = viewModel()
+    val workoutVM: WorkoutDetailVMWEB = viewModel()
     val stopwatchVM: StopWatchVM = viewModel()
     val soundTimerVM: SoundTimerVM = viewModel()
 
