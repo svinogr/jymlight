@@ -8,7 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import info.upump.jymlight.ui.screens.mainscreen.AppBarAction
 
-const val NAVGRAPH_ROOT_ROUTE = "navgraphRootRoute"
+const val NAV_GRAPH_ROOT_ROUTE = "navgraphRootRoute"
 
 @Composable
 fun NavGraph(
@@ -23,13 +23,15 @@ fun NavGraph(
     val context = LocalContext.current
     NavHost(
         navController = navHostController,
-        startDestination = MY_CYCLE_ROOT_ROUTE,
-        route = NAVGRAPH_ROOT_ROUTE
+        startDestination = LOGIN_ROOT_ROUTE,
+        route = NAV_GRAPH_ROOT_ROUTE
     ) {
         myCycleGraph(navHostController, appBarTitle, appBarStyle,  context, paddingValues, topBarState, bottomBarState, appBarActions)
 
         defaultCycleGraph(navHostController, appBarTitle,appBarStyle,  context, paddingValues, topBarState, bottomBarState)
 
         profileNavGraph(navHostController,appBarTitle,appBarStyle,  context, paddingValues, topBarState, bottomBarState)
+
+        loginGraph(navHostController,appBarTitle,appBarStyle,  context, paddingValues, topBarState, bottomBarState, appBarActions)
     }
 }

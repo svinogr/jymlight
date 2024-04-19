@@ -64,7 +64,7 @@ class CycleVMWEB : BaseVMWithStateLoad(), CycleVMInterface {
                 }
 
                 override fun onFailure(call: Call<List<CycleRet>>, t: Throwable) {
-                    TODO("Not yet implemented")
+
                 }
             })
         }

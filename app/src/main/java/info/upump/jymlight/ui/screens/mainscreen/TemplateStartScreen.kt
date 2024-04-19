@@ -29,7 +29,6 @@ fun TemplateStartScreen(
 ) {
     val listState = rememberLazyListState()
 
-
     val cycleVMDB = if (IS_LOCALDB) {
         val v: CycleVMDB = viewModel()
         v

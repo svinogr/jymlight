@@ -37,6 +37,9 @@ const val SETS_EDITE_ROUTE = "setsEdite"
 
 const val PROFILE_SETTING_ROUTE = "myWorkoutRoute"
 
+const val LOGIN_SCREEN = "loginScreen"
+const val SIGNUP_SCREEN = "signupScreen"
+
 
 sealed class NavigationItem(val title: Int = -1, val route: String, val iconId: Int = -1) {
 
@@ -227,4 +230,14 @@ sealed class NavigationItem(val title: Int = -1, val route: String, val iconId: 
             return this.route.replace(oldValue = DETAIL_ARGUMENT_KEY_ID, newValue = id.toString())
         }
     }
+
+    // login logout screen
+
+    object LoginScreenNavigationItem : NavigationItem(
+        route = LOGIN_SCREEN
+    )
+
+    object SignupScreenNavigationItem : NavigationItem(
+        route = SIGNUP_SCREEN
+    )
 }
