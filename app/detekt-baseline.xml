@@ -1,0 +1,481 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>CyclomaticComplexMethod:ProfileChooseRestoreScreen.kt$suspend fun writeToDb(context: Context, list: List&lt;Cycle&gt;, function: () -&gt; Unit)</ID>
+    <ID>EmptyClassBlock:MainScreen.kt$AppBarAction${ }</ID>
+    <ID>EmptyFunctionBlock:CycleDetailScreenM3.kt$&lt;no name provided&gt;${}</ID>
+    <ID>EmptyFunctionBlock:ExerciseVM.kt$ExerciseVM.Companion.&lt;no name provided&gt;${ }</ID>
+    <ID>EmptyFunctionBlock:WorkoutDetailVM.kt$WorkoutDetailVM${ }</ID>
+    <ID>EmptyIfBlock:DividerCustom.kt${ }</ID>
+    <ID>EmptyIfBlock:SetsVM.kt$SetsVM${ }</ID>
+    <ID>ExplicitItLambdaParameter:CycleCheckVM.kt$CycleCheckVM${ it -&gt; if (id == it.cycle.id) it.isCheck = !it.isCheck }</ID>
+    <ID>ExplicitItLambdaParameter:DefailtStartScreen.kt${ it -&gt; ListItemDefaultsCycle( lazyListState = listState, list = listCycle.value.collectAsState().value, navhost = navHost, ) }</ID>
+    <ID>ExplicitItLambdaParameter:DefaultCycleDetailScreenM3.kt${ it -&gt; SnackBar( text = stringResource(id = R.string.chips_copy), icon = R.drawable.ic_copy, action = { cycleVM.copyToPersonal(id) }, data = it ) }</ID>
+    <ID>ExplicitItLambdaParameter:DefaultExerciseDetailScreen.kt${ it -&gt; Column(modifier = Modifier.padding(top = it.calculateTopPadding())) { Box(modifier = Modifier.height(200.dp)) { ImageForDetailScreen( image = exerciseVM.imageDescription.collectAsState().value, defaultImage = exerciseVM.imageDescriptionDefault.collectAsState().value ) } TableHeader() val deleteSets: (Long) -&gt; Unit = { exerciseVM.deleteSub(it) } ListDefaultSets( modifier = Modifier.weight(4.5f), navHost = navHostController, list = l.value.collectAsState().value, listState = lazyListState, deleteSets, ) } }</ID>
+    <ID>ExplicitItLambdaParameter:DefaultWorkoutDetailScreenM3.kt${ it -&gt; Column( modifier = Modifier .padding(top = it.calculateTopPadding()) .fillMaxHeight() ) { Box(modifier = Modifier.height(200.dp)) { ImageByDay(day = workoutVM.day.collectAsState().value) RowChips( modifier = Modifier.align(Alignment.BottomEnd), Chips( stringResource(id = R.string.chips_comment), R.drawable.ic_info_black_24dp ) { coroutine.launch() { bottomState.show() } } ) } CardDate( workoutVM.startDate.collectAsState().value, workoutVM.finishDate.collectAsState().value, false ) val del: (Long) -&gt; Unit = { workoutVM.deleteSub(it) } ListDefaultExercise( list = exercisesList.value.collectAsState().value, listState, navHost = navHostController, Modifier.weight(4f), ) { del(it) } } }</ID>
+    <ID>ExplicitItLambdaParameter:EditSoundTimerScreen.kt${ it -&gt; Column( modifier = colModifier .background(MaterialTheme.colorScheme.background) .fillMaxWidth() .padding(top = it.calculateTopPadding()) ) { Card( modifier = Modifier .weight(1f) .background(MaterialTheme.colorScheme.background) .padding(start = 8.dp, end = 8.dp), elevation = CardDefaults.cardElevation(0.dp), shape = RoundedCornerShape(0.dp) ) { Column( modifier = colModifier .background(MaterialTheme.colorScheme.background) .fillMaxHeight() ) { Text( modifier = titleModifier, text = stringResource(id = R.string.label_sound_timer_start), color = MaterialTheme.colorScheme.onBackground ) NumberPicker(0, 100, start.value.collectAsState().value) { soundTimerErrorActionEditVM.setStart(it) } } } Card( modifier = Modifier .weight(1f) .background(MaterialTheme.colorScheme.background) .padding(start = 8.dp, end = 8.dp), elevation = CardDefaults.cardElevation(0.dp), shape = RoundedCornerShape(0.dp) ) { Column( modifier = colModifier .background(MaterialTheme.colorScheme.background) .fillMaxHeight() ) { Text( modifier = titleModifier, text = stringResource(id = R.string.label_sound_timer_finish), color = MaterialTheme.colorScheme.onBackground ) NumberPicker(0, 200, finish.value.collectAsState().value) { soundTimerErrorActionEditVM.setFinish(it) } } } Spacer(modifier = Modifier.weight(0.3f)) } }</ID>
+    <ID>ExplicitItLambdaParameter:EditeWorkoutScreen.kt${ it -&gt; Column(modifier = Modifier.padding(top = it.calculateTopPadding() /* modifier = Modifier .fillMaxHeight() .fillMaxWidth() .background(color = colorResource(id = R.color.colorBackgroundConstrateLayout)*/), ) { Box( modifier = Modifier.height(200.dp) ) { ImageByDay(day = workoutVM.day.collectAsState().value) LabelTitleForImage( title = workoutVM.title.collectAsState().value, modifier = Modifier.align( Alignment.BottomStart ) ) } CarDaydWorkoutEdit( workoutVM.day.collectAsState().value, workoutVM::updateDay, workoutVM.isEven.collectAsState().value, workoutVM::updateEven, LocalFocusManager.current, Modifier ) DateCardWithDatePicker( workoutVM.startDate.collectAsState().value, workoutVM::updateStartDate, workoutVM.finishDate.collectAsState().value, workoutVM::updateFinishDate ) CardTitle( text = workoutVM.title.collectAsState().value, isError = workoutVM.isTitleError.collectAsState().value, updateText = workoutVM::updateTitle, ) CardDescriptionWithEdit( workoutVM.comment.collectAsState().value, workoutVM::updateComment, Modifier.weight(3F).padding(bottom = 16.dp) ) } }</ID>
+    <ID>ExplicitItLambdaParameter:ExerciseChooseScreen.kt${ it -&gt; Column { Box( modifier = Modifier .weight(1.5f) .fillMaxWidth() ) { ImageByDay( day = exerciseVM.day.collectAsState().value ) RowChooseChips( modifier = Modifier.align(Alignment.BottomCenter), *list.toTypedArray() ) } val action: (Long) -&gt; Unit = { exerciseVM.saveForParentChosen(it) {id -&gt; navHostController.popBackStack() navHostController.navigate( NavigationItem.DetailExerciseNavigationItem.routeWithId( id ) ) } } ListChooseExercise( list = exerciseVM.subItems.collectAsState().value.filter { it.typeMuscle == filter.value }, lazyListState = listState, navHost = navHostController, modifier = Modifier.weight(4.5f) ) { action(it) } } }</ID>
+    <ID>ExplicitItLambdaParameter:ExersiceReviewScreen.kt${ it -&gt; Column(modifier = Modifier.padding(top = it.calculateTopPadding(), bottom = it.calculateBottomPadding())) { ImageForDetailScreen(modifier = Modifier.height(200.dp), image = exerciseVM.item.collectAsState().value.exerciseDescription!!.img, defaultImage = exerciseVM.item.collectAsState().value.exerciseDescription!!.defaultImg ) CardTypeMuscle(text = stringResource(id = exerciseVM.item.collectAsState().value.typeMuscle.title)) CardDescription(textDescription = exerciseVM.item.collectAsState().value.comment, modifier = Modifier.weight(4.5f)) } }</ID>
+    <ID>ExplicitItLambdaParameter:ListChooseExercise.kt${ index, it -&gt; val state = remember { mutableStateOf(false) } val dismissState = rememberDismissState(confirmStateChange = { value -&gt; true }) SwipeToDismiss( state = dismissState, directions = setOf(), background = { ItemSwipeBackgroundIcon( dismissState = dismissState, state = state.value, actionDelete = {} ) }, dismissContent = { Column(modifier = Modifier) { ExerciseItemCard(exercise = it, navHost = navHost) { state.value = true actionChoose(it) /* navHost.popBackStack() navHost.navigate( NavigationItem.DetailExerciseNavigationItem.routeWithId( it ) )*/ } DividerCustom(dismissState, state = state.value) } }, dismissThresholds = { FractionalThreshold(0.5f) } ) }</ID>
+    <ID>ExplicitItLambdaParameter:ListCycles.kt${ index, it -&gt; val state = remember { mutableStateOf(false) } val dismissState = rememberDismissState(confirmStateChange = { value -&gt; if (value == DismissValue.DismissedToEnd || value == DismissValue.DismissedToStart) { // deleteAction(context, it.image, it.id) } true }) SwipeToDismiss( state = dismissState, directions = setOf(DismissDirection.EndToStart, DismissDirection.StartToEnd), background = { ItemSwipeBackgroundIcon( dismissState = dismissState, state = state.value, actionDelete = {}, ) }, dismissContent = { Column(modifier = Modifier) { val action: () -&gt; Unit = { state.value = true /* navhost.navigate( NavigationItem . DetailCycleNavigationItem . routeWithId (it.id) )*/ } CycleItemCard(cycle = it, action = action) DividerCustom(dismissState, state = state.value) } }, dismissThresholds = { FractionalThreshold(0.5f) } ) }</ID>
+    <ID>ExplicitItLambdaParameter:ListDefaultExercise.kt${ index, it -&gt; val state = remember { mutableStateOf(false) } val dismissState = rememberDismissState(confirmStateChange = { value -&gt; true }) SwipeToDismiss( state = dismissState, directions = setOf(), background = { ItemSwipeBackgroundIcon( dismissState = dismissState, state = state.value, actionDelete = {} ) }, dismissContent = { Column(modifier = Modifier) { ExerciseItemCard(exercise = it, navHost = navHost) { state.value = true navHost.navigate( NavigationItem.DefaultDetailExerciseNavigationItem.routeWithId( it ) ) } DividerCustom(dismissState, state = state.value) } }, dismissThresholds = { FractionalThreshold(0.5f) } ) }</ID>
+    <ID>ExplicitItLambdaParameter:ListDefaultSets.kt${ index, it -&gt; val state = remember { mutableStateOf(false) } val dismissState = rememberDismissState(confirmStateChange = { value -&gt; true }) SwipeToDismiss( state = dismissState, directions = setOf(), background = { ItemSwipeBackgroundIcon( dismissState = dismissState, state = state.value, actionDelete = {} ) }, dismissContent = { Column(modifier = Modifier) { SetsItemCardWithoutClick(it, index) { } DividerCustom(dismissState, state = state.value) } }, dismissThresholds = { FractionalThreshold(0.5f) } ) }</ID>
+    <ID>ExplicitItLambdaParameter:ListDefaultWorkouts.kt${ index, it -&gt; val state = remember { mutableStateOf(false) } val action: () -&gt; Unit = { state.value = true navhost.navigate( NavigationItem.DefaultDetailWorkoutNavigationItem.routeWithId( it.id ) ) } val dismissState = rememberDismissState(confirmStateChange = { value -&gt; true }) SwipeToDismiss( state = dismissState, directions = setOf(), background = { ItemSwipeBackgroundIcon( dismissState = dismissState, state = state.value, actionDelete = {} ) }, dismissContent = { Column(modifier = Modifier) { WorkoutItemCard(it, action) DividerCustom(dismissState, state = state.value) } }, dismissThresholds = { FractionalThreshold(0.5f) } ) }</ID>
+    <ID>ExplicitItLambdaParameter:ListDefaultWorkouts.kt${ index, it -&gt; val state = remember { mutableStateOf(false) } val dismissState = rememberDismissState(confirmStateChange = { value -&gt; true }) SwipeToDismiss( state = dismissState, directions = setOf(), background = { ItemSwipeBackgroundIcon( dismissState = dismissState, state = state.value, actionDelete = {} ) }, dismissContent = { Column(modifier = Modifier) { val action: () -&gt; Unit = { state.value = true navhost.navigate( NavigationItem.DefaultDetailWorkoutNavigationItem.routeWithId( it.id ) ) } WorkoutItemCard(workout = it, action) DividerCustom(dismissState, state = state.value) } }, dismissThresholds = { FractionalThreshold(0.5f) } ) }</ID>
+    <ID>ExplicitItLambdaParameter:ListExercise.kt${ index, it -&gt; val state = remember { mutableStateOf(false) } val dismissState = rememberDismissState(confirmStateChange = { value -&gt; if (value == DismissValue.DismissedToEnd || value == DismissValue.DismissedToStart) { Log.d("exe", "ListExercise: ${it.exerciseDescription!!.title}") // actionDel(it.id) true } else { false } }) val deleteAction = {actionDel(it.id)} SwipeToDismiss( state = dismissState, directions = setOf(DismissDirection.EndToStart, DismissDirection.StartToEnd), background = { ItemSwipeBackgroundIcon( dismissState = dismissState, state = state.value, actionDelete = deleteAction ) }, dismissContent = { Column(modifier = Modifier) { ExerciseItemCard(exercise = it, navHost = navHost) { state.value = true navHost.navigate( NavigationItem.DetailExerciseNavigationItem.routeWithId( it ) ) } DividerCustom(dismissState, state = state.value) } }, dismissThresholds = { FractionalThreshold(0.5f) } ) }</ID>
+    <ID>ExplicitItLambdaParameter:ListItemDefaultsCycle.kt${ index, it -&gt; val state = remember { mutableStateOf(false) } val action: () -&gt; Unit = { state.value = true navhost.navigate(NavigationItem.DefaultDetailCycleNavigationItem.routeWithId(it.id)) } val dismissState = rememberDismissState(confirmStateChange = { value -&gt; true }) SwipeToDismiss( state = dismissState, directions = setOf(), background = { ItemSwipeBackgroundIcon( dismissState = dismissState, state = state.value, actionDelete = {} ) }, dismissContent = { Column(modifier = Modifier) { CycleItemCard(cycle = it, action = action) DividerCustom(dismissState, state = state.value) } }, dismissThresholds = { FractionalThreshold(0.5f) } ) }</ID>
+    <ID>ExplicitItLambdaParameter:ListSets.kt${ index, it -&gt; val state = remember { mutableStateOf(false) } val dismissState = rememberDismissState(confirmStateChange = {value -&gt; if(value == DismissValue.DismissedToEnd || value == DismissValue.DismissedToStart) { //deleteAction(it.id) true } else { false } }) val actionDelete = {deleteAction(it.id)} SwipeToDismiss( state = dismissState, directions = setOf(DismissDirection.EndToStart, DismissDirection.StartToEnd), background = { ItemSwipeBackgroundIcon( dismissState = dismissState, state = state.value, actionDelete = actionDelete ) }, dismissContent = { Column(modifier = Modifier) { SetsItemCard(it, index){ state.value = true navHost.navigate(NavigationItem.EditSetsNavigationItem.routeWithId(it.id)) } DividerCustom(dismissState, state = state.value) } }, dismissThresholds = { FractionalThreshold(0.5f) } ) }</ID>
+    <ID>ExplicitItLambdaParameter:ListWorkoutForReview.kt${ index, it -&gt; Column { SetsItemCard( sets = it, number = index ) {} DividerCustomBottom() } }</ID>
+    <ID>ExplicitItLambdaParameter:ListWorkouts.kt${ index, it -&gt; val state = remember { mutableStateOf(false) } val dismissState = rememberDismissState(confirmStateChange = { value -&gt; if (value == DismissValue.DismissedToEnd || value == DismissValue.DismissedToStart) { /* deleteAction(it.id)*/ true } else { false } }) val actionDelete = {deleteAction(it.id)} SwipeToDismiss( state = dismissState, directions = setOf(DismissDirection.EndToStart, DismissDirection.StartToEnd), background = { ItemSwipeBackgroundIcon( dismissState = dismissState, state = state.value, actionDelete = actionDelete ) }, dismissContent = { Column(modifier = Modifier) { val action: () -&gt; Unit = { state.value = true navhost.navigate( NavigationItem.DetailWorkoutNavigationItem.routeWithId( it.id ) ) } WorkoutItemCard(workout = it, action) DividerCustom(dismissState, state = state.value) } }, dismissThresholds = { FractionalThreshold(0.5f) } ) }</ID>
+    <ID>ExplicitItLambdaParameter:ListWorkouts.kt${ index, it -&gt; val state = remember { mutableStateOf(false) } val dismissState = rememberDismissState(confirmStateChange = { value -&gt; if (value == DismissValue.DismissedToEnd || value == DismissValue.DismissedToStart) { // deleteAction(it.id) true } else { false } }) val actionDelete = {deleteAction(it.id)} SwipeToDismiss( state = dismissState, directions = setOf(DismissDirection.EndToStart, DismissDirection.StartToEnd), background = { ItemSwipeBackgroundIcon( dismissState = dismissState, state = state.value, actionDelete = actionDelete) }, dismissContent = { Column(modifier = Modifier) { val action: () -&gt; Unit = { state.value = true navhost.navigate( NavigationItem.DetailWorkoutNavigationItem.routeWithId( it.id ) ) } WorkoutItemCard(workout = it, action) DividerCustom(dismissState, state = state.value) } }, dismissThresholds = { FractionalThreshold(0.5f) } ) }</ID>
+    <ID>ExplicitItLambdaParameter:MyExerciseDetailScreen.kt${ it -&gt; Column(modifier = Modifier.padding(top = it.calculateTopPadding())) { Box(modifier = Modifier.height(200.dp)) { ImageForDetailScreen( image = exerciseVM.imageDescription.collectAsState().value, defaultImage = exerciseVM.imageDescriptionDefault.collectAsState().value ) RowChips(modifier = Modifier.align(Alignment.BottomEnd), Chips( stringResource(id = R.string.snack_exersice_delete_sets), R.drawable.ic_delete_24 ) { coroutine.launch { snackBarHostState.showSnackbar("") } } ) } TableHeader() val deleteSets: (Long) -&gt; Unit = { exerciseVM.deleteSub(it) } ListSets( modifier = Modifier.weight(4.5f), navHost = navHostController, list = l.value.collectAsState().value, listState = lazyListState, deleteSets, ) } }</ID>
+    <ID>ExplicitItLambdaParameter:MyStartScreen.kt${ it -&gt; val del: (Context, String, Long) -&gt; Unit = cycleVM::delete ListCycle( lazyListState = listState, list = list.collectAsState().value, navhost = navHost, deleteAction = del ) }</ID>
+    <ID>ExplicitItLambdaParameter:ProfileChooseBackupScreen.kt${ it -&gt; Column { ListItemCycleWithCheck( lazyListState = listState, list = list.value.collectAsState().value, action = action ) } }</ID>
+    <ID>ExplicitItLambdaParameter:ProfileChooseBackupScreen.kt${ it -&gt; Column { Row( modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically ) { Checkbox( modifier = Modifier.padding(start = 8.dp), checked = true, onCheckedChange = {} ) Text(text = "ВСЕ") } ListItemCycleWithCheck( lazyListState = listState, list = list.value.collectAsState().value, action = action ) } }</ID>
+    <ID>ExplicitItLambdaParameter:ProfileChooseBackupScreen.kt${ it -&gt; Column(modifier = Modifier.fillMaxWidth()) { ListItemCycleWithCheck( lazyListState = listState, list = list, ) {} } }</ID>
+    <ID>ExplicitItLambdaParameter:ProfileChooseBackupScreen.kt${ it -&gt; Column(modifier = Modifier.fillMaxWidth()) { Row( modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically ) { Checkbox( modifier = Modifier.padding(start = 8.dp), checked = true, onCheckedChange = {} ) Text(text = "ВСЕ") } ListItemCycleWithCheck( lazyListState = listState, list = list, ) {} } }</ID>
+    <ID>ExplicitItLambdaParameter:ProfileChooseRestoreScreen.kt${ it -&gt; Column { ListItemCycleWithCheck( lazyListState = listState, list = list.value.collectAsState().value, action = action ) } }</ID>
+    <ID>ExplicitItLambdaParameter:ProfileChooseRestoreScreen.kt${ it -&gt; Column { Row( modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically ) { Checkbox( modifier = Modifier.padding(start = 8.dp), checked = true, onCheckedChange = {} ) Text(text = "ВСЕ") } ListItemCycleWithCheck( lazyListState = listState, list = list.value.collectAsState().value, action = action ) } }</ID>
+    <ID>ExplicitItLambdaParameter:ProfileChooseRestoreScreen.kt${ it -&gt; Column(modifier = Modifier.fillMaxWidth()) { ListItemCycleWithCheck( lazyListState = listState, list = list, ) {} } }</ID>
+    <ID>ExplicitItLambdaParameter:ProfileChooseRestoreScreen.kt${ it -&gt; Column(modifier = Modifier.fillMaxWidth()) { Row( modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically ) { Checkbox( modifier = Modifier.padding(start = 8.dp), checked = true, onCheckedChange = {} ) Text(text = "ВСЕ") } ListItemCycleWithCheck( lazyListState = listState, list = list, ) {} } }</ID>
+    <ID>ExplicitItLambdaParameter:ProfileScreen.kt${ it -&gt; Box( modifier = Modifier .fillMaxHeight() .background(MaterialTheme.colorScheme.background) ) { LazyColumn(modifier = Modifier.background(MaterialTheme.colorScheme.background)) { item { CardDescriptionVariableTitle(title = stringResource(id = R.string.action_with_db)) } item { val state = remember { mutableStateOf(false) } val dismissState = rememberDismissState(confirmStateChange = { value -&gt; true }) SwipeToDismiss( state = dismissState, directions = setOf(), background = { ItemSwipeBackgroundIcon( dismissState = dismissState, state = state.value, actionDelete = {} ) }, dismissContent = { Column(modifier = Modifier) { ItemButton( action = { navHostController.navigate(NavigationItem.ChooseSendProfileNavigation.route) }, icon = R.drawable.ic_send_to_email, title = stringResource(id = R.string.pref_title_write_to_email) ) DividerCustom(dismissState, state = state.value) } } ) } item { val state = remember { mutableStateOf(false) } val dismissState = rememberDismissState(confirmStateChange = { value -&gt; true }) SwipeToDismiss( state = dismissState, directions = setOf(), background = { ItemSwipeBackgroundIcon( dismissState = dismissState, state = state.value, actionDelete = {} ) }, dismissContent = { Column(modifier = Modifier) { ItemButton( action = { state.value = true launch.launch("*/*") state.value = false }, icon = R.drawable.ic_down_to_db, title = stringResource(id = R.string.pref_title_read_from_db) ) DividerCustom(dismissState, state = state.value) } } ) } } } }</ID>
+    <ID>ExplicitItLambdaParameter:ProfileScreen.kt${ it -&gt; val fileUri = it.readBytes() val dir = context.filesDir val file = File(dir, NAME_RESTORE_FILE) FileOutputStream(file).use { it.write(fileUri) } }</ID>
+    <ID>ExplicitItLambdaParameter:RowChips.kt${ it -&gt; AssistChip( onClick = { it.action() }, label = { Text(text = it.title, color = MaterialTheme.colorScheme.onPrimary) }, modifier = Modifier.padding(end = 4.dp, start = 4.dp), border = AssistChipDefaults.assistChipBorder(borderColor = MaterialTheme.colorScheme.onPrimary), colors = AssistChipDefaults.assistChipColors( leadingIconContentColor = MaterialTheme.colorScheme.onPrimary, ), leadingIcon = { Icon( painter = painterResource(id = it.icon), " ", Modifier.size(AssistChipDefaults.IconSize) ) } ) }</ID>
+    <ID>ExplicitItLambdaParameter:SetEditeScreen.kt${ it -&gt; Column( modifier = colModifier.background(MaterialTheme.colorScheme.background) .fillMaxWidth() .padding(top = it.calculateTopPadding()) ) { Card( modifier = Modifier.background(MaterialTheme.colorScheme.background) .weight(1f) .fillMaxWidth() .padding(start = 8.dp, end = 8.dp), elevation = CardDefaults.cardElevation(0.dp), shape = RoundedCornerShape(0.dp) ) { Column( modifier = colModifier.fillMaxHeight().background(MaterialTheme.colorScheme.background) ) { Text( modifier = titleModifier.fillMaxWidth(), text = stringResource(id = R.string.label_weight_set), color = MaterialTheme.colorScheme.onBackground ) NumberPickerWithStep(min = 0.0, max = 200, step = 1.25, initialState = setVM.weight.collectAsState().value) { setVM.updateWeight(it) } } } Card( modifier = Modifier.background(MaterialTheme.colorScheme.background) .weight(1f) .padding(start = 8.dp, end = 8.dp), elevation = CardDefaults.cardElevation(0.dp), shape = RoundedCornerShape(0.dp) ) { Column(modifier = colModifier.fillMaxHeight().background(MaterialTheme.colorScheme.background)) { Text( modifier = titleModifier, text = stringResource(id = R.string.label_reps_sets), color = MaterialTheme.colorScheme.onBackground ) NumberPicker(0, 100, setVM.reps.collectAsState().value) { setVM.updateReps(it) } } } Spacer(modifier = Modifier.weight(1.3f)) } }</ID>
+    <ID>ExplicitItLambdaParameter:SetsCreateScreen.kt${ it -&gt; Column( modifier = colModifier.background(MaterialTheme.colorScheme.background) .fillMaxWidth() .padding(top = it.calculateTopPadding()) ) { Card( modifier = Modifier.background(MaterialTheme.colorScheme.background) .weight(1f) .fillMaxWidth().padding(start = 8.dp, end = 8.dp), elevation = CardDefaults.cardElevation(0.dp), shape = RoundedCornerShape(0.dp) ) { Column( modifier = colModifier.fillMaxHeight().background(MaterialTheme.colorScheme.background) ) { Text( modifier = titleModifier, text = stringResource(id = R.string.label_weight_set), color = MaterialTheme.colorScheme.onBackground ) NumberPickerWithStep(min = 0.0, max = 200, step = 1.25, initialState = setVM.weight.collectAsState().value) { setVM.updateWeight(it) } } } Card( modifier = Modifier.weight(1f).background(MaterialTheme.colorScheme.background).padding(start = 8.dp, end = 8.dp), elevation = CardDefaults.cardElevation(0.dp), shape = RoundedCornerShape(0.dp) ) { Column(modifier = colModifier.background(MaterialTheme.colorScheme.background).fillMaxHeight()) { Text( modifier = titleModifier, text = stringResource(id = R.string.label_reps_sets), color = MaterialTheme.colorScheme.onBackground ) NumberPicker(0, 100, setVM.reps.collectAsState().value) { setVM.updateReps(it) } } } Card( modifier = Modifier.weight(1f).background(MaterialTheme.colorScheme.background).padding(start = 8.dp, end = 8.dp), elevation = CardDefaults.cardElevation(0.dp), shape = RoundedCornerShape(0.dp) ) { Column(modifier = colModifier.background(MaterialTheme.colorScheme.background).fillMaxHeight()) { Text(modifier = titleModifier, text = stringResource(id = R.string.label_sets), color = MaterialTheme.colorScheme.onBackground) NumberPicker(0, 200, setVM.quantity.collectAsState().value) { Log.d("q", it.toString()) setVM.updateQuantity(it) } } } Spacer(modifier = Modifier.weight(0.3f)) } }</ID>
+    <ID>ExplicitItLambdaParameter:WorkoutDetailScreenM3.kt${ it -&gt; Column( modifier = Modifier .padding(top = it.calculateTopPadding()) .fillMaxHeight() ) { Box(modifier = Modifier.height(200.dp)) { ImageByDay(day = workoutVM.day.collectAsState().value) RowChips( modifier = Modifier.align(Alignment.BottomCenter), Chips( stringResource(id = R.string.chips_clear), R.drawable.ic_delete_24, ) { coroutine.launch { snackBarHostState.showSnackbar("") } }, Chips( stringResource(id = R.string.to_view_workout), R.drawable.ic_yey ) { coroutine.launch() { navHostController.navigate(NavigationItem.ReviewWorkoutNavigationItem.routeWith(id)) } }, Chips( stringResource(id = R.string.chips_comment), R.drawable.ic_info_black_24dp ) { coroutine.launch() { bottomState.show() } }, Chips( stringResource(id = R.string.chips_edite), R.drawable.ic_edit_black_24dp, ) { navHostController.navigate( NavigationItem.EditeWorkoutNavigationItem.routeWith( id ) ) }, ) } CardDate( workoutVM.startDate.collectAsState().value, workoutVM.finishDate.collectAsState().value, false ) val del: (Long) -&gt; Unit = { workoutVM.deleteSub(it) } ListExercise( list = exercisesList.value.collectAsState().value, listState, navHost = navHostController, Modifier.weight(4f), ) { del(it) } } }</ID>
+    <ID>ExplicitItLambdaParameter:WorkoutReviewScreen.kt${ it -&gt; Column( modifier = Modifier .padding( top = it.calculateTopPadding(), bottom = it.calculateBottomPadding() ) .fillMaxHeight() ) { ListWorkoutForReview( exercise.collectAsState().value, Modifier.weight(4f) ) SoundTimer( status = statusSound.value.collectAsState().value, soundTime = soundTime.value.collectAsState().value, start = startSoundMiles.value.collectAsState().value, finish = finishSoundMiles.value.collectAsState().value, startAction = startAction, stopAction = stopAction, editAction = editAction ) StopWatch( time =time.collectAsState().value, stopwatchState = status.collectAsState().value, stateSoundEveryTime = stateSoundEveryTime.value.collectAsState().value, checkSoundEveryTime = stopwatchVM::setSoundEveryTime, start = stopwatchVM::start, stop = stopwatchVM::stop, pause = stopwatchVM::pause, resume = stopwatchVM::resume ) } }</ID>
+    <ID>ExplicitItLambdaParameter:WorkoutReviewScreen.kt${ it -&gt; Column( modifier = Modifier .padding(top = it.calculateTopPadding()) ) { ListWorkoutForReview(list, modifier = Modifier.weight(3f)) Divider( thickness = 1.dp, modifier = Modifier .fillMaxWidth() .padding(8.dp) ) } }</ID>
+    <ID>FunctionNaming:BottomSheet.kt$@Composable fun BottomSheet(text: String, modifier: Modifier = Modifier)</ID>
+    <ID>FunctionNaming:BottomSheet.kt$@Preview(showSystemUi = true, showBackground = true) @Composable fun BottomSheetPreview()</ID>
+    <ID>FunctionNaming:CardDate.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun CardDate( startDate: String, finishDate: String, readonly: Boolean = true, modifier: Modifier = Modifier )</ID>
+    <ID>FunctionNaming:CardDate.kt$@Preview(showBackground = true) @Composable fun CardDate()</ID>
+    <ID>FunctionNaming:CardDateWithDatePicker.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun DateCardWithDatePicker( startDate: String, updateStartString: (Date) -&gt; Unit, finishDate: String, updateFinishString: (Date) -&gt; Unit, modifier: Modifier = Modifier, readonly: Boolean = true, context: Context = LocalContext.current )</ID>
+    <ID>FunctionNaming:CardDateWithDatePicker.kt$@Preview(showBackground = true, showSystemUi = true) @Composable fun CarDatedWithDatePickerPreview()</ID>
+    <ID>FunctionNaming:CardDay.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun CardDay(day: Day, isEven: Boolean, modifier: Modifier = Modifier)</ID>
+    <ID>FunctionNaming:CardDay.kt$@Preview(showSystemUi = true, showBackground = true) @Composable fun DayCardPreview()</ID>
+    <ID>FunctionNaming:CardDayWithEdit.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun CarDaydWorkoutEdit( day: Day, updateDay: (Day) -&gt; Unit, isEven: Boolean, updateEven: (Boolean) -&gt; Unit, focus: FocusManager, modifier: Modifier = Modifier )</ID>
+    <ID>FunctionNaming:CardDayWithEdit.kt$@Preview(showSystemUi = true, showBackground = true) @Composable fun DayCardWorkoutEditPreview()</ID>
+    <ID>FunctionNaming:CardDayWithEdit.kt$@Preview(showSystemUi = true, showBackground = true) @Composable fun DayCardWorkoutEditPreview1()</ID>
+    <ID>FunctionNaming:CardDayWithEdit.kt$@Preview(showSystemUi = true, showBackground = true) @Composable fun DayCardWorkoutEditPreview2()</ID>
+    <ID>FunctionNaming:CardDescription.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun CardDescription( modifier: Modifier = Modifier, textDescription: String, readonly: Boolean = true )</ID>
+    <ID>FunctionNaming:CardDescription.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun CardDescriptionVariableTitle( modifier: Modifier = Modifier, title: String = "", textDescription: String = "", readonly: Boolean = true )</ID>
+    <ID>FunctionNaming:CardDescription.kt$@Preview(showBackground = true) @Composable fun DescriptionCardPreview2()</ID>
+    <ID>FunctionNaming:CardDescription.kt$@Preview(showBackground = true) @Composable fun DescriptionCardTitle()</ID>
+    <ID>FunctionNaming:CardDescription.kt$@Preview(showBackground = true, showSystemUi = true) @Composable fun DescriptionCardPreview()</ID>
+    <ID>FunctionNaming:CardDescriptionWithVm.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun CardDescriptionWithEdit( textComment: String, updateComment: (String) -&gt; Unit, modifier: Modifier = Modifier )</ID>
+    <ID>FunctionNaming:CardDescriptionWithVm.kt$@Preview(showBackground = true, showSystemUi = true) @Composable fun DescriptionCardWithVMPreview()</ID>
+    <ID>FunctionNaming:CardTitle.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun CardTitle( text: String, isError: Boolean, updateText: (String) -&gt; Unit, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:CardTitle.kt$@Preview(showBackground = true) @Composable fun CardTitlePreviewCycle()</ID>
+    <ID>FunctionNaming:CardTitle.kt$@Preview(showBackground = true) @Composable fun CardTitlePreviewWorkout()</ID>
+    <ID>FunctionNaming:CardTitle.kt$@Preview(showBackground = true) @Composable fun CardTitlePreviewWorkoutError()</ID>
+    <ID>FunctionNaming:CardTitle.kt$@Preview(showBackground = true) @Composable fun CardTitlePreviewWorkoutNotitle()</ID>
+    <ID>FunctionNaming:CardTitle.kt$@Preview(showBackground = true, showSystemUi = true) @Composable fun CardTitlePreviewCycleError()</ID>
+    <ID>FunctionNaming:CardTypeMuscle.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun CardTypeMuscle( text: String, readOnly: Boolean = true, modifier: Modifier = Modifier )</ID>
+    <ID>FunctionNaming:CardTypeMuscle.kt$@Preview(showBackground = true) @Composable fun CardTypeMusclePreview()</ID>
+    <ID>FunctionNaming:CreateEditeCycleScreen.kt$@Preview(showBackground = true, showSystemUi = true) @Composable fun PreviewCreateEditeCycleScreen()</ID>
+    <ID>FunctionNaming:CreateEditeCycleScreen.kt$@Preview(showBackground = true, showSystemUi = true) @Composable fun PreviewCreateEditeCycleScreen2()</ID>
+    <ID>FunctionNaming:CreateEditeCycleScreen.kt$@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter") @OptIn(ExperimentalMaterial3Api::class) @Composable fun CreateEditeCycleScreen( id: Long, navHostController: NavHostController, paddingValues: PaddingValues, appBarTitle: MutableState&lt;String&gt;, action: ActionState )</ID>
+    <ID>FunctionNaming:CreateWorkoutScreen.kt$@Preview(showBackground = true, showSystemUi = true) @Composable fun PreviewCreateEditeWorkoutScreen()</ID>
+    <ID>FunctionNaming:CreateWorkoutScreen.kt$@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter") @OptIn(ExperimentalMaterial3Api::class) @Composable fun CreateWorkoutScreen( parentId: Long, navHostController: NavHostController, paddingValues: PaddingValues, appBarTitle: MutableState&lt;String&gt;, )</ID>
+    <ID>FunctionNaming:CycleDetailScreenM3.kt$@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class) @Composable fun AlterCycleDetailScreenM3( id: Long, navHostController: NavHostController, paddingValues: PaddingValues, appBarTitle: MutableState&lt;String&gt; )</ID>
+    <ID>FunctionNaming:CycleDetailScreenM3.kt$@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class) @Preview(showSystemUi = true, showBackground = true) @Composable fun AlterCycleDetailScreenPreview()</ID>
+    <ID>FunctionNaming:CycleItemCard.kt$@Composable fun CycleItemCard( modifier: Modifier = Modifier, cycle: Cycle, action: () -&gt; Unit, )</ID>
+    <ID>FunctionNaming:CycleItemCard.kt$@RequiresApi(Build.VERSION_CODES.P) @Preview(showBackground = true) @Composable fun PreviewCycleItemCard2()</ID>
+    <ID>FunctionNaming:CycleItemCard.kt$@RequiresApi(Build.VERSION_CODES.P) @Preview(showBackground = true) @Composable fun PreviewCycleItemCard3()</ID>
+    <ID>FunctionNaming:CycleItemCard.kt$@RequiresApi(Build.VERSION_CODES.P) @Preview(showBackground = true, showSystemUi = true) @Composable fun PreviewCycleItemCard()</ID>
+    <ID>FunctionNaming:CycleItemCardWithCheck.kt$@Composable fun CycleItemCardWithCheck( modifier: Modifier = Modifier, cycle: CycleCheck, action: () -&gt; Unit, )</ID>
+    <ID>FunctionNaming:CycleItemCardWithCheck.kt$@Preview(showBackground = true, showSystemUi = true) @Composable fun PreviewCycleItemCardWithCheck()</ID>
+    <ID>FunctionNaming:DefailtStartScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun DefaultStartScreen( navHost: NavHostController, paddingValues: PaddingValues, )</ID>
+    <ID>FunctionNaming:DefaultCycleDetailScreenM3.kt$@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class) @Composable fun DefaultCycleDetailScreenM3( id: Long, navHostController: NavHostController, paddingValues: PaddingValues, appBarTitle: MutableState&lt;String&gt; )</ID>
+    <ID>FunctionNaming:DefaultExerciseDetailScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun DefaultExerciseDetailScreen( id: Long, navHostController: NavHostController, paddingValues: PaddingValues, appBarTitle: MutableState&lt;String&gt; )</ID>
+    <ID>FunctionNaming:DefaultWorkoutDetailScreenM3.kt$@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class) @Composable fun DefaultWorkoutDetailScreenM3( id: Long, navHostController: NavHostController, paddingValues: PaddingValues, appBarTitle: MutableState&lt;String&gt; )</ID>
+    <ID>FunctionNaming:DividerCustom.kt$@Composable fun DividerCustomBottom(modifier: Modifier = Modifier, state: Boolean = false)</ID>
+    <ID>FunctionNaming:DividerCustom.kt$@Composable fun DividerCustomTop(modifier: Modifier = Modifier, state: Boolean = false)</ID>
+    <ID>FunctionNaming:DividerCustom.kt$@OptIn(ExperimentalMaterialApi::class) @Composable fun DividerCustom( dismissState: DismissState, modifier: Modifier = Modifier, state: Boolean = false )</ID>
+    <ID>FunctionNaming:DividerCustom.kt$@OptIn(ExperimentalMaterialApi::class) @Preview(showBackground = true, showSystemUi = true) @Composable fun DividerPreview()</ID>
+    <ID>FunctionNaming:DividerCustom.kt$@Preview(showBackground = true, showSystemUi = true) @Composable fun DividerCustomDefPreview(modifier: Modifier = Modifier, state: Boolean = false)</ID>
+    <ID>FunctionNaming:EditSoundTimerScreen.kt$@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class) @Composable fun EditSoundTimerScreen( navHostController: NavHostController, paddingValues: PaddingValues, appBarTitle: MutableState&lt;String&gt;, appBarActions: MutableState&lt;List&lt;AppBarAction&gt;&gt; )</ID>
+    <ID>FunctionNaming:EditSoundTimerScreen.kt$@Preview @Composable fun PreviewEditSoundTimer()</ID>
+    <ID>FunctionNaming:EditeWorkoutScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun EditeWorkoutScreen( id: Long, navHostController: NavHostController, paddingValues: PaddingValues, appBarTitle: MutableState&lt;String&gt;, )</ID>
+    <ID>FunctionNaming:EditeWorkoutScreen.kt$@Preview(showBackground = true, showSystemUi = true) @Composable fun EditeWorkoutScreenPreview()</ID>
+    <ID>FunctionNaming:EmptyItem.kt$@Composable fun EmptyItem(size: Dp = 50.dp, modifier: Modifier = Modifier )</ID>
+    <ID>FunctionNaming:EmptyItem.kt$@Preview(showBackground = true, showSystemUi = true) @Composable fun EmptyItemPreview()</ID>
+    <ID>FunctionNaming:ExerciseChooseScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun ExerciseChooseScreen( parentId: Long, navHostController: NavHostController, paddingValues: PaddingValues, appBarTitle: MutableState&lt;String&gt;, modifier: Modifier = Modifier )</ID>
+    <ID>FunctionNaming:ExerciseChooseScreen.kt$@Preview(showBackground = true, showSystemUi = true) @Composable fun ExerciseChooseScreenPreview()</ID>
+    <ID>FunctionNaming:ExerciseItemCard.kt$@Composable fun ExerciseItemCard( exercise: Exercise, navHost: NavController, modifier: Modifier = Modifier, actionNav: (Long) -&gt; Unit )</ID>
+    <ID>FunctionNaming:ExerciseItemCard.kt$@Preview(showSystemUi = true, showBackground = true) @Composable fun PreviewExerciseItemCard()</ID>
+    <ID>FunctionNaming:ExersiceReviewScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun ExerciseReviewScreen( id: Long, navHostController: NavHostController, paddingValues: PaddingValues, appBarTitle: MutableState&lt;String&gt;, )</ID>
+    <ID>FunctionNaming:ExersiceReviewScreen.kt$@Preview(showBackground = true, showSystemUi = true) @Composable fun ExersiceReviewScreenPreview()</ID>
+    <ID>FunctionNaming:FloatActionButtonWithState.kt$@Composable fun FloatActionButtonWithState(isVisible: Boolean, icon: Int, action: () -&gt; Unit)</ID>
+    <ID>FunctionNaming:FloatActionButtonWithState.kt$@SuppressLint("UnrememberedMutableState") @Preview(showBackground = true) @Composable fun PreviewFab()</ID>
+    <ID>FunctionNaming:FloatActionButtonWithState.kt$@SuppressLint("UnrememberedMutableState") @Preview(showBackground = true) @Composable fun PreviewFab2()</ID>
+    <ID>FunctionNaming:FloatExtendedButtonWithState.kt$@Composable fun FloatButtonWithState( text: String, isVisible: Boolean, icon: Int, modifier: Modifier = Modifier, action: () -&gt; Unit )</ID>
+    <ID>FunctionNaming:FloatExtendedButtonWithState.kt$@Composable fun FloatExtendedButtonWithState( text: String, isVisible: Boolean, icon: Int, modifier: Modifier = Modifier, action: () -&gt; Unit )</ID>
+    <ID>FunctionNaming:FloatExtendedButtonWithState.kt$@Preview(showBackground = true) @Composable fun FloatButtonWithStatePreview()</ID>
+    <ID>FunctionNaming:FloatExtendedButtonWithState.kt$@SuppressLint("UnrememberedMutableState") @Preview(showBackground = false, showSystemUi = true) @Composable fun PreviewFloatExtendedButtonWithState2()</ID>
+    <ID>FunctionNaming:FloatExtendedButtonWithState.kt$@SuppressLint("UnrememberedMutableState") @Preview(showBackground = true) @Composable fun PreviewFloatExtendedButtonWithState()</ID>
+    <ID>FunctionNaming:ImageByDay.kt$@Composable fun ImageByDay( day: Day, modifier: Modifier = Modifier )</ID>
+    <ID>FunctionNaming:ImageByDay.kt$@Preview @Composable fun ImageByDayPreview2()</ID>
+    <ID>FunctionNaming:ImageByDay.kt$@Preview(showBackground = true) @Composable fun ImageByDayPreview()</ID>
+    <ID>FunctionNaming:ImageForDetailScreen.kt$@Composable fun ImageForDetailScreen( image: String, defaultImage: String, modifier: Modifier = Modifier )</ID>
+    <ID>FunctionNaming:ImageForDetailScreen.kt$@Preview @Composable fun ImageForDetailScreenPreview()</ID>
+    <ID>FunctionNaming:ImageTitleImageTitle.kt$@Composable fun ImageTitleImageTitle(modifier: Modifier = Modifier, title: String, isTitleError: Boolean, updateText: (String) -&gt; Unit, content: @Composable() ()-&gt; Unit)</ID>
+    <ID>FunctionNaming:ImageTitleImageTitle.kt$@OptIn(ExperimentalPermissionsApi::class) @Preview(showBackground = false) @Composable fun ImageTitleImageTitlePreviewCycleWithDefaultImage()</ID>
+    <ID>FunctionNaming:ImageWithPicker.kt$@OptIn(ExperimentalPermissionsApi::class) @Composable fun ImageWithPicker(image: String, defaultImage: String, updateImage: (String) -&gt; Unit)</ID>
+    <ID>FunctionNaming:ImageWithPicker.kt$@Preview @Composable fun Button()</ID>
+    <ID>FunctionNaming:ImageWithPicker.kt$@Preview(showBackground = true, showSystemUi = true) @Composable fun ImageWithPickerPreview()</ID>
+    <ID>FunctionNaming:ItemButton.kt$@Composable fun ItemButton( modifier: Modifier = Modifier, title: String, icon: Int, action: () -&gt; Unit )</ID>
+    <ID>FunctionNaming:ItemButton.kt$@Preview(showBackground = true) @Composable fun ItemButtonPreview()</ID>
+    <ID>FunctionNaming:ItemImage.kt$@Composable fun ItemImage( modifier: Modifier = Modifier, image: String, defaultImage: String, action: () -&gt; Unit )</ID>
+    <ID>FunctionNaming:ItemImage.kt$@Preview(showBackground = true) @Composable fun ItemImagePreview()</ID>
+    <ID>FunctionNaming:ItemSwipeBackgroundIcon.kt$@OptIn(ExperimentalMaterial3Api::class) @Preview(showBackground = true, showSystemUi = true) @Composable fun Preview()</ID>
+    <ID>FunctionNaming:ItemSwipeBackgroundIcon.kt$@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class) @Composable fun ItemSwipeBackgroundIcon( modifier: Modifier = Modifier, dismissState: DismissState, state: Boolean = false, actionDelete: () -&gt; Unit, )</ID>
+    <ID>FunctionNaming:LabelTitleForImage.kt$@Composable fun LabelTitleForImage( title: String, alignmentText: Alignment = Alignment.BottomStart, modifier: Modifier = Modifier )</ID>
+    <ID>FunctionNaming:LabelTitleForImage.kt$@Preview(showBackground = true, backgroundColor = 1) @Composable fun LabelTitleForImagePreview()</ID>
+    <ID>FunctionNaming:ListChooseExercise.kt$@OptIn(ExperimentalMaterialApi::class) @Composable fun ListChooseExercise( list: List&lt;Exercise&gt;, lazyListState: LazyListState, navHost: NavHostController, modifier: Modifier = Modifier, actionChoose: (Long) -&gt; Unit, )</ID>
+    <ID>FunctionNaming:ListCycles.kt$@OptIn(ExperimentalMaterialApi::class) @Composable fun ListCycle( modifier: Modifier = Modifier, lazyListState: LazyListState, list: List&lt;Cycle&gt;, navhost: NavHostController, deleteAction: (Context, String, Long) -&gt; Unit, )</ID>
+    <ID>FunctionNaming:ListCycles.kt$@OptIn(ExperimentalMaterialApi::class) @Preview @Composable fun ComPreview()</ID>
+    <ID>FunctionNaming:ListDefaultExercise.kt$@OptIn(ExperimentalMaterialApi::class) @Composable fun ListDefaultExercise( list: List&lt;Exercise&gt;, lazyListState: LazyListState, navHost: NavHostController, modifier: Modifier = Modifier, actionDel: (Long) -&gt; Unit, )</ID>
+    <ID>FunctionNaming:ListDefaultSets.kt$@OptIn(ExperimentalMaterialApi::class) @Composable fun ListDefaultSets( modifier: Modifier = Modifier, navHost: NavHostController, list: List&lt;Sets&gt;, listState: LazyListState, deleteAction: (Long) -&gt; Unit, )</ID>
+    <ID>FunctionNaming:ListDefaultWorkouts.kt$@OptIn(ExperimentalMaterialApi::class) @Composable fun ListItemDefaultsWorkouts( list: List&lt;Workout&gt;, lazyListState: LazyListState, navHost: NavHostController, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:ListExercise.kt$@OptIn(ExperimentalMaterialApi::class) @Composable fun ListExercise( list: List&lt;Exercise&gt;, lazyListState: LazyListState, navHost: NavHostController, modifier: Modifier = Modifier, actionDel: (Long) -&gt; Unit, )</ID>
+    <ID>FunctionNaming:ListExercise.kt$@SuppressLint("UnrememberedMutableState") @Preview(showBackground = true, showSystemUi = true) @Composable fun ListExercisePreview()</ID>
+    <ID>FunctionNaming:ListItemCycleWithCheck.kt$@OptIn(ExperimentalMaterialApi::class) @Composable fun ListItemCycleWithCheck( modifier: Modifier = Modifier, lazyListState: LazyListState, list: List&lt;CycleCheck&gt;, action: (Long) -&gt; Unit )</ID>
+    <ID>FunctionNaming:ListItemCycleWithCheck.kt$@Preview(showSystemUi = true, showBackground = true) @Composable fun ListItemCycleWithCheckPreview()</ID>
+    <ID>FunctionNaming:ListItemDefaultsCycle.kt$@OptIn(ExperimentalMaterialApi::class) @Composable fun ListItemDefaultsCycle( modifier: Modifier = Modifier, lazyListState: LazyListState, list: List&lt;Cycle&gt;, navhost: NavHostController, )</ID>
+    <ID>FunctionNaming:ListItemDefaultsCycle.kt$@Preview(showSystemUi = true, showBackground = true) @Composable fun ListItemDefaultsCyclePreview()</ID>
+    <ID>FunctionNaming:ListSets.kt$@OptIn(ExperimentalMaterialApi::class) @Composable fun ListSets( modifier: Modifier = Modifier, navHost: NavHostController, list: List&lt;Sets&gt;, listState: LazyListState, deleteAction: (Long) -&gt; Unit, )</ID>
+    <ID>FunctionNaming:ListSets.kt$@Preview(showBackground = true, showSystemUi = true) @Composable fun ListSetsPreview()</ID>
+    <ID>FunctionNaming:ListWorkoutForReview.kt$@OptIn(ExperimentalFoundationApi::class) @Composable fun ListWorkoutForReview( list: List&lt;Exercise&gt;, modifier: Modifier = Modifier )</ID>
+    <ID>FunctionNaming:ListWorkoutForReview.kt$@Preview(showBackground = true) @Composable fun ListWorkoutForReviewPreview()</ID>
+    <ID>FunctionNaming:ListWorkouts.kt$@Composable fun ListWorkouts( list: List&lt;Workout&gt;, lazyListState: LazyListState, navHost: NavHostController, modifier: Modifier = Modifier, deleteAction: (Long) -&gt; Unit, )</ID>
+    <ID>FunctionNaming:ListWorkouts.kt$@SuppressLint("UnrememberedMutableState") @Preview(showBackground = true, showSystemUi = true) @Composable fun ListWorkoutsPreview()</ID>
+    <ID>FunctionNaming:MainScreen.kt$@Preview @Composable fun MainScreenPreview()</ID>
+    <ID>FunctionNaming:MainScreen.kt$@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "UnrememberedMutableState") @OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class) @Composable fun MainScreen()</ID>
+    <ID>FunctionNaming:MyBottomNavigation.kt$@Preview @Composable fun MyBottomNavigation( modifier: Modifier = Modifier.navigationBarsPadding(), navController: NavController = rememberNavController(), )</ID>
+    <ID>FunctionNaming:MyExerciseDetailScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun MyExerciseDetailScreen( id: Long, navHostController: NavHostController, paddingValues: PaddingValues, appBarTitle: MutableState&lt;String&gt; )</ID>
+    <ID>FunctionNaming:MyExerciseDetailScreen.kt$@Preview(showBackground = true, showSystemUi = true) @Composable fun PreviewMyExerciseDetailScreen()</ID>
+    <ID>FunctionNaming:MyExerciseDetailScreen.kt$@Preview(showBackground = true, showSystemUi = true) @Composable fun PreviewMyExerciseDetailScreen2()</ID>
+    <ID>FunctionNaming:MyStartScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun MyCycleScreen( navHost: NavHostController, paddingValues: PaddingValues, )</ID>
+    <ID>FunctionNaming:MyStartScreen.kt$@RequiresApi(Build.VERSION_CODES.P) @Preview(showSystemUi = true, showBackground = true) @Composable fun PrviewCycleScreen()</ID>
+    <ID>FunctionNaming:NavGraph.kt$@Composable fun NavGraph( navHostController: NavHostController, appBarTitle: MutableState&lt;String&gt;, appBarStyle: MutableState&lt;Int&gt;, paddingValues: PaddingValues, topBarState: MutableState&lt;Boolean&gt;, bottomBarState: MutableState&lt;Boolean&gt;, appBarActions: MutableState&lt;List&lt;AppBarAction&gt;&gt; )</ID>
+    <ID>FunctionNaming:NumberPicker.kt$@RequiresApi(Build.VERSION_CODES.Q) @Composable @SuppressLint("InflateParams") fun NumberPicker( min: Int, max: Int, initialState: Int, textColor: Color = MaterialTheme.colorScheme.onBackground, backgroundColor: Color = MaterialTheme.colorScheme.background, value: (Int) -&gt; Unit )</ID>
+    <ID>FunctionNaming:NumberPickerWithStep.kt$@SuppressLint("InflateParams") @Composable fun NumberPickerWithStep( textColor: Color = MaterialTheme.colorScheme.onBackground, min: Double, max: Int, step: Double, initialState: Double, weightFun: (Double) -&gt; Unit )</ID>
+    <ID>FunctionNaming:ProfileChooseBackupScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun ProfileChooseBackupScreen(navController: NavHostController, paddingValues: PaddingValues)</ID>
+    <ID>FunctionNaming:ProfileChooseBackupScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun ProfileChooseBackupScreenWithChooseALL( navController: NavHostController, paddingValues: PaddingValues )</ID>
+    <ID>FunctionNaming:ProfileChooseBackupScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Preview(showBackground = true, showSystemUi = true) @Composable fun PreviewProfileChooseBackupScreenWithChooseALL()</ID>
+    <ID>FunctionNaming:ProfileChooseBackupScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Preview(showBackground = true, showSystemUi = true) @Composable fun ProfileChooseBackupScreen()</ID>
+    <ID>FunctionNaming:ProfileChooseRestoreScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun ProfileChooseRestoreScreen( navController: NavHostController, paddingValues: PaddingValues )</ID>
+    <ID>FunctionNaming:ProfileChooseRestoreScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun ProfileChooseScreenWithChooseALL( navController: NavHostController, paddingValues: PaddingValues )</ID>
+    <ID>FunctionNaming:ProfileChooseRestoreScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Preview(showBackground = true, showSystemUi = true) @Composable fun PreviewProfileChoose()</ID>
+    <ID>FunctionNaming:ProfileChooseRestoreScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Preview(showBackground = true, showSystemUi = true) @Composable fun PreviewProfileChooseScreenWithChooseALL()</ID>
+    <ID>FunctionNaming:ProfileScreen.kt$@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class) @Composable fun ProfileScreen(navHostController: NavHostController, paddingValues: PaddingValues)</ID>
+    <ID>FunctionNaming:ProfileScreen.kt$@Preview(showSystemUi = true, showBackground = true) @Composable fun ProfileScreenPreview()</ID>
+    <ID>FunctionNaming:RowChips.kt$@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class) @Composable fun RowChips(modifier: Modifier, vararg chips: Chips)</ID>
+    <ID>FunctionNaming:RowChips.kt$@Preview(showBackground = true, showSystemUi = true) @Composable fun RowChipsPreview()</ID>
+    <ID>FunctionNaming:RowChooseChips.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun RowChooseChips(modifier: Modifier = Modifier, vararg chips: CheckChips)</ID>
+    <ID>FunctionNaming:RowChooseChips.kt$@Preview(showBackground = true, showSystemUi = true) @Composable fun RowChooseChipsPreview()</ID>
+    <ID>FunctionNaming:SetEditeScreen.kt$@RequiresApi(Build.VERSION_CODES.Q) @OptIn(ExperimentalMaterial3Api::class) @Composable fun SetEditeScreen( id: Long, navHostController: NavHostController, paddingValues: PaddingValues, appBarTitle: MutableState&lt;String&gt; )</ID>
+    <ID>FunctionNaming:SetEditeScreen.kt$@RequiresApi(Build.VERSION_CODES.Q) @Preview @Composable fun ComPreview()</ID>
+    <ID>FunctionNaming:SetsCreateScreen.kt$@RequiresApi(Build.VERSION_CODES.Q) @OptIn(ExperimentalMaterial3Api::class) @Composable fun SetsCreateScreen( parentId: Long, navHostController: NavHostController, paddingValues: PaddingValues, appBarTitle: MutableState&lt;String&gt; )</ID>
+    <ID>FunctionNaming:SetsCreateScreen.kt$@RequiresApi(Build.VERSION_CODES.Q) @Preview(showSystemUi = true, showBackground = true) @Composable fun MySetsDetailScreenPreview()</ID>
+    <ID>FunctionNaming:SetsItemCard.kt$@Composable fun SetsItemCard( sets: Sets, number: Int, modifier: Modifier = Modifier, action: () -&gt; Unit )</ID>
+    <ID>FunctionNaming:SetsItemCard.kt$@Composable fun SetsItemCardWithoutClick( sets: Sets, number: Int, modifier: Modifier = Modifier, action: () -&gt; Unit )</ID>
+    <ID>FunctionNaming:SetsItemCard.kt$@Preview(showBackground = true) @Composable fun PreviewSetItemCard()</ID>
+    <ID>FunctionNaming:SetsItemCard.kt$@Preview(showBackground = true, showSystemUi = true) @Composable fun PreviewSetItemCard2()</ID>
+    <ID>FunctionNaming:SnackBar.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun SnackBar( modifier: Modifier = Modifier, text: String, icon: Int, data: SnackbarData, action: () -&gt; Unit )</ID>
+    <ID>FunctionNaming:SnackBar.kt$@Preview @Composable fun SnackBarpreview()</ID>
+    <ID>FunctionNaming:SoundTimer.kt$@Composable fun SoundTimer( modifier: Modifier = Modifier, status: StopWatchState, soundTime: String, start: Int, finish: Int, editAction: () -&gt; Unit, startAction: () -&gt; Unit, stopAction: () -&gt; Unit )</ID>
+    <ID>FunctionNaming:SoundTimer.kt$@Preview(showSystemUi = true, showBackground = true) @Composable fun PreviewSoundTimer()</ID>
+    <ID>FunctionNaming:StopWatch.kt$@Composable fun StopWatch( modifier: Modifier = Modifier, time: String, stopwatchState: StopWatchState, stateSoundEveryTime: Boolean = false, checkSoundEveryTime: () -&gt; Unit, stop: () -&gt; Unit, start: () -&gt; Unit, pause: () -&gt; Unit, resume: () -&gt; Unit, )</ID>
+    <ID>FunctionNaming:StopWatch.kt$@Preview(showBackground = true) @Composable fun StopWatchPausePreview()</ID>
+    <ID>FunctionNaming:StopWatch.kt$@Preview(showBackground = true) @Composable fun StopWatchResumePreview()</ID>
+    <ID>FunctionNaming:StopWatch.kt$@Preview(showBackground = true) @Composable fun StopWatchStopPreview()</ID>
+    <ID>FunctionNaming:TableHeader.kt$@Composable fun TableHeader( modifier: Modifier = Modifier )</ID>
+    <ID>FunctionNaming:TableHeader.kt$@Preview(showBackground = true, showSystemUi = false) @Composable fun TableHeaderPreview2()</ID>
+    <ID>FunctionNaming:TableHeader.kt$@Preview(showBackground = true, showSystemUi = true) @Composable fun TableHeaderPreview()</ID>
+    <ID>FunctionNaming:Theme.kt$@Composable fun JymTheme( darkTheme: Boolean = isSystemInDarkTheme(), // Dynamic color is available on Android 12+ dynamicColor: Boolean = true, content: @Composable () -&gt; Unit )</ID>
+    <ID>FunctionNaming:WorkoutDetailScreenM3.kt$@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class) @Composable fun WorkoutDetailScreenM3( id: Long, navHostController: NavHostController, paddingValues: PaddingValues, appBarTitle: MutableState&lt;String&gt; )</ID>
+    <ID>FunctionNaming:WorkoutDetailScreenM3.kt$@Preview(showSystemUi = true, showBackground = true) @Composable fun AlterCycleDetailScreenPreview()</ID>
+    <ID>FunctionNaming:WorkoutItemCard.kt$@Preview(showSystemUi = true, showBackground = true) @Composable fun PreviewWorkoutCard()</ID>
+    <ID>FunctionNaming:WorkoutItemCard.kt$@SuppressLint("UseCompatLoadingForDrawables") @Composable fun WorkoutItemCard( workout: Workout, action: () -&gt; Unit, modifier: Modifier = Modifier )</ID>
+    <ID>FunctionNaming:WorkoutReviewScreen.kt$@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class) @Composable fun WorkoutReview( id: Long, navHostController: NavHostController, paddingValues: PaddingValues, appBarTitle: MutableState&lt;String&gt;, appBarActions: MutableState&lt;List&lt;AppBarAction&gt;&gt; )</ID>
+    <ID>FunctionNaming:WorkoutReviewScreen.kt$@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class) @Preview(showBackground = true, showSystemUi = true) @Composable fun WorkoutReviewPreview()</ID>
+    <ID>InvalidPackageDeclaration:JSONRestoreBackup.kt$package info.upump.jym.utils</ID>
+    <ID>LongMethod:CardDate.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun CardDate( startDate: String, finishDate: String, readonly: Boolean = true, modifier: Modifier = Modifier )</ID>
+    <ID>LongMethod:CardDateWithDatePicker.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun DateCardWithDatePicker( startDate: String, updateStartString: (Date) -&gt; Unit, finishDate: String, updateFinishString: (Date) -&gt; Unit, modifier: Modifier = Modifier, readonly: Boolean = true, context: Context = LocalContext.current )</ID>
+    <ID>LongMethod:CardDay.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun CardDay(day: Day, isEven: Boolean, modifier: Modifier = Modifier)</ID>
+    <ID>LongMethod:CardDayWithEdit.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun CarDaydWorkoutEdit( day: Day, updateDay: (Day) -&gt; Unit, isEven: Boolean, updateEven: (Boolean) -&gt; Unit, focus: FocusManager, modifier: Modifier = Modifier )</ID>
+    <ID>LongMethod:CreateEditeCycleScreen.kt$@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter") @OptIn(ExperimentalMaterial3Api::class) @Composable fun CreateEditeCycleScreen( id: Long, navHostController: NavHostController, paddingValues: PaddingValues, appBarTitle: MutableState&lt;String&gt;, action: ActionState )</ID>
+    <ID>LongMethod:CreateWorkoutScreen.kt$@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter") @OptIn(ExperimentalMaterial3Api::class) @Composable fun CreateWorkoutScreen( parentId: Long, navHostController: NavHostController, paddingValues: PaddingValues, appBarTitle: MutableState&lt;String&gt;, )</ID>
+    <ID>LongMethod:CycleDetailScreenM3.kt$@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class) @Composable fun AlterCycleDetailScreenM3( id: Long, navHostController: NavHostController, paddingValues: PaddingValues, appBarTitle: MutableState&lt;String&gt; )</ID>
+    <ID>LongMethod:CycleDetailScreenM3.kt$@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class) @Preview(showSystemUi = true, showBackground = true) @Composable fun AlterCycleDetailScreenPreview()</ID>
+    <ID>LongMethod:CycleItemCardWithCheck.kt$@Composable fun CycleItemCardWithCheck( modifier: Modifier = Modifier, cycle: CycleCheck, action: () -&gt; Unit, )</ID>
+    <ID>LongMethod:DefaultCycleDetailScreenM3.kt$@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class) @Composable fun DefaultCycleDetailScreenM3( id: Long, navHostController: NavHostController, paddingValues: PaddingValues, appBarTitle: MutableState&lt;String&gt; )</ID>
+    <ID>LongMethod:DefaultWorkoutDetailScreenM3.kt$@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class) @Composable fun DefaultWorkoutDetailScreenM3( id: Long, navHostController: NavHostController, paddingValues: PaddingValues, appBarTitle: MutableState&lt;String&gt; )</ID>
+    <ID>LongMethod:EditSoundTimerScreen.kt$@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class) @Composable fun EditSoundTimerScreen( navHostController: NavHostController, paddingValues: PaddingValues, appBarTitle: MutableState&lt;String&gt;, appBarActions: MutableState&lt;List&lt;AppBarAction&gt;&gt; )</ID>
+    <ID>LongMethod:EditeWorkoutScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun EditeWorkoutScreen( id: Long, navHostController: NavHostController, paddingValues: PaddingValues, appBarTitle: MutableState&lt;String&gt;, )</ID>
+    <ID>LongMethod:ItemSwipeBackgroundIcon.kt$@OptIn(ExperimentalMaterial3Api::class) @Preview(showBackground = true, showSystemUi = true) @Composable fun Preview()</ID>
+    <ID>LongMethod:ItemSwipeBackgroundIcon.kt$@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class) @Composable fun ItemSwipeBackgroundIcon( modifier: Modifier = Modifier, dismissState: DismissState, state: Boolean = false, actionDelete: () -&gt; Unit, )</ID>
+    <ID>LongMethod:ListCycles.kt$@OptIn(ExperimentalMaterialApi::class) @Preview @Composable fun ComPreview()</ID>
+    <ID>LongMethod:ListDefaultWorkouts.kt$@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class) @Composable fun listDefaultWithGroup( list: List&lt;Workout&gt;, modifier: Modifier, lazyListState: LazyListState, navhost: NavHostController )</ID>
+    <ID>LongMethod:ListWorkoutForReview.kt$@Preview(showBackground = true) @Composable fun ListWorkoutForReviewPreview()</ID>
+    <ID>LongMethod:ListWorkouts.kt$@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class) @Composable fun listWithGroup( list: List&lt;Workout&gt;, modifier: Modifier, lazyListState: LazyListState, deleteAction: (Long) -&gt; Unit, navhost: NavHostController )</ID>
+    <ID>LongMethod:ListWorkouts.kt$@OptIn(ExperimentalMaterialApi::class) @Composable fun simpleList( list: List&lt;Workout&gt;, modifier: Modifier, lazyListState: LazyListState, deleteAction: (Long) -&gt; Unit, navhost: NavHostController )</ID>
+    <ID>LongMethod:MainScreen.kt$@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "UnrememberedMutableState") @OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class) @Composable fun MainScreen()</ID>
+    <ID>LongMethod:MyCycleNavGraph.kt$fun NavGraphBuilder.myCycleGraph( navHostController: NavHostController, appBarTitle: MutableState&lt;String&gt;, appBarStyle: MutableState&lt;Int&gt;, context: Context, paddingValues: PaddingValues, topBarState: MutableState&lt;Boolean&gt;, bottomBarState: MutableState&lt;Boolean&gt;, appBarActions: MutableState&lt;List&lt;AppBarAction&gt;&gt; )</ID>
+    <ID>LongMethod:MyExerciseDetailScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun MyExerciseDetailScreen( id: Long, navHostController: NavHostController, paddingValues: PaddingValues, appBarTitle: MutableState&lt;String&gt; )</ID>
+    <ID>LongMethod:ProfileChooseRestoreScreen.kt$suspend fun writeToDb(context: Context, list: List&lt;Cycle&gt;, function: () -&gt; Unit)</ID>
+    <ID>LongMethod:ProfileScreen.kt$@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class) @Composable fun ProfileScreen(navHostController: NavHostController, paddingValues: PaddingValues)</ID>
+    <ID>LongMethod:SetEditeScreen.kt$@RequiresApi(Build.VERSION_CODES.Q) @OptIn(ExperimentalMaterial3Api::class) @Composable fun SetEditeScreen( id: Long, navHostController: NavHostController, paddingValues: PaddingValues, appBarTitle: MutableState&lt;String&gt; )</ID>
+    <ID>LongMethod:SetsCreateScreen.kt$@RequiresApi(Build.VERSION_CODES.Q) @OptIn(ExperimentalMaterial3Api::class) @Composable fun SetsCreateScreen( parentId: Long, navHostController: NavHostController, paddingValues: PaddingValues, appBarTitle: MutableState&lt;String&gt; )</ID>
+    <ID>LongMethod:SetsItemCard.kt$@Composable fun SetsItemCard( sets: Sets, number: Int, modifier: Modifier = Modifier, action: () -&gt; Unit )</ID>
+    <ID>LongMethod:SetsItemCard.kt$@Composable fun SetsItemCardWithoutClick( sets: Sets, number: Int, modifier: Modifier = Modifier, action: () -&gt; Unit )</ID>
+    <ID>LongMethod:SoundTimer.kt$@Composable fun SoundTimer( modifier: Modifier = Modifier, status: StopWatchState, soundTime: String, start: Int, finish: Int, editAction: () -&gt; Unit, startAction: () -&gt; Unit, stopAction: () -&gt; Unit )</ID>
+    <ID>LongMethod:StopWatch.kt$@Composable fun StopWatch( modifier: Modifier = Modifier, time: String, stopwatchState: StopWatchState, stateSoundEveryTime: Boolean = false, checkSoundEveryTime: () -&gt; Unit, stop: () -&gt; Unit, start: () -&gt; Unit, pause: () -&gt; Unit, resume: () -&gt; Unit, )</ID>
+    <ID>LongMethod:WorkoutDetailScreenM3.kt$@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class) @Composable fun WorkoutDetailScreenM3( id: Long, navHostController: NavHostController, paddingValues: PaddingValues, appBarTitle: MutableState&lt;String&gt; )</ID>
+    <ID>LongMethod:WorkoutReviewScreen.kt$@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class) @Composable fun WorkoutReview( id: Long, navHostController: NavHostController, paddingValues: PaddingValues, appBarTitle: MutableState&lt;String&gt;, appBarActions: MutableState&lt;List&lt;AppBarAction&gt;&gt; )</ID>
+    <ID>LongMethod:WorkoutReviewScreen.kt$@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class) @Preview(showBackground = true, showSystemUi = true) @Composable fun WorkoutReviewPreview()</ID>
+    <ID>LongParameterList:CardDateWithDatePicker.kt$( startDate: String, updateStartString: (Date) -&gt; Unit, finishDate: String, updateFinishString: (Date) -&gt; Unit, modifier: Modifier = Modifier, readonly: Boolean = true, context: Context = LocalContext.current )</ID>
+    <ID>LongParameterList:CardDayWithEdit.kt$( day: Day, updateDay: (Day) -&gt; Unit, isEven: Boolean, updateEven: (Boolean) -&gt; Unit, focus: FocusManager, modifier: Modifier = Modifier )</ID>
+    <ID>LongParameterList:Cycle.kt$Cycle$( var workoutList: List&lt;Workout&gt; = ArrayList(), var isDefaultType: Boolean = false, var image: String = "", var imageDefault: String = "", var id: Long = 0, var title: String = "", var startDate: Date = Date(), var finishDate: Date = Date(), var comment: String = "", var parentId: Long = 0, )</ID>
+    <ID>LongParameterList:DefaultCycleNavGraph.kt$( navHostController: NavHostController, appBarTitle: MutableState&lt;String&gt;, appBarStyle: MutableState&lt;Int&gt;, context: Context, paddingValues: PaddingValues, topBarState: MutableState&lt;Boolean&gt;, bottomBarState: MutableState&lt;Boolean&gt; )</ID>
+    <ID>LongParameterList:MyCycleNavGraph.kt$( navHostController: NavHostController, appBarTitle: MutableState&lt;String&gt;, appBarStyle: MutableState&lt;Int&gt;, context: Context, paddingValues: PaddingValues, topBarState: MutableState&lt;Boolean&gt;, bottomBarState: MutableState&lt;Boolean&gt;, appBarActions: MutableState&lt;List&lt;AppBarAction&gt;&gt; )</ID>
+    <ID>LongParameterList:NavGraph.kt$( navHostController: NavHostController, appBarTitle: MutableState&lt;String&gt;, appBarStyle: MutableState&lt;Int&gt;, paddingValues: PaddingValues, topBarState: MutableState&lt;Boolean&gt;, bottomBarState: MutableState&lt;Boolean&gt;, appBarActions: MutableState&lt;List&lt;AppBarAction&gt;&gt; )</ID>
+    <ID>LongParameterList:NumberPicker.kt$( min: Int, max: Int, initialState: Int, textColor: Color = MaterialTheme.colorScheme.onBackground, backgroundColor: Color = MaterialTheme.colorScheme.background, value: (Int) -&gt; Unit )</ID>
+    <ID>LongParameterList:NumberPickerWithStep.kt$( textColor: Color = MaterialTheme.colorScheme.onBackground, min: Double, max: Int, step: Double, initialState: Double, weightFun: (Double) -&gt; Unit )</ID>
+    <ID>LongParameterList:ProfileNavGraph.kt$( navHostController: NavHostController, appBarTitle: MutableState&lt;String&gt;, appBarStyle: MutableState&lt;Int&gt;, context: Context, paddingValues: PaddingValues, topBarState: MutableState&lt;Boolean&gt;, bottomBarState: MutableState&lt;Boolean&gt; )</ID>
+    <ID>LongParameterList:SoundTimer.kt$( modifier: Modifier = Modifier, status: StopWatchState, soundTime: String, start: Int, finish: Int, editAction: () -&gt; Unit, startAction: () -&gt; Unit, stopAction: () -&gt; Unit )</ID>
+    <ID>LongParameterList:StopWatch.kt$( modifier: Modifier = Modifier, time: String, stopwatchState: StopWatchState, stateSoundEveryTime: Boolean = false, checkSoundEveryTime: () -&gt; Unit, stop: () -&gt; Unit, start: () -&gt; Unit, pause: () -&gt; Unit, resume: () -&gt; Unit, )</ID>
+    <ID>LongParameterList:Workout.kt$Workout$( var isWeekEven: Boolean = false, var isDefaultType: Boolean = false, var isTemplate: Boolean = false, var day: Day = Day.MONDAY, var exercises: List&lt;Exercise&gt; = ArrayList(), var id: Long = 0, var title: String = "", var startDate: Date = Date(), var finishDate: Date = Date(), var comment: String = "", var parentId: Long = 0, )</ID>
+    <ID>MagicNumber:CardDay.kt$0.10f</ID>
+    <ID>MagicNumber:CardDay.kt$0.5F</ID>
+    <ID>MagicNumber:Color.kt$0xF0000000</ID>
+    <ID>MagicNumber:Color.kt$0xFB00020</ID>
+    <ID>MagicNumber:Color.kt$0xFF05559B</ID>
+    <ID>MagicNumber:Color.kt$0xFF2186E0</ID>
+    <ID>MagicNumber:Color.kt$0xFF5584AF</ID>
+    <ID>MagicNumber:Color.kt$0xFFCF6679</ID>
+    <ID>MagicNumber:Color.kt$0xFFd9d9d9</ID>
+    <ID>MagicNumber:Color.kt$0xFFfeffff</ID>
+    <ID>MagicNumber:CreateEditeCycleScreen.kt$4f</ID>
+    <ID>MagicNumber:CreateWorkoutScreen.kt$4F</ID>
+    <ID>MagicNumber:CycleDetailScreenM3.kt$4f</ID>
+    <ID>MagicNumber:DefaultCycleDetailScreenM3.kt$4f</ID>
+    <ID>MagicNumber:DefaultExerciseDetailScreen.kt$4.5f</ID>
+    <ID>MagicNumber:DefaultWorkoutDetailScreenM3.kt$4f</ID>
+    <ID>MagicNumber:DividerCustom.kt$10f</ID>
+    <ID>MagicNumber:EditSoundTimerScreen.kt$0.3f</ID>
+    <ID>MagicNumber:EditSoundTimerScreen.kt$100</ID>
+    <ID>MagicNumber:EditSoundTimerScreen.kt$200</ID>
+    <ID>MagicNumber:EditeWorkoutScreen.kt$3F</ID>
+    <ID>MagicNumber:ExerciseChooseScreen.kt$1.5f</ID>
+    <ID>MagicNumber:ExerciseChooseScreen.kt$4.5f</ID>
+    <ID>MagicNumber:ExerciseItemCard.kt$10</ID>
+    <ID>MagicNumber:ExerciseItemCard.kt$15.0</ID>
+    <ID>MagicNumber:ExerciseItemCard.kt$20.0</ID>
+    <ID>MagicNumber:ExersiceReviewScreen.kt$4.5f</ID>
+    <ID>MagicNumber:ExersiceReviewScreen.kt$4f</ID>
+    <ID>MagicNumber:ItemSwipeBackgroundIcon.kt$1000</ID>
+    <ID>MagicNumber:ListChooseExercise.kt$0.5f</ID>
+    <ID>MagicNumber:ListCycles.kt$0.5f</ID>
+    <ID>MagicNumber:ListCycles.kt$13</ID>
+    <ID>MagicNumber:ListCycles.kt$15</ID>
+    <ID>MagicNumber:ListDefaultExercise.kt$0.5f</ID>
+    <ID>MagicNumber:ListDefaultSets.kt$0.5f</ID>
+    <ID>MagicNumber:ListDefaultWorkouts.kt$0.5f</ID>
+    <ID>MagicNumber:ListExercise.kt$0.5f</ID>
+    <ID>MagicNumber:ListItemCycleWithCheck.kt$0.5f</ID>
+    <ID>MagicNumber:ListItemDefaultsCycle.kt$0.5f</ID>
+    <ID>MagicNumber:ListItemDefaultsCycle.kt$12</ID>
+    <ID>MagicNumber:ListItemDefaultsCycle.kt$13</ID>
+    <ID>MagicNumber:ListSets.kt$0.5f</ID>
+    <ID>MagicNumber:ListSets.kt$10.0</ID>
+    <ID>MagicNumber:ListSets.kt$11</ID>
+    <ID>MagicNumber:ListSets.kt$12</ID>
+    <ID>MagicNumber:ListSets.kt$12.0</ID>
+    <ID>MagicNumber:ListSets.kt$15</ID>
+    <ID>MagicNumber:ListSets.kt$16</ID>
+    <ID>MagicNumber:ListSets.kt$18</ID>
+    <ID>MagicNumber:ListWorkoutForReview.kt$3</ID>
+    <ID>MagicNumber:ListWorkouts.kt$0.5f</ID>
+    <ID>MagicNumber:MyExerciseDetailScreen.kt$4.5f</ID>
+    <ID>MagicNumber:SetEditeScreen.kt$1.3f</ID>
+    <ID>MagicNumber:SetEditeScreen.kt$100</ID>
+    <ID>MagicNumber:SetsCreateScreen.kt$0.3f</ID>
+    <ID>MagicNumber:SetsCreateScreen.kt$100</ID>
+    <ID>MagicNumber:SetsCreateScreen.kt$200</ID>
+    <ID>MagicNumber:SoundTimer.kt$1.5f</ID>
+    <ID>MagicNumber:SoundTimerVM.kt$SoundTimerVM$1000</ID>
+    <ID>MagicNumber:SoundTimerVM.kt$SoundTimerVM$10L</ID>
+    <ID>MagicNumber:StopWatchVM.kt$StopWatchVM$10L</ID>
+    <ID>MagicNumber:StopWatchVM.kt$StopWatchVM$60000</ID>
+    <ID>MagicNumber:TableHeader.kt$GuidelineSets.FIVE$0.90f</ID>
+    <ID>MagicNumber:TableHeader.kt$GuidelineSets.FOUR$0.58f</ID>
+    <ID>MagicNumber:TableHeader.kt$GuidelineSets.ONE$0.05f</ID>
+    <ID>MagicNumber:TableHeader.kt$GuidelineSets.THREE$0.30f</ID>
+    <ID>MagicNumber:TableHeader.kt$GuidelineSets.TWO$0.22f</ID>
+    <ID>MagicNumber:Type.kt$4f</ID>
+    <ID>MagicNumber:WorkoutDetailScreenM3.kt$4f</ID>
+    <ID>MagicNumber:WorkoutDetailVM.kt$WorkoutDetailVM.Companion.&lt;no name provided&gt;$3</ID>
+    <ID>MagicNumber:WorkoutReviewScreen.kt$3</ID>
+    <ID>MagicNumber:WorkoutReviewScreen.kt$3f</ID>
+    <ID>MagicNumber:WorkoutReviewScreen.kt$4f</ID>
+    <ID>MatchingDeclarationName:StopWatch.kt$StopWatchState</ID>
+    <ID>MatchingDeclarationName:TableHeader.kt$GuidelineSets</ID>
+    <ID>MatchingDeclarationName:WorkoutVMCreateEdit.kt$WorkoutVM : BaseVMWithStateLoadWorkoutVMInterface</ID>
+    <ID>MaxLineLength:BottomSheet.kt$BottomSheet("И нет сомнений, что сторонники тоталитаризма в науке и по сей день остаются уделом либералов, которые жаждут быть представлены в исключительно положительном свете. В целом, конечно, укрепление и развитие внутренней структуры способствует повышению качества вывода текущих активов. Предварительные выводы неутешительны: высококачественный прототип будущего проекта прекрасно подходит для реализации распределения внутренних резервов и ресурсов.")</ID>
+    <ID>MaxLineLength:CycleDetailScreenM3.kt$SnackBar</ID>
+    <ID>MaxLineLength:Entity.kt$Entity$return "Entity(id=$id, title='$title', startDate=$startDate, finishDate=$finishDate, comment='$comment', parentId=$parentId, startStringFormatDate='$startStringFormatDate', finishStringFormatDate='$finishStringFormatDate')"</ID>
+    <ID>MaxLineLength:ExersiceReviewScreen.kt$CardDescription(textDescription = exerciseVM.item.collectAsState().value.comment, modifier = Modifier.weight(4.5f))</ID>
+    <ID>MaxLineLength:ImageTitleImageTitle.kt$fun</ID>
+    <ID>MaxLineLength:ItemImage.kt$image = info.upump.jymlight.ui.screens.viewmodel.cycle.CycleDetailVM.vmOnlyForPreview.img.collectAsState().value</ID>
+    <ID>MaxLineLength:MyBottomNavigation.kt$selectedContentColor = MaterialTheme.colorScheme.onPrimary</ID>
+    <ID>MaxLineLength:NavGraph.kt$defaultCycleGraph(navHostController, appBarTitle,appBarStyle, context, paddingValues, topBarState, bottomBarState)</ID>
+    <ID>MaxLineLength:NavGraph.kt$myCycleGraph(navHostController, appBarTitle, appBarStyle, context, paddingValues, topBarState, bottomBarState, appBarActions)</ID>
+    <ID>MaxLineLength:SetEditeScreen.kt$NumberPickerWithStep</ID>
+    <ID>MaxLineLength:SetsCreateScreen.kt$NumberPickerWithStep</ID>
+    <ID>MaxLineLength:SetsCreateScreen.kt$modifier = Modifier.weight(1f).background(MaterialTheme.colorScheme.background).padding(start = 8.dp, end = 8.dp)</ID>
+    <ID>MaxLineLength:Workout.kt$Workout$return "Workout($title -- $id -- $parentId isWeekEven=$isWeekEven, isDefaultType=$isDefaultType, isTemplate=$isTemplate, day=$day, exercises=$exercises) "</ID>
+    <ID>MaxLineLength:WorkoutDetailVM.kt$WorkoutDetailVM.Companion.&lt;no name provided&gt;$Sets()</ID>
+    <ID>MaxLineLength:WorkoutDetailVM.kt$WorkoutDetailVM.Companion.&lt;no name provided&gt;$comment = "Предварительные выводы неутешительны: убеждённость некоторых оппонентов влечет за собой процесс внедрения и модернизации переосмысления внешнеэкономических политик. Высокий уровень вовлечения представителей целевой аудитории является четким доказательством простого факта: консультация с широким активом способствует подготовке и реализации направлений прогрессивного развития. Также как перспективное планирование играет важную роль в формировании кластеризации усилий. Имеется спорная точка зрения, гласящая примерно следующее: активно развивающиеся страны третьего мира и по сей день остаются уделом либералов, которые жаждут быть функционально разнесены на независимые элементы."</ID>
+    <ID>NewLineAtEndOfFile:ActionState.kt$info.upump.jymlight.ui.screens.myworkoutsscreens.ActionState.kt</ID>
+    <ID>NewLineAtEndOfFile:BitmapCreator.kt$info.upump.jymlight.utils.BitmapCreator.kt</ID>
+    <ID>NewLineAtEndOfFile:BottomSheet.kt$info.upump.jymlight.ui.screens.screenscomponents.BottomSheet.kt</ID>
+    <ID>NewLineAtEndOfFile:CardDate.kt$info.upump.jymlight.ui.screens.screenscomponents.screen.CardDate.kt</ID>
+    <ID>NewLineAtEndOfFile:CardDateWithDatePicker.kt$info.upump.jymlight.ui.screens.screenscomponents.screen.CardDateWithDatePicker.kt</ID>
+    <ID>NewLineAtEndOfFile:CardDayWithEdit.kt$info.upump.jymlight.ui.screens.screenscomponents.screen.CardDayWithEdit.kt</ID>
+    <ID>NewLineAtEndOfFile:CardDescription.kt$info.upump.jymlight.ui.screens.screenscomponents.screen.CardDescription.kt</ID>
+    <ID>NewLineAtEndOfFile:CardTitle.kt$info.upump.jymlight.ui.screens.screenscomponents.screen.CardTitle.kt</ID>
+    <ID>NewLineAtEndOfFile:CycleCheck.kt$info.upump.jymlight.models.entity.CycleCheck.kt</ID>
+    <ID>NewLineAtEndOfFile:CycleCheckVM.kt$info.upump.jymlight.ui.screens.viewmodel.cycle.CycleCheckVM.kt</ID>
+    <ID>NewLineAtEndOfFile:CycleDetailVM.kt$info.upump.jymlight.ui.screens.viewmodel.cycle.CycleDetailVM.kt</ID>
+    <ID>NewLineAtEndOfFile:CycleDetailVMInterface.kt$info.upump.jymlight.ui.screens.viewmodel.cycle.CycleDetailVMInterface.kt</ID>
+    <ID>NewLineAtEndOfFile:CycleItemCard.kt$info.upump.jymlight.ui.screens.screenscomponents.itemcard.item.CycleItemCard.kt</ID>
+    <ID>NewLineAtEndOfFile:CycleItemCardWithCheck.kt$info.upump.jymlight.ui.screens.screenscomponents.itemcard.item.CycleItemCardWithCheck.kt</ID>
+    <ID>NewLineAtEndOfFile:CycleVM.kt$info.upump.jymlight.ui.screens.viewmodel.cycle.CycleVM.kt</ID>
+    <ID>NewLineAtEndOfFile:CycleVMInterface.kt$info.upump.jymlight.ui.screens.viewmodel.cycle.CycleVMInterface.kt</ID>
+    <ID>NewLineAtEndOfFile:DBProvider.kt$info.upump.jymlight.utils.DBProvider.kt</ID>
+    <ID>NewLineAtEndOfFile:Day.kt$info.upump.jymlight.models.entity.Day.kt</ID>
+    <ID>NewLineAtEndOfFile:DefaultCycleNavGraph.kt$info.upump.jymlight.ui.screens.navigation.botomnavigation.DefaultCycleNavGraph.kt</ID>
+    <ID>NewLineAtEndOfFile:DividerCustom.kt$info.upump.jymlight.ui.screens.screenscomponents.screen.DividerCustom.kt</ID>
+    <ID>NewLineAtEndOfFile:EditSoundTimerScreen.kt$info.upump.jymlight.ui.screens.myworkoutsscreens.screens.workoutscreens.EditSoundTimerScreen.kt</ID>
+    <ID>NewLineAtEndOfFile:EmptyItem.kt$info.upump.jymlight.ui.screens.screenscomponents.itemcard.EmptyItem.kt</ID>
+    <ID>NewLineAtEndOfFile:Entity.kt$info.upump.jymlight.models.entity.Entity.kt</ID>
+    <ID>NewLineAtEndOfFile:ExampleUnitTest.kt$info.upump.jymlight.ExampleUnitTest.kt</ID>
+    <ID>NewLineAtEndOfFile:Exercise.kt$info.upump.jymlight.models.entity.Exercise.kt</ID>
+    <ID>NewLineAtEndOfFile:ExerciseChooseVM.kt$info.upump.jymlight.ui.screens.viewmodel.exercise.ExerciseChooseVM.kt</ID>
+    <ID>NewLineAtEndOfFile:ExerciseDescription.kt$info.upump.jymlight.models.entity.ExerciseDescription.kt</ID>
+    <ID>NewLineAtEndOfFile:ExerciseItemCard.kt$info.upump.jymlight.ui.screens.screenscomponents.itemcard.item.ExerciseItemCard.kt</ID>
+    <ID>NewLineAtEndOfFile:ExerciseReviewVM.kt$info.upump.jymlight.ui.screens.viewmodel.exercise.ExerciseReviewVM.kt</ID>
+    <ID>NewLineAtEndOfFile:ExerciseReviewVMInterface.kt$info.upump.jymlight.ui.screens.viewmodel.exercise.ExerciseReviewVMInterface.kt</ID>
+    <ID>NewLineAtEndOfFile:ExerciseVM.kt$info.upump.jymlight.ui.screens.viewmodel.exercise.ExerciseVM.kt</ID>
+    <ID>NewLineAtEndOfFile:ExerciseVMInterface.kt$info.upump.jymlight.ui.screens.viewmodel.exercise.ExerciseVMInterface.kt</ID>
+    <ID>NewLineAtEndOfFile:ImageByDay.kt$info.upump.jymlight.ui.screens.screenscomponents.screen.ImageByDay.kt</ID>
+    <ID>NewLineAtEndOfFile:ImageWithPicker.kt$info.upump.jymlight.ui.screens.screenscomponents.screen.ImageWithPicker.kt</ID>
+    <ID>NewLineAtEndOfFile:Imageable.kt$info.upump.jymlight.ui.screens.screenscomponents.Imageable.kt</ID>
+    <ID>NewLineAtEndOfFile:JSONRestoreBackup.kt$info.upump.jym.utils.JSONRestoreBackup.kt</ID>
+    <ID>NewLineAtEndOfFile:KeysForDataStore.kt$info.upump.jymlight.utils.KeysForDataStore.kt</ID>
+    <ID>NewLineAtEndOfFile:ListDefaultWorkouts.kt$info.upump.jymlight.ui.screens.screenscomponents.itemcard.ListDefaultWorkouts.kt</ID>
+    <ID>NewLineAtEndOfFile:ListExercise.kt$info.upump.jymlight.ui.screens.screenscomponents.itemcard.ListExercise.kt</ID>
+    <ID>NewLineAtEndOfFile:ListItemCycleWithCheck.kt$info.upump.jymlight.ui.screens.screenscomponents.itemcard.ListItemCycleWithCheck.kt</ID>
+    <ID>NewLineAtEndOfFile:ListItemDefaultsCycle.kt$info.upump.jymlight.ui.screens.screenscomponents.itemcard.ListItemDefaultsCycle.kt</ID>
+    <ID>NewLineAtEndOfFile:ListWorkouts.kt$info.upump.jymlight.ui.screens.screenscomponents.itemcard.ListWorkouts.kt</ID>
+    <ID>NewLineAtEndOfFile:MainActivityCompose.kt$info.upump.jymlight.MainActivityCompose.kt</ID>
+    <ID>NewLineAtEndOfFile:MyBottomNavigation.kt$info.upump.jymlight.ui.screens.navigation.botomnavigation.MyBottomNavigation.kt</ID>
+    <ID>NewLineAtEndOfFile:NavigationItem.kt$info.upump.jymlight.ui.screens.navigation.botomnavigation.NavigationItem.kt</ID>
+    <ID>NewLineAtEndOfFile:ProfileNavGraph.kt$info.upump.jymlight.ui.screens.navigation.botomnavigation.ProfileNavGraph.kt</ID>
+    <ID>NewLineAtEndOfFile:ReadToBackupRestorable.kt$info.upump.jymlight.utils.ReadToBackupRestorable.kt</ID>
+    <ID>NewLineAtEndOfFile:RowChips.kt$info.upump.jymlight.ui.screens.screenscomponents.screen.RowChips.kt</ID>
+    <ID>NewLineAtEndOfFile:SetEditeScreen.kt$info.upump.jymlight.ui.screens.myworkoutsscreens.screens.setsscreen.SetEditeScreen.kt</ID>
+    <ID>NewLineAtEndOfFile:Sets.kt$info.upump.jymlight.models.entity.Sets.kt</ID>
+    <ID>NewLineAtEndOfFile:SetsVM.kt$info.upump.jymlight.ui.screens.viewmodel.sets.SetsVM.kt</ID>
+    <ID>NewLineAtEndOfFile:SetsVMInterface.kt$info.upump.jymlight.ui.screens.viewmodel.sets.SetsVMInterface.kt</ID>
+    <ID>NewLineAtEndOfFile:SoundTimer.kt$info.upump.jymlight.ui.screens.screenscomponents.screen.SoundTimer.kt</ID>
+    <ID>NewLineAtEndOfFile:SoundTimerEditVM.kt$info.upump.jymlight.ui.screens.viewmodel.workout.SoundTimerEditVM.kt</ID>
+    <ID>NewLineAtEndOfFile:SoundTimerVM.kt$info.upump.jymlight.ui.screens.viewmodel.workout.SoundTimerVM.kt</ID>
+    <ID>NewLineAtEndOfFile:StopWatchVM.kt$info.upump.jymlight.ui.screens.viewmodel.workout.StopWatchVM.kt</ID>
+    <ID>NewLineAtEndOfFile:TableHeader.kt$info.upump.jymlight.ui.screens.screenscomponents.screen.TableHeader.kt</ID>
+    <ID>NewLineAtEndOfFile:Theme.kt$info.upump.jymlight.ui.theme.Theme.kt</ID>
+    <ID>NewLineAtEndOfFile:Todo.kt$info.upump.jymlight.Todo.kt</ID>
+    <ID>NewLineAtEndOfFile:TypeMuscle.kt$info.upump.jymlight.models.entity.TypeMuscle.kt</ID>
+    <ID>NewLineAtEndOfFile:User.kt$info.upump.jymlight.models.entity.User.kt</ID>
+    <ID>NewLineAtEndOfFile:Workout.kt$info.upump.jymlight.models.entity.Workout.kt</ID>
+    <ID>NewLineAtEndOfFile:WorkoutVMInterface.kt$info.upump.jymlight.ui.screens.viewmodel.workout.WorkoutVMInterface.kt</ID>
+    <ID>PrintStackTrace:Cycle.kt$Cycle.Companion$e</ID>
+    <ID>PrintStackTrace:Entity.kt$Entity.Companion$e</ID>
+    <ID>PrintStackTrace:User.kt$User$e</ID>
+    <ID>PrintStackTrace:Workout.kt$Workout.Companion$e</ID>
+    <ID>SpreadOperator:ExerciseChooseScreen.kt$( modifier = Modifier.align(Alignment.BottomCenter), *list.toTypedArray() )</ID>
+    <ID>SwallowedException:CycleVMCreateEdit.kt$CycleVMCreateEdit$e: IllegalArgumentException</ID>
+    <ID>SwallowedException:ImageWithPicker.kt$e: NullPointerException</ID>
+    <ID>SwallowedException:JSONRestoreBackup.kt$JSONRestoreBackup$e: JsonSyntaxException</ID>
+    <ID>TooGenericExceptionCaught:ImageWithPicker.kt$e: NullPointerException</ID>
+    <ID>TooManyFunctions:CycleVMCreateEdit.kt$CycleVMCreateEdit : BaseVMWithStateLoadCycleVMInterface</ID>
+    <ID>TooManyFunctions:CycleVMCreateEdit.kt$CycleVMCreateEdit.Companion$&lt;no name provided&gt; : CycleVMInterface</ID>
+    <ID>TooManyFunctions:CycleVMInterface.kt$CycleVMInterface</ID>
+    <ID>TooManyFunctions:WorkoutVMCreateEdit.kt$WorkoutVM : BaseVMWithStateLoadWorkoutVMInterface</ID>
+    <ID>TooManyFunctions:WorkoutVMCreateEdit.kt$WorkoutVM.Companion$&lt;no name provided&gt; : WorkoutVMInterface</ID>
+    <ID>TooManyFunctions:WorkoutVMInterface.kt$WorkoutVMInterface</ID>
+    <ID>UnusedParameter:CreateEditeCycleScreen.kt$paddingValues: PaddingValues</ID>
+    <ID>UnusedParameter:CreateWorkoutScreen.kt$paddingValues: PaddingValues</ID>
+    <ID>UnusedParameter:CycleDetailScreenM3.kt$paddingValues: PaddingValues</ID>
+    <ID>UnusedParameter:CycleVM.kt$CycleVM$context: Context</ID>
+    <ID>UnusedParameter:CycleVMCreateEdit.kt$CycleVMCreateEdit$context: Context</ID>
+    <ID>UnusedParameter:DefaultCycleDetailScreenM3.kt$paddingValues: PaddingValues</ID>
+    <ID>UnusedParameter:DefaultExerciseDetailScreen.kt$paddingValues: PaddingValues</ID>
+    <ID>UnusedParameter:DefaultWorkoutDetailScreenM3.kt$paddingValues: PaddingValues</ID>
+    <ID>UnusedParameter:DividerCustom.kt$modifier: Modifier = Modifier</ID>
+    <ID>UnusedParameter:DividerCustom.kt$state: Boolean = false</ID>
+    <ID>UnusedParameter:EditeWorkoutScreen.kt$paddingValues: PaddingValues</ID>
+    <ID>UnusedParameter:ExerciseChooseScreen.kt$modifier: Modifier = Modifier</ID>
+    <ID>UnusedParameter:ExerciseChooseScreen.kt$paddingValues: PaddingValues</ID>
+    <ID>UnusedParameter:ExersiceReviewScreen.kt$paddingValues: PaddingValues</ID>
+    <ID>UnusedParameter:ListDefaultExercise.kt$actionDel: (Long) -&gt; Unit</ID>
+    <ID>UnusedParameter:ListDefaultSets.kt$deleteAction: (Long) -&gt; Unit</ID>
+    <ID>UnusedParameter:ListDefaultSets.kt$navHost: NavHostController</ID>
+    <ID>UnusedParameter:MyExerciseDetailScreen.kt$paddingValues: PaddingValues</ID>
+    <ID>UnusedParameter:NumberPicker.kt$backgroundColor: Color = MaterialTheme.colorScheme.background</ID>
+    <ID>UnusedParameter:NumberPickerWithStep.kt$max: Int</ID>
+    <ID>UnusedParameter:ProfileChooseBackupScreen.kt$navController: NavHostController</ID>
+    <ID>UnusedParameter:ProfileChooseRestoreScreen.kt$navController: NavHostController</ID>
+    <ID>UnusedParameter:ProfileNavGraph.kt$appBarStyle: MutableState&lt;Int&gt;</ID>
+    <ID>UnusedParameter:ProfileNavGraph.kt$topBarState: MutableState&lt;Boolean&gt;</ID>
+    <ID>UnusedParameter:SetsItemCard.kt$action: () -&gt; Unit</ID>
+    <ID>UnusedParameter:Theme.kt$dynamicColor: Boolean = true</ID>
+    <ID>UnusedParameter:WorkoutDetailScreenM3.kt$paddingValues: PaddingValues</ID>
+    <ID>UnusedPrivateMember:ImageWithPicker.kt$private fun getImagePicker(image: String, context: Context): Bitmap</ID>
+    <ID>UnusedPrivateProperty:CardDateWithDatePicker.kt$val cycle = CycleVMCreateEdit.vmOnlyForPreview</ID>
+    <ID>UnusedPrivateProperty:CardDay.kt$var expanded by remember { mutableStateOf(false) }</ID>
+    <ID>UnusedPrivateProperty:CreateWorkoutScreen.kt$val isLoad by workoutVM.isLoading.collectAsState()</ID>
+    <ID>UnusedPrivateProperty:Cycle.kt$Cycle$private val daysBetweenDates: Int get() = 0</ID>
+    <ID>UnusedPrivateProperty:CycleDetailVM.kt$CycleDetailVM.Companion.&lt;no name provided&gt;$private val _itemList = MutableStateFlow( mutableListOf( Cycle().apply { title = "Preview2" }, Cycle().apply { title = "Preview 3" }) )</ID>
+    <ID>UnusedPrivateProperty:CycleVMCreateEdit.kt$CycleVMCreateEdit.Companion.&lt;no name provided&gt;$private val _itemList = MutableStateFlow( mutableListOf( Cycle().apply { title = "Preview2" }, Cycle().apply { title = "Preview 3" }) )</ID>
+    <ID>UnusedPrivateProperty:DefaultExerciseDetailScreen.kt$val coroutine = rememberCoroutineScope()</ID>
+    <ID>UnusedPrivateProperty:DefaultExerciseDetailScreen.kt$val load = exerciseVM.isLoading.collectAsState()</ID>
+    <ID>UnusedPrivateProperty:EditeWorkoutScreen.kt$val isLoad by workoutVM.isLoading.collectAsState()</ID>
+    <ID>UnusedPrivateProperty:ExerciseItemCard.kt$val listSets = listOf( Sets(20.0, 10, 15.0), Sets(20.0, 10, 15.0), Sets(20.0, 10, 15.0) )</ID>
+    <ID>UnusedPrivateProperty:ExerciseVM.kt$ExerciseVM$val repo = setsRepo.delete(id)</ID>
+    <ID>UnusedPrivateProperty:ExerciseVM.kt$ExerciseVM$val sets = Sets.mapToEntity(Sets().apply { this.id = id })</ID>
+    <ID>UnusedPrivateProperty:ExersiceReviewScreen.kt$val m: MutableState&lt;String&gt; = MutableStateFlow(" ").asStateFlow().collectAsState() as MutableState&lt;String&gt;</ID>
+    <ID>UnusedPrivateProperty:MyExerciseDetailScreen.kt$val load = exerciseVM.isLoading.collectAsState()</ID>
+    <ID>UnusedPrivateProperty:MyStartScreen.kt$val m: MutableState&lt;Boolean&gt; = MutableStateFlow&lt;Boolean&gt;(true).asStateFlow().collectAsState() as MutableState&lt;Boolean&gt;</ID>
+    <ID>UnusedPrivateProperty:SetEditeScreen.kt$val isLoad = setVM.isLoading.collectAsState()</ID>
+    <ID>UnusedPrivateProperty:SetsCreateScreen.kt$val isLoad = setVM.isLoading.collectAsState()</ID>
+    <ID>UnusedPrivateProperty:SetsItemCard.kt$val guiTwo = createGuidelineFromStart(GuidelineSets.TWO.offset)</ID>
+    <ID>UnusedPrivateProperty:SetsVM.kt$SetsVM$i</ID>
+    <ID>UnusedPrivateProperty:SoundTimer.kt$val context = LocalContext.current</ID>
+    <ID>UnusedPrivateProperty:StopWatch.kt$val context = LocalContext.current</ID>
+    <ID>UnusedPrivateProperty:TableHeader.kt$val guiTwo = createGuidelineFromStart(GuidelineSets.TWO.offset)</ID>
+    <ID>UnusedPrivateProperty:Theme.kt$private val LightColorScheme = lightColorScheme( primary = PrimaryLight, onPrimary = ONPrimaryLight, secondary = SecondaryLight, onSecondary = ONSecondaryLight, background = BackgroundLight, onBackground = OnBackgroundLight, primaryContainer = AccentLight, onPrimaryContainer = OnAccentLight, // текст labal tertiary = TertiaryLight, onTertiary = OnTertiaryLight, //подчеркивание и label outlineVariant = OutlineVariantLight )</ID>
+    <ID>UnusedPrivateProperty:WorkoutReviewScreen.kt$val m: MutableState&lt;String&gt; = MutableStateFlow&lt;String&gt;(" ").asStateFlow().collectAsState() as MutableState&lt;String&gt;</ID>
+    <ID>UtilityClassWithPublicConstructor:BitmapCreator.kt$BitmapCreator</ID>
+    <ID>UtilityClassWithPublicConstructor:KeysForDataStore.kt$KeysForDataStore</ID>
+    <ID>VariableNaming:BaseVMWithStateLoad.kt$BaseVMWithStateLoad$protected val _stateLoading = MutableStateFlow(false)</ID>
+    <ID>VariableNaming:WorkoutDetailVM.kt$WorkoutDetailVM$val _isEven = MutableStateFlow&lt;Boolean&gt;(true)</ID>
+    <ID>WildcardImport:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
+  </CurrentIssues>
+</SmellBaseline>

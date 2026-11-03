@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>ConstructorParameterNaming:CycleEntity.kt$CycleEntity$@ColumnInfo var default_img: String? = ""</ID>
+    <ID>ConstructorParameterNaming:CycleEntity.kt$CycleEntity$@ColumnInfo var default_type: Int = 0</ID>
+    <ID>ConstructorParameterNaming:CycleEntity.kt$CycleEntity$@ColumnInfo var finish_date: String = ""</ID>
+    <ID>ConstructorParameterNaming:CycleEntity.kt$CycleEntity$@ColumnInfo var start_date: String = ""</ID>
+    <ID>ConstructorParameterNaming:CycleEntity.kt$CycleEntity$@PrimaryKey(autoGenerate = true) var _id: Long = 0</ID>
+    <ID>ConstructorParameterNaming:ExerciseDescriptionEntity.kt$ExerciseDescriptionEntity$@ColumnInfo var default_img: String? = ""</ID>
+    <ID>ConstructorParameterNaming:ExerciseDescriptionEntity.kt$ExerciseDescriptionEntity$@PrimaryKey(autoGenerate = true) var _id: Long=0</ID>
+    <ID>ConstructorParameterNaming:ExerciseEntity.kt$ExerciseEntity$@ColumnInfo var default_type: Int = 0</ID>
+    <ID>ConstructorParameterNaming:ExerciseEntity.kt$ExerciseEntity$@ColumnInfo var description_id: Long? = 0</ID>
+    <ID>ConstructorParameterNaming:ExerciseEntity.kt$ExerciseEntity$@ColumnInfo var finish_date: String = ""</ID>
+    <ID>ConstructorParameterNaming:ExerciseEntity.kt$ExerciseEntity$@ColumnInfo var parent_id: Long? = 0</ID>
+    <ID>ConstructorParameterNaming:ExerciseEntity.kt$ExerciseEntity$@ColumnInfo var start_date: String = ""</ID>
+    <ID>ConstructorParameterNaming:ExerciseEntity.kt$ExerciseEntity$@ColumnInfo var type_exercise: String? = ""</ID>
+    <ID>ConstructorParameterNaming:ExerciseEntity.kt$ExerciseEntity$@PrimaryKey(autoGenerate = true) var _id: Long=0</ID>
+    <ID>ConstructorParameterNaming:SetsEntity.kt$SetsEntity$@ColumnInfo var finish_date: String = ""</ID>
+    <ID>ConstructorParameterNaming:SetsEntity.kt$SetsEntity$@ColumnInfo var parent_id: Long? = 0</ID>
+    <ID>ConstructorParameterNaming:SetsEntity.kt$SetsEntity$@ColumnInfo var past_set: Double ? = 0.0</ID>
+    <ID>ConstructorParameterNaming:SetsEntity.kt$SetsEntity$@ColumnInfo var start_date: String = ""</ID>
+    <ID>ConstructorParameterNaming:SetsEntity.kt$SetsEntity$@PrimaryKey(autoGenerate = true) var _id: Long=0</ID>
+    <ID>ConstructorParameterNaming:WorkoutEntity.kt$WorkoutEntity$@ColumnInfo var default_type: Int = 0</ID>
+    <ID>ConstructorParameterNaming:WorkoutEntity.kt$WorkoutEntity$@ColumnInfo var finish_date: String = ""</ID>
+    <ID>ConstructorParameterNaming:WorkoutEntity.kt$WorkoutEntity$@ColumnInfo var parent_id: Long? = 0</ID>
+    <ID>ConstructorParameterNaming:WorkoutEntity.kt$WorkoutEntity$@ColumnInfo var start_date: String = ""</ID>
+    <ID>ConstructorParameterNaming:WorkoutEntity.kt$WorkoutEntity$@ColumnInfo var week_even: Int = 0</ID>
+    <ID>ConstructorParameterNaming:WorkoutEntity.kt$WorkoutEntity$@PrimaryKey(autoGenerate = true) var _id: Long=0</ID>
+    <ID>MaxLineLength:ExerciseFullEntity.kt$ExerciseFullEntity$return "ExerciseFullEntity(exerciseEntity=$exerciseEntity, exerciseDescriptionEntity=$exerciseDescriptionEntity, listSetsEntity=$listSetsEntity)"</ID>
+    <ID>MaxLineLength:Migration1To2Test.kt$Migration1To2Test$generateSequence { if (rs.next()) rs.getString("name") to (rs.getInt("notnull") == 1) else null }.toList()</ID>
+    <ID>NewLineAtEndOfFile:CycleRepo.kt$info.upump.database.repo.CycleRepo.kt</ID>
+    <ID>NewLineAtEndOfFile:ExerciseDao.kt$info.upump.database.dao.ExerciseDao.kt</ID>
+    <ID>NewLineAtEndOfFile:ExerciseDescriptionDao.kt$info.upump.database.dao.ExerciseDescriptionDao.kt</ID>
+    <ID>NewLineAtEndOfFile:ExerciseDescriptionRepo.kt$info.upump.database.repo.ExerciseDescriptionRepo.kt</ID>
+    <ID>NewLineAtEndOfFile:ExerciseEntity.kt$info.upump.database.entities.ExerciseEntity.kt</ID>
+    <ID>NewLineAtEndOfFile:RepoActionsSpecific.kt$info.upump.database.RepoActionsSpecific.kt</ID>
+    <ID>NewLineAtEndOfFile:RoomDB.kt$info.upump.database.RoomDB.kt</ID>
+    <ID>NewLineAtEndOfFile:SetsDao.kt$info.upump.database.dao.SetsDao.kt</ID>
+    <ID>NewLineAtEndOfFile:SetsRepo.kt$info.upump.database.repo.SetsRepo.kt</ID>
+    <ID>NewLineAtEndOfFile:WorkoutEntity.kt$info.upump.database.entities.WorkoutEntity.kt</ID>
+    <ID>NewLineAtEndOfFile:WorkoutRepo.kt$info.upump.database.repo.WorkoutRepo.kt</ID>
+    <ID>TooManyFunctions:CycleDao.kt$CycleDao</ID>
+    <ID>TooManyFunctions:CycleRepo.kt$CycleRepo : RepoActionsSpecific</ID>
+    <ID>TooManyFunctions:ExerciseDescriptionRepo.kt$ExerciseDescriptionRepo : RepoActionsSpecific</ID>
+    <ID>TooManyFunctions:ExerciseRepo.kt$ExerciseRepo : RepoActionsSpecific</ID>
+    <ID>TooManyFunctions:SetsRepo.kt$SetsRepo : RepoActionsSpecific</ID>
+    <ID>TooManyFunctions:WorkoutRepo.kt$WorkoutRepo : RepoActionsSpecific</ID>
+    <ID>UnusedParameter:ExerciseDescriptionRepo.kt$ExerciseDescriptionRepo$id: Long</ID>
+    <ID>UnusedPrivateProperty:CycleRepo.kt$CycleRepo$val f = System.currentTimeMillis()</ID>
+  </CurrentIssues>
+</SmellBaseline>
