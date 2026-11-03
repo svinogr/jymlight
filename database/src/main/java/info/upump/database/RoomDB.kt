@@ -33,8 +33,9 @@ abstract class RoomDB : RoomDatabase() {
         const val BASE_NAME = "jym.db"
         const val BASE_NAME_RESTORE = "jymrestore.db"
         // добавляем новый столбец и не забываем увеличить версию в аннотации выше
+        const val MIGRATION_1_TO_2_SQL = "ALTER TABLE sets ADD COLUMN past_set REAL"
         val MIGRATION_1to2: Migration = Migration(1, 2) {
-            it.execSQL("ALTER TABLE sets ADD COLUMN past_set REAL")
+            it.execSQL(MIGRATION_1_TO_2_SQL)
         }
     }
 
