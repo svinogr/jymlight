@@ -30,8 +30,9 @@
 ## Build & Development
 - Minimum SDK: 29
 - Target SDK: 34
-- Kotlin version: 1.9.0
-- Java compatibility: 1.8
+- Kotlin version: 1.9.23
+- Java compatibility: 17
+- Versions are centralized in `gradle/libs.versions.toml` (Gradle version catalog)
 
 ## Important Notes
 - The app uses a splash screen with core-splashscreen library

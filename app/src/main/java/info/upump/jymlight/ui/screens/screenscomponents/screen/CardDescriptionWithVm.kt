@@ -48,7 +48,9 @@ fun CardDescriptionWithEdit(
             )
             .fillMaxWidth()
             .padding(top = 0.dp, end = 0.dp, bottom = 0.dp),
-            colors = TextFieldDefaults.textFieldColors(
+            colors = TextFieldDefaults.colors(
+                focusedTextColor = MaterialTheme.colorScheme.onBackground,
+                unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
                 disabledTextColor = Color.Transparent,
                 //focusedIndicatorColor = colorResource(R.color.colorBackgroundCardView),
                 focusedIndicatorColor = MaterialTheme.colorScheme.background,
@@ -56,8 +58,9 @@ fun CardDescriptionWithEdit(
                 unfocusedIndicatorColor = MaterialTheme.colorScheme.background,
                 disabledIndicatorColor = colorResource(R.color.colorBackgroundChips),
                // containerColor = colorResource(R.color.colorBackgroundCardView),
-                containerColor =MaterialTheme.colorScheme.background,
-                textColor = MaterialTheme.colorScheme.onBackground,
+                focusedContainerColor = MaterialTheme.colorScheme.background,
+                unfocusedContainerColor = MaterialTheme.colorScheme.background,
+                disabledContainerColor = MaterialTheme.colorScheme.background,
                 cursorColor = MaterialTheme.colorScheme.onBackground
             ),
             value = textComment,

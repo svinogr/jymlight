@@ -62,7 +62,9 @@ fun CardTitle(
                 ), 8.dp
             )
             .focusRequester(focusRequester),
-            colors = TextFieldDefaults.textFieldColors(
+            colors = TextFieldDefaults.colors(
+                focusedTextColor = MaterialTheme.colorScheme.onBackground,
+                unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
                 disabledTextColor = Color.Transparent,
               //  focusedIndicatorColor = colorResource(R.color.colorBackgroundCardView),
                 focusedIndicatorColor = MaterialTheme.colorScheme.background,
@@ -70,8 +72,9 @@ fun CardTitle(
                 unfocusedIndicatorColor = MaterialTheme.colorScheme.background,
                 disabledIndicatorColor = colorResource(R.color.colorBackgroundChips),
                // containerColor = colorResource(R.color.colorBackgroundCardView),
-                containerColor = MaterialTheme.colorScheme.background,
-                textColor = MaterialTheme.colorScheme.onBackground,
+                focusedContainerColor = MaterialTheme.colorScheme.background,
+                unfocusedContainerColor = MaterialTheme.colorScheme.background,
+                disabledContainerColor = MaterialTheme.colorScheme.background,
                 cursorColor = MaterialTheme.colorScheme.onBackground
             ),
             value = text,

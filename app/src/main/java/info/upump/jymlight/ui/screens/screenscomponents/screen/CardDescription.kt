@@ -51,15 +51,18 @@ fun CardDescription(
                     ), 8.dp
                 )
                 .fillMaxWidth(),
-            colors = TextFieldDefaults.textFieldColors(
+            colors = TextFieldDefaults.colors(
+                focusedTextColor = MaterialTheme.colorScheme.onBackground,
+                unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
                 disabledTextColor = Color.Transparent,
                 focusedIndicatorColor = colorResource(R.color.colorBackgroundChips),
                // unfocusedIndicatorColor = colorResource(R.color.colorBackgroundCardView),
                 unfocusedIndicatorColor = MaterialTheme.colorScheme.background,
                 disabledIndicatorColor = colorResource(R.color.colorBackgroundChips),
             //    containerColor = colorResource(R.color.colorBackgroundCardView),
-                containerColor = MaterialTheme.colorScheme.background,
-                textColor = MaterialTheme.colorScheme.onBackground
+                focusedContainerColor = MaterialTheme.colorScheme.background,
+                unfocusedContainerColor = MaterialTheme.colorScheme.background,
+                disabledContainerColor = MaterialTheme.colorScheme.background
             ),
             readOnly = readonly,
             value = textDescription,
@@ -103,7 +106,9 @@ fun CardDescriptionVariableTitle(
             )
             .fillMaxWidth()
             .padding(top = 0.dp, end = 0.dp, bottom = 0.dp),
-            colors = TextFieldDefaults.textFieldColors(
+            colors = TextFieldDefaults.colors(
+                focusedTextColor = MaterialTheme.colorScheme.onBackground,
+                unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
                 disabledTextColor = Color.Transparent,
                 //  focusedIndicatorColor = colorResource(R.color.colorBackgroundCardView),
                 focusedIndicatorColor = Color.Transparent,
@@ -111,8 +116,9 @@ fun CardDescriptionVariableTitle(
                 unfocusedIndicatorColor = Color.Transparent,
                 disabledIndicatorColor = colorResource(R.color.colorBackgroundChips),
                 // containerColor = colorResource(R.color.colorBackgroundCardView),
-                containerColor = MaterialTheme.colorScheme.background,
-                textColor = MaterialTheme.colorScheme.onBackground
+                focusedContainerColor = MaterialTheme.colorScheme.background,
+                unfocusedContainerColor = MaterialTheme.colorScheme.background,
+                disabledContainerColor = MaterialTheme.colorScheme.background
             ),
             readOnly = readonly,
             value = textDescription,

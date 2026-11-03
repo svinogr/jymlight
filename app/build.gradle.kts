@@ -4,15 +4,15 @@ plugins {
 }
 
 android {
-    namespace ="info.upump.jymlight"
+    namespace = "info.upump.jymlight"
     compileSdk = 34
 
     defaultConfig {
-        applicationId ="info.upump.jymlight"
+        applicationId = "info.upump.jymlight"
         minSdk = 29
         targetSdk = 34
         versionCode = 6
-        versionName ="1.06"
+        versionName = "1.06"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -20,7 +20,8 @@ android {
             compose = true
         }
         composeOptions {
-            kotlinCompilerExtensionVersion = "1.5.0"}
+            kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
+        }
     }
 
     buildTypes {
@@ -28,77 +29,57 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-               "proguard-rules.pro"
+                "proguard-rules.pro"
             )
             signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget ="1.8"
+        jvmTarget = "17"
+    }
+    lint {
+        disable += "UnusedMaterial3ScaffoldPaddingParameter"
     }
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    implementation (project(":database"))
-    implementation ("com.google.android.material:material:1.11.0")
-    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
-    implementation (platform("androidx.compose:compose-bom:2022.10.00"))
-    implementation ("androidx.compose.ui:ui:1.5.4")
-    debugImplementation ("androidx.compose.ui:ui-tooling:1.5.4")
-    implementation ("androidx.compose.ui:ui-tooling:1.5.4")
-    implementation ("androidx.compose.ui:ui-graphics:1.5.4")
-    // compose
-    implementation("androidx.compose.material3:material3")
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation ("org.jetbrains.kotlin:kotlin-stdlib:1.9.22")
-    androidTestImplementation( platform("androidx.compose:compose-bom:2022.10.00"))
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    // Optional - Add full set of material icons
-    implementation("androidx.compose.material:material-icons-extended")
-    // Optional - Add window size utils
-    implementation("androidx.compose.material3:material3-window-size-class")
-    // Optional - Integration with activities
-    implementation("androidx.activity:activity-compose:1.8.2")
-    // Optional - Integration with ViewModels
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0") // было же просто viewmodel
-    // Optional - Integration with LiveData
-    implementation("androidx.compose.runtime:runtime-livedata")
-    debugImplementation ("androidx.compose.ui:ui-test-manifest")
-    implementation ("androidx.navigation:navigation-compose:2.7.6")
-    implementation("androidx.compose.material:material:1.5.4")
+    implementation(project(":database"))
 
-    implementation("androidx.room:room-runtime:2.6.1")
-    annotationProcessor("androidx.room:room-compiler:2.6.1")
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.google.material)
+    implementation(libs.androidx.core.splashscreen)
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.constraintlayout.compose)
+    implementation(libs.gson)
 
-    implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
-    // To use Kotlin annotation processing tool (kapt)
-    // kapt("androidx.room:room-compiler:2.5.2")
+    implementation(platform(libs.compose.bom))
+    implementation(libs.compose.ui)
+    implementation(libs.compose.ui.graphics)
+    implementation(libs.compose.ui.tooling.preview)
+    implementation(libs.compose.material3)
+    implementation(libs.compose.material3.window.size)
+    implementation(libs.compose.material)
+    implementation(libs.compose.material.icons.extended)
+    implementation(libs.compose.runtime.livedata)
+    debugImplementation(libs.compose.ui.tooling)
+    debugImplementation(libs.compose.ui.test.manifest)
 
-    // Accompanist
-    implementation ("com.google.accompanist:accompanist-pager:0.30.1") // Pager
-    implementation("com.google.accompanist:accompanist-pager-indicators:0.30.1") // Pager Indicators
-    //accompanist-permissions
-    implementation("com.google.accompanist:accompanist-permissions:0.30.1")
+    implementation(libs.accompanist.permissions)
 
-    // constraint
-    implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
+    implementation(libs.coil)
+    implementation(libs.coil.compose)
 
-    implementation("com.github.bumptech.glide:compose:1.0.0-alpha.1")
-    implementation("io.coil-kt:coil:2.4.0")
-    implementation("io.coil-kt:coil-compose:2.4.0")
-    implementation("androidx.core:core-splashscreen:1.0.1")
-    implementation("com.google.code.gson:gson:2.10")
-
-    implementation( "androidx.datastore:datastore-preferences:1.0.0")
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.test.espresso.core)
+    androidTestImplementation(platform(libs.compose.bom))
+    androidTestImplementation(libs.compose.ui.test.junit4)
 }

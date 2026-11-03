@@ -47,12 +47,14 @@ fun CardDay(day: Day, isEven: Boolean, modifier: Modifier = Modifier) {
         ), 0.10f, Float.POSITIVE_INFINITY, TileMode.Clamp
     )
 
-    val colorForTextField = TextFieldDefaults.textFieldColors(
+    val colorForTextField = TextFieldDefaults.colors(
         disabledTextColor = Color.Transparent,
         focusedIndicatorColor = Color.Transparent,
         unfocusedIndicatorColor = Color.Transparent,
         disabledIndicatorColor = Color.Transparent,
-        containerColor = Color.Transparent
+        focusedContainerColor = Color.Transparent,
+        unfocusedContainerColor = Color.Transparent,
+        disabledContainerColor = Color.Transparent
     )
     Card(
         modifier = modifier

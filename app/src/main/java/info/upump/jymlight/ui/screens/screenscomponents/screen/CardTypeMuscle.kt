@@ -41,13 +41,16 @@ fun CardTypeMuscle(
             TextField(modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 0.dp, end = 8.dp, bottom = 0.dp),
-                colors = TextFieldDefaults.textFieldColors(
+                colors = TextFieldDefaults.colors(
+                    focusedTextColor = MaterialTheme.colorScheme.onBackground,
+                    unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
                     disabledTextColor = Color.Transparent,
                     focusedIndicatorColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent,
                     disabledIndicatorColor = Color.Transparent,
-                    containerColor = MaterialTheme.colorScheme.background,
-                    textColor = MaterialTheme.colorScheme.onBackground
+                    focusedContainerColor = MaterialTheme.colorScheme.background,
+                    unfocusedContainerColor = MaterialTheme.colorScheme.background,
+                    disabledContainerColor = MaterialTheme.colorScheme.background
                 ),
                 readOnly = readOnly,
                 value = text,

@@ -67,13 +67,16 @@ fun DateCardWithDatePicker(
             Row(modifier = Modifier) {
                 val modifierValue = Modifier.padding(top = 4.dp, bottom = 4.dp)
                 TextField(modifier = modifierValue.weight(1f),
-                    colors = TextFieldDefaults.textFieldColors(
+                    colors = TextFieldDefaults.colors(
+                        focusedTextColor = MaterialTheme.colorScheme.onBackground,
+                        unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
                         disabledTextColor = Color.Transparent,
                         focusedIndicatorColor = Color.Transparent,
                         unfocusedIndicatorColor = Color.Transparent,
                         disabledIndicatorColor = Color.Transparent,
-                        containerColor = MaterialTheme.colorScheme.background,
-                        textColor = MaterialTheme.colorScheme.onBackground
+                        focusedContainerColor = MaterialTheme.colorScheme.background,
+                        unfocusedContainerColor = MaterialTheme.colorScheme.background,
+                        disabledContainerColor = MaterialTheme.colorScheme.background
                     ),
                     readOnly = readonly,
                     value = startDate,
@@ -97,13 +100,16 @@ fun DateCardWithDatePicker(
                     .clickable {
 
                     },
-                    colors = TextFieldDefaults.textFieldColors(
+                    colors = TextFieldDefaults.colors(
+                        focusedTextColor = MaterialTheme.colorScheme.onBackground,
+                        unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
                         disabledTextColor = Color.Transparent,
                         focusedIndicatorColor = Color.Transparent,
                         unfocusedIndicatorColor = Color.Transparent,
                         disabledIndicatorColor = Color.Transparent,
-                        containerColor = MaterialTheme.colorScheme.background,
-                        textColor = MaterialTheme.colorScheme.onBackground
+                        focusedContainerColor = MaterialTheme.colorScheme.background,
+                        unfocusedContainerColor = MaterialTheme.colorScheme.background,
+                        disabledContainerColor = MaterialTheme.colorScheme.background
                     ),
                     readOnly = true,
                     value = finishDate,

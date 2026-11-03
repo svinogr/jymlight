@@ -1,14 +1,9 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("com.google.devtools.ksp")
+}
 
-    id("com.google.devtools.ksp") version "1.9.10-1.0.13"
-}
-buildscript {
-    dependencies {
-        classpath(kotlin("gradle-plugin", version = "1.9.21"))
-    }
-}
 android {
     namespace = "info.upump.database"
     compileSdk = 34
@@ -30,39 +25,23 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.room:room-runtime:2.6.1")
-    annotationProcessor("androidx.room:room-compiler:2.6.1")
+    implementation(libs.androidx.core.ktx)
 
-    // To use Kotlin annotation processing tool (kapt)
-    // kapt("androidx.room:room-compiler:$room_version")
-    // To use Kotlin Symbol Processing (KSP)
-    ksp("androidx.room:room-compiler:2.6.1")
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
 
-    // optional - Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:2.6.1")
-
-    // optional - RxJava2 support for Room
-    implementation("androidx.room:room-rxjava2:2.6.1")
-
-    // optional - RxJava3 support for Room
-    implementation("androidx.room:room-rxjava3:2.6.1")
-
-    // optional - Guava support for Room, including Optional and ListenableFuture
-    implementation("androidx.room:room-guava:2.6.1")
-
-    // optional - Test helpers
-    testImplementation("androidx.room:room-testing:2.6.1")
-
-    // optional - Paging 3 Integration
-    implementation("androidx.room:room-paging:2.6.1")
+    testImplementation(libs.junit)
+    testImplementation(libs.androidx.room.testing)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.test.espresso.core)
 }
