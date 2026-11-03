@@ -22,7 +22,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import info.upump.jymlight.R
 import info.upump.jymlight.ui.screens.screenscomponents.itemcard.ListDefaultSets
@@ -39,7 +39,7 @@ fun DefaultExerciseDetailScreen(
     paddingValues: PaddingValues,
     appBarTitle: MutableState<String>
 ) {
-    val exerciseVM: ExerciseVM = viewModel()
+    val exerciseVM: ExerciseVM = hiltViewModel()
     val load = exerciseVM.isLoading.collectAsState()
     val lazyListState = LazyListState()
 

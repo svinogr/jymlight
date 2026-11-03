@@ -112,7 +112,7 @@ fun ListCycle(
 @Preview
 @Composable
 fun ComPreview() {
-    //   val vm: CycleVM = viewModel()
+    //   val vm: CycleVM = hiltViewModel()
     //   val del: (Context, String, Long) -> Unit = vm::delete
     val list = listOf(
         Cycle().apply {

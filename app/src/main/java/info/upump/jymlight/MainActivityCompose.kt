@@ -9,9 +9,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
+import dagger.hilt.android.AndroidEntryPoint
 import info.upump.jymlight.ui.screens.mainscreen.MainScreen
 import info.upump.jymlight.ui.theme.JymTheme
 
+@AndroidEntryPoint
 class MainActivityCompose : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,6 +1,7 @@
 package info.upump.jymlight.ui.screens.viewmodel.workout
 
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import info.upump.database.repo.ExerciseRepo
 import info.upump.database.repo.WorkoutRepo
 import info.upump.jymlight.models.entity.Day
@@ -16,10 +17,14 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class WorkoutDetailVM : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad(),
+@HiltViewModel
+class WorkoutDetailVM @Inject constructor(
+    private val workoutRepo: WorkoutRepo,
+    private val exerciseRepo: ExerciseRepo,
+) : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad(),
     info.upump.jymlight.ui.screens.viewmodel.WorkoutDetailVMInterface {
-    private val workoutRepo = WorkoutRepo.get()
 
     private val _workout = MutableStateFlow(Workout())
 
@@ -109,15 +114,14 @@ class WorkoutDetailVM : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithState
 
     override fun deleteSub(it: Long) {
         viewModelScope.launch(Dispatchers.IO) {
-            val repo = ExerciseRepo.get()
-            repo.delete(it)
+            exerciseRepo.delete(it)
         }
     }
 
     override fun cleanItem() {
         viewModelScope.launch(Dispatchers.IO) {
             _stateLoading.value = true
-            ExerciseRepo.get().deleteByParent(_id.value)
+            exerciseRepo.deleteByParent(_id.value)
             _stateLoading.value = false
         }
     }

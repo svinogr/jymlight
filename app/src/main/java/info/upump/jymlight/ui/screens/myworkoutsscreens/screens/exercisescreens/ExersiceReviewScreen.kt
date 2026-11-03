@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import info.upump.jymlight.models.entity.TypeMuscle
 import info.upump.jymlight.ui.screens.screenscomponents.screen.CardDescription
@@ -33,7 +33,7 @@ fun ExerciseReviewScreen(
     paddingValues: PaddingValues,
     appBarTitle: MutableState<String>,
 ) {
-    val exerciseVM: ExerciseReviewVM = viewModel()
+    val exerciseVM: ExerciseReviewVM = hiltViewModel()
     appBarTitle.value = exerciseVM.item.collectAsState().value.exerciseDescription!!.title
 
     LaunchedEffect(key1 = true) {

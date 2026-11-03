@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import info.upump.jymlight.dataStore
 import info.upump.jymlight.utils.KeysForDataStore
 import kotlinx.coroutines.Dispatchers
@@ -14,8 +15,10 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SoundTimerEditVM : ViewModel() {
+@HiltViewModel
+class SoundTimerEditVM @Inject constructor() : ViewModel() {
     private val _start = MutableStateFlow(0)
     val start = _start.asStateFlow()
 

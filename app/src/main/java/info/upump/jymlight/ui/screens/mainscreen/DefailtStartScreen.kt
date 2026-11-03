@@ -14,7 +14,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import info.upump.jymlight.ui.screens.screenscomponents.itemcard.ListItemDefaultsCycle
 import info.upump.jymlight.ui.screens.viewmodel.cycle.CycleVM
@@ -27,7 +27,7 @@ fun DefaultStartScreen(
 ) {
     val listState = rememberLazyListState()
 
-    val cycleVM: CycleVM = viewModel()
+    val cycleVM: CycleVM = hiltViewModel()
 
     val listCycle = remember {
         mutableStateOf(cycleVM.cycleList)

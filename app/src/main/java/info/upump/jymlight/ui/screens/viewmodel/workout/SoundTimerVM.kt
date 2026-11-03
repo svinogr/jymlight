@@ -9,6 +9,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import info.upump.jymlight.R
 import info.upump.jymlight.dataStore
 import info.upump.jymlight.ui.screens.screenscomponents.screen.StopWatchState
@@ -31,9 +32,11 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.Locale
+import javax.inject.Inject
 
 
-class SoundTimerVM() : ViewModel() {
+@HiltViewModel
+class SoundTimerVM @Inject constructor() : ViewModel() {
     private var isSound = true
     private val _formatedTime = MutableStateFlow("00:00")
     val formatedTime = _formatedTime.asStateFlow()

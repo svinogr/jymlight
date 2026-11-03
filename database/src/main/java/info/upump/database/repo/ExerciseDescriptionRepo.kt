@@ -1,27 +1,16 @@
 package info.upump.database.repo
 
-import android.content.Context
-import info.upump.database.RepoActions
 import info.upump.database.RepoActionsSpecific
 import info.upump.database.RoomDB
 import info.upump.database.entities.ExerciseDescriptionEntity
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class ExerciseDescriptionRepo private constructor(db: RoomDB) :
+@Singleton
+class ExerciseDescriptionRepo @Inject constructor(db: RoomDB) :
     RepoActionsSpecific<ExerciseDescriptionEntity, ExerciseDescriptionEntity> {
     private val exerciseDescriptionDao = db.exerciseDescriptionDao()
-
-    companion object {
-        private var instance: ExerciseDescriptionRepo? = null
-
-        fun initialize(db: RoomDB) {
-            instance = ExerciseDescriptionRepo(db)
-        }
-
-        fun get(): RepoActions<ExerciseDescriptionEntity> {
-            return instance ?: throw IllegalStateException(" first need initialize repo")
-        }
-    }
 
 
     override fun getFullEntityBy(id: Long): Flow<ExerciseDescriptionEntity> {

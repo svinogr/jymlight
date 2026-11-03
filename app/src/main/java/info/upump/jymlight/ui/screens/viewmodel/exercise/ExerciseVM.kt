@@ -2,6 +2,7 @@ package info.upump.jymlight.ui.screens.viewmodel.exercise
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import info.upump.database.repo.ExerciseRepo
 import info.upump.database.repo.SetsRepo
 import info.upump.jymlight.models.entity.Exercise
@@ -12,8 +13,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ExerciseVM : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad(), ExerciseVMInterface {
+@HiltViewModel
+class ExerciseVM @Inject constructor(
+    private val exerciseRepo: ExerciseRepo,
+    private val setsRepo: SetsRepo,
+) : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad(), ExerciseVMInterface {
     private val _imageDescription = MutableStateFlow("")
     val imageDescription = _imageDescription.asStateFlow()
 
@@ -31,7 +37,7 @@ class ExerciseVM : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad(
         _stateLoading.value = true
         parentId = id
         viewModelScope.launch(Dispatchers.IO) {
-            ExerciseRepo.get().getFullEntityBy(id).map { entity ->
+            exerciseRepo.getFullEntityBy(id).map { entity ->
                 Exercise.mapFromFullDbEntity(entity)
             }.collect() {
 
@@ -48,7 +54,7 @@ class ExerciseVM : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad(
     override fun deleteSub(id: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             val sets = Sets.mapToEntity(Sets().apply { this.id = id })
-            val repo = SetsRepo.get().delete(id)
+            val repo = setsRepo.delete(id)
 
             Log.d("delete", "${_listSets.value.size}")
             _listSets.value.removeIf {
@@ -60,7 +66,7 @@ class ExerciseVM : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad(
 
     override fun cleanItem() {
         viewModelScope.launch(Dispatchers.IO) {
-            SetsRepo.get().deleteByParent(parentId)
+            setsRepo.deleteByParent(parentId)
         }
     }
 

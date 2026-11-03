@@ -25,9 +25,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import dagger.hilt.android.EntryPointAccessors
 import info.upump.database.entities.CycleEntity
+import info.upump.jymlight.di.RepoEntryPoint
 import info.upump.database.entities.CycleFullEntity
 import info.upump.database.entities.ExerciseDescriptionEntity
 import info.upump.database.entities.ExerciseEntity
@@ -62,7 +64,7 @@ fun ProfileChooseRestoreScreen(
     val coroutine = rememberCoroutineScope()
     val context = LocalContext.current
 
-    val cycleVM: CycleCheckVM = viewModel()
+    val cycleVM: CycleCheckVM = hiltViewModel()
     val listCycles = cycleVM.cycleList
     LaunchedEffect(key1 = true) {
       cycleVM.getAllPersonalFromFile(context, JSONRestoreBackup())
@@ -191,7 +193,10 @@ suspend fun writeToDb(context: Context, list: List<Cycle>, function: () -> Unit)
         }
         //}
         //     Log.d("restore time", "${System.currentTimeMillis() - start}")
-        val cycleRepo = CycleRepo.get() as CycleRepo
+        val cycleRepo = EntryPointAccessors.fromApplication(
+            context,
+            RepoEntryPoint::class.java
+        ).cycleRepo()
         cycleRepo.saveFullEntitiesOnlyFromOtherDB(listFullEntities.awaitAll())
         withContext(Dispatchers.Main) { function() }
     }
@@ -236,7 +241,7 @@ fun ProfileChooseScreenWithChooseALL(
     val coroutine = rememberCoroutineScope()
     val context = LocalContext.current
 
-    val cycleVM: CycleCheckVM = viewModel()
+    val cycleVM: CycleCheckVM = hiltViewModel()
     val listCycles = cycleVM.cycleList
 
     LaunchedEffect(key1 = true) {

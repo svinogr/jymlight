@@ -25,7 +25,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import info.upump.jymlight.R
 import info.upump.jymlight.ui.screens.navigation.botomnavigation.NavigationItem
@@ -43,7 +43,7 @@ fun MyCycleScreen(
 ) {
     val listState = rememberLazyListState()
 
-    val cycleVM: CycleVM = viewModel()
+    val cycleVM: CycleVM = hiltViewModel()
 
     val listCycle = remember {
         mutableStateOf(cycleVM.cycleList)

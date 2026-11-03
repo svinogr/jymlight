@@ -14,23 +14,18 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.take
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class CycleRepo private constructor(db: RoomDB) :
+@Singleton
+class CycleRepo @Inject constructor(
+    db: RoomDB,
+    private val workoutRepo: WorkoutRepo,
+    private val exerciseRepo: ExerciseRepo,
+    private val setsRepo: SetsRepo,
+) :
     RepoActionsSpecific<CycleEntity, CycleFullEntityWithWorkouts> {
     private val cycleDao = db.cycleDao()
-    private val workoutRepo = WorkoutRepo.get()
-
-    companion object {
-        private var instance: CycleRepo? = null
-
-        fun initialize(db: RoomDB) {
-            instance = CycleRepo(db)
-        }
-
-        fun get(): RepoActionsSpecific<CycleEntity, CycleFullEntityWithWorkouts> {
-            return instance ?: throw IllegalStateException("first need initialize repo")
-        }
-    }
 
     override fun getFullEntityBy(id: Long): Flow<CycleFullEntityWithWorkouts> {
         return cycleDao.getWithWorkouts(id)
@@ -114,7 +109,6 @@ class CycleRepo private constructor(db: RoomDB) :
 
     private suspend fun copy(list: List<CycleFullEntity>, today: String) {
         val listForDbWrite = mutableListOf<Deferred<CycleEntity>>()
-        val workoutsRepo = WorkoutRepo.get()
         coroutineScope {
             for (cycle in list) {
                 val cycleE =
@@ -129,7 +123,7 @@ class CycleRepo private constructor(db: RoomDB) :
                         val id = cycleDao.save(c)
 
                         for (workout in cycle.listWorkoutEntity) {
-                            val repoW = workoutsRepo
+                            val repoW = workoutRepo
 
                                 workout.workoutEntity._id = 0
                                 workout.workoutEntity.parent_id = id
@@ -141,7 +135,7 @@ class CycleRepo private constructor(db: RoomDB) :
 
                                 val idW = repoW.save(workout.workoutEntity)._id
 
-                                val repoE = ExerciseRepo.get()
+                                val repoE = exerciseRepo
 
                                 for (exercise in workout.listExerciseEntity) {
 
@@ -149,7 +143,7 @@ class CycleRepo private constructor(db: RoomDB) :
                                         exercise.exerciseEntity.parent_id = idW
                                         val idE = repoE.save(exercise.exerciseEntity)._id
 
-                                        val repoS = SetsRepo.get()
+                                        val repoS = setsRepo
 
                                         for (sets in exercise.listSetsEntity) {
 

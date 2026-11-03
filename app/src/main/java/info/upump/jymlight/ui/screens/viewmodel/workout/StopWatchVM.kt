@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi
 import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import info.upump.jymlight.R
 import info.upump.jymlight.dataStore
 import info.upump.jymlight.ui.screens.screenscomponents.screen.StopWatchState
@@ -28,8 +29,10 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.Locale
+import javax.inject.Inject
 
-class StopWatchVM : ViewModel() {
+@HiltViewModel
+class StopWatchVM @Inject constructor() : ViewModel() {
     private val _isSoundEveryTime = MutableStateFlow(false)
     val isSoundEveryTime = _isSoundEveryTime.asStateFlow()
     private val _formatedTime = MutableStateFlow("00:00:00")

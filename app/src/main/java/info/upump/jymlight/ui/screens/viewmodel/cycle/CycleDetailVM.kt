@@ -1,11 +1,7 @@
 package info.upump.jymlight.ui.screens.viewmodel.cycle
 
 import androidx.lifecycle.viewModelScope
-import info.upump.database.RepoActions
-import info.upump.database.RepoActionsSpecific
-import info.upump.database.entities.CycleEntity
-import info.upump.database.entities.CycleFullEntityWithWorkouts
-import info.upump.database.entities.WorkoutEntity
+import dagger.hilt.android.lifecycle.HiltViewModel
 import info.upump.database.repo.CycleRepo
 import info.upump.database.repo.WorkoutRepo
 import info.upump.jymlight.models.entity.Cycle
@@ -19,12 +15,14 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.Date
+import javax.inject.Inject
 
-class CycleDetailVM : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad(),
+@HiltViewModel
+class CycleDetailVM @Inject constructor(
+    private val workoutRepo: WorkoutRepo,
+    private val cycleRepo: CycleRepo,
+) : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad(),
     CycleDetailVMInterface {
-    private val workoutRepo: RepoActions<WorkoutEntity> = WorkoutRepo.get()
-    private val cycleRepo: RepoActionsSpecific<CycleEntity, CycleFullEntityWithWorkouts> =
-        CycleRepo.get()
 
     private var _cycle = MutableStateFlow(Cycle())
     override val item: StateFlow<Cycle> = _cycle.asStateFlow()
@@ -91,7 +89,6 @@ class CycleDetailVM : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLo
     override fun copyToPersonal(id: Long) {
         _stateLoading.value = true
         viewModelScope.launch(Dispatchers.IO) {
-            val cycleRepo = CycleRepo.get() as CycleRepo
             val today = Cycle.formatDateToString(Date())
             cycleRepo.copyToPersonal(id, today)
             _stateLoading.value = false

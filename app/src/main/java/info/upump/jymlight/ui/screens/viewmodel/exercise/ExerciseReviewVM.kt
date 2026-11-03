@@ -1,6 +1,7 @@
 package info.upump.jymlight.ui.screens.viewmodel.exercise
 
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import info.upump.database.repo.ExerciseRepo
 import info.upump.jymlight.models.entity.Exercise
 import info.upump.jymlight.models.entity.ExerciseDescription
@@ -9,10 +10,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ExerciseReviewVM : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad(), ExerciseReviewVMInterface {
-    private val exerciseRepo = ExerciseRepo.get()
-
+@HiltViewModel
+class ExerciseReviewVM @Inject constructor(
+    private val exerciseRepo: ExerciseRepo,
+) : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad(), ExerciseReviewVMInterface {
     private val _item = MutableStateFlow(Exercise().apply {
         exerciseDescription = ExerciseDescription()
     })

@@ -23,7 +23,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import info.upump.jymlight.R
 import info.upump.jymlight.ui.screens.myworkoutsscreens.ActionState
@@ -48,7 +48,7 @@ fun CreateEditeCycleScreen(
     appBarTitle: MutableState<String>,
     action: ActionState
 ) {
-    val cycleVM: CycleVMCreateEdit = viewModel()
+    val cycleVM: CycleVMCreateEdit = hiltViewModel()
 
     val context = LocalContext.current
    /* val columnModifier = Modifier

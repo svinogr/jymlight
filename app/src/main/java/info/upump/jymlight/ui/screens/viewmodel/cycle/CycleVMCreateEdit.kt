@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.core.net.toFile
 import androidx.core.net.toUri
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import info.upump.database.repo.CycleRepo
 import info.upump.jymlight.models.entity.Cycle
 import info.upump.jymlight.models.entity.Entity
@@ -20,8 +21,12 @@ import java.io.File
 import java.io.FileOutputStream
 import java.util.Date
 import java.util.UUID
+import javax.inject.Inject
 
-class CycleVMCreateEdit() : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad(),
+@HiltViewModel
+class CycleVMCreateEdit @Inject constructor(
+    private val cycleRepo: CycleRepo,
+) : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad(),
     CycleVMInterface {
     companion object {
         val vmOnlyForPreview by lazy {
@@ -158,7 +163,7 @@ class CycleVMCreateEdit() : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithS
                 return@launch
             }
 
-            CycleRepo.get().getFullEntityBy(id).map {
+            cycleRepo.getFullEntityBy(id).map {
                 Cycle.mapFullFromDbEntity(it)
             }.collect {
                 updateId(it.id)
@@ -192,7 +197,7 @@ class CycleVMCreateEdit() : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithS
         viewModelScope.launch(Dispatchers.IO) {
             var cS = collectToSave(context)
             val cE = Cycle.mapToEntity(cS)
-            val save = CycleRepo.get().save(cE)
+            val save = cycleRepo.save(cE)
 
             launch(Dispatchers.Main) {
                 callback(save._id)

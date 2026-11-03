@@ -52,7 +52,7 @@ class SetsDaoTest {
 
     @Test
     fun past_set_is_nullable() = runBlocking {
-        dao.save(SetsEntity(comment = "no past", parent_id = 1))
+        dao.save(SetsEntity(comment = "no past", parent_id = 1, past_set = null))
 
         val saved = dao.getByParent(1).first().single()
 

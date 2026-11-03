@@ -32,7 +32,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import info.upump.jymlight.R
 import info.upump.jymlight.ui.screens.mainscreen.AppBarAction
@@ -52,7 +52,7 @@ fun EditSoundTimerScreen(
     val colModifier = Modifier.background(colorResource(id = R.color.colorBackgroundCardView))
     val titleModifier = Modifier.padding(start = 8.dp, top = 8.dp)
     val context = LocalContext.current
-    val soundTimerErrorActionEditVM: SoundTimerEditVM = viewModel()
+    val soundTimerErrorActionEditVM: SoundTimerEditVM = hiltViewModel()
 
     appBarTitle.value = stringResource(id = R.string.label_edit_sound_timer_screen)
     val start = remember {

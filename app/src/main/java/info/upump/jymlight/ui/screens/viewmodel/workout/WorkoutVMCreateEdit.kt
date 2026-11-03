@@ -3,6 +3,7 @@ package info.upump.jymlight.ui.screens.viewmodel.workout
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import info.upump.database.repo.WorkoutRepo
 import info.upump.jymlight.models.entity.Day
 import info.upump.jymlight.models.entity.Entity
@@ -15,8 +16,12 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.Date
+import javax.inject.Inject
 
-class WorkoutVM() : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad(), WorkoutVMInterface {
+@HiltViewModel
+class WorkoutVM @Inject constructor(
+    private val workoutRepo: WorkoutRepo,
+) : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad(), WorkoutVMInterface {
     companion object {
         val vmOnlyForPreview by lazy {
             object : WorkoutVMInterface {
@@ -166,7 +171,7 @@ class WorkoutVM() : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad
                 return@launch
             }
 
-            WorkoutRepo.get().getFullEntityBy(id).map {
+            workoutRepo.getFullEntityBy(id).map {
                 Workout.mapFromFullDbEntity(it)
             }.collect {
                 with(it) {
@@ -188,7 +193,7 @@ class WorkoutVM() : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad
             val wC = collectToSave()
             val wE = Workout.mapToEntity(wC)
             wE.parent_id = parentId
-            val save = WorkoutRepo.get().save(wE)
+            val save = workoutRepo.save(wE)
             launch(Dispatchers.Main) {
                 callback(save._id)
             }
@@ -200,7 +205,7 @@ class WorkoutVM() : info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad
             val wC = collectToSave()
             Log.d("paren", "${parentId.value} ${wC.parentId}")
             val wE = Workout.mapToEntity(wC)
-            WorkoutRepo.get().save(wE)
+            workoutRepo.save(wE)
         }
     }
 

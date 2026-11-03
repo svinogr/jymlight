@@ -29,7 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import info.upump.jymlight.R
 import info.upump.jymlight.ui.screens.screenscomponents.BottomSheet
@@ -50,7 +50,7 @@ fun DefaultCycleDetailScreenM3(
     paddingValues: PaddingValues,
     appBarTitle: MutableState<String>
 ) {
-    val cycleVM: CycleDetailVM = viewModel()
+    val cycleVM: CycleDetailVM = hiltViewModel()
     val listState = rememberLazyListState()
 
     val coroutine = rememberCoroutineScope()

@@ -2,6 +2,7 @@ package info.upump.jymlight.ui.screens.viewmodel.sets
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import info.upump.database.repo.SetsRepo
 import info.upump.jymlight.models.entity.Sets
 import info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad
@@ -12,8 +13,12 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SetsVM : BaseVMWithStateLoad(), SetsVMInterface {
+@HiltViewModel
+class SetsVM @Inject constructor(
+    private val setsRepo: SetsRepo,
+) : BaseVMWithStateLoad(), SetsVMInterface {
     private val _sets = MutableStateFlow<Sets>(Sets())
     override val item: StateFlow<Sets> = _sets.asStateFlow()
 
@@ -63,7 +68,6 @@ class SetsVM : BaseVMWithStateLoad(), SetsVMInterface {
 
     override fun getBy(id: Long) {
         viewModelScope.launch(Dispatchers.IO) {
-            val setsRepo = SetsRepo.get()
             setsRepo.getFullEntityBy(id).map { entity ->
                 Sets.mapFromDbEntity(entity)
             }.collect() { sets ->
@@ -96,8 +100,6 @@ class SetsVM : BaseVMWithStateLoad(), SetsVMInterface {
 
             if ( _weight.value != tempWeight) {
             }
-
-            val setsRepo = SetsRepo.get()
 
             if (quantity.value != 0) {
                 for (i in 0..<quantity.value) {

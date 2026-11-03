@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import info.upump.jymlight.R
 import info.upump.jymlight.models.entity.Day
@@ -44,7 +44,7 @@ fun ExerciseChooseScreen(
     modifier: Modifier = Modifier
 ) {
     appBarTitle.value = stringResource(id = R.string.exercise_choose_title_add_exercise)
-    val exerciseVM: ExerciseChooseVM = viewModel()
+    val exerciseVM: ExerciseChooseVM = hiltViewModel()
     val listState = rememberLazyListState()
 
     val valuesMuscle = TypeMuscle.values()

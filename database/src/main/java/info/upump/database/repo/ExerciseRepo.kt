@@ -1,6 +1,5 @@
 package info.upump.database.repo
 
-import android.content.Context
 import android.util.Log
 import androidx.room.Transaction
 import info.upump.database.RepoActionsSpecific
@@ -8,25 +7,13 @@ import info.upump.database.RoomDB
 import info.upump.database.entities.ExerciseEntity
 import info.upump.database.entities.ExerciseFullEntity
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class ExerciseRepo private constructor(db: RoomDB) :
+@Singleton
+class ExerciseRepo @Inject constructor(db: RoomDB, private val setsRepo: SetsRepo) :
     RepoActionsSpecific<ExerciseEntity, ExerciseFullEntity> {
     private val exerciseDao = db.exerciseDao()
-    private val setsRepo = SetsRepo.get()
-
-    companion object {
-        private var instance: ExerciseRepo? = null
-
-        fun initialize(db: RoomDB) {
-
-            instance = ExerciseRepo(db)
-
-        }
-
-        fun get(): RepoActionsSpecific<ExerciseEntity, ExerciseFullEntity> {
-            return instance ?: throw IllegalStateException(" first need initialize repo")
-        }
-    }
 
 
     override fun getAllFullEntityByParent(parentId: Long): Flow<List<ExerciseFullEntity>> {

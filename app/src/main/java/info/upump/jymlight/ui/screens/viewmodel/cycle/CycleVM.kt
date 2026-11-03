@@ -5,6 +5,7 @@ import android.net.Uri
 import android.util.Log
 import androidx.core.net.toFile
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import info.upump.database.repo.CycleRepo
 import info.upump.jymlight.models.entity.Cycle
 import info.upump.jymlight.ui.screens.viewmodel.BaseVMWithStateLoad
@@ -15,12 +16,15 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 // для списка всех cycles
-class CycleVM : BaseVMWithStateLoad() {
+@HiltViewModel
+class CycleVM @Inject constructor(
+    private val cycleRepo: CycleRepo,
+) : BaseVMWithStateLoad() {
     private val _cycleList = MutableStateFlow<List<Cycle>>(listOf())
     val cycleList: StateFlow<List<Cycle>> = _cycleList.asStateFlow()
-    private val cycleRepo = CycleRepo.get()
 
     suspend fun getAllPersonal() {
         Log.d("getAllPersonal", "getAllPersonal")

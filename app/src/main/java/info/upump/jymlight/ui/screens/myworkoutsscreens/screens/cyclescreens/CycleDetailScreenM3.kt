@@ -33,9 +33,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import info.upump.jymlight.R
+import info.upump.jymlight.models.entity.Workout
 import info.upump.jymlight.ui.screens.mainscreen.isScrollingUp
 import info.upump.jymlight.ui.screens.navigation.botomnavigation.NavigationItem
 import info.upump.jymlight.ui.screens.screenscomponents.BottomSheet
@@ -47,7 +48,10 @@ import info.upump.jymlight.ui.screens.screenscomponents.screen.ImageForDetailScr
 import info.upump.jymlight.ui.screens.screenscomponents.screen.RowChips
 import info.upump.jymlight.ui.screens.screenscomponents.screen.SnackBar
 import info.upump.jymlight.ui.screens.viewmodel.cycle.CycleDetailVM
+import info.upump.jymlight.ui.screens.viewmodel.cycle.CycleDetailVMInterface
+import info.upump.jymlight.models.entity.Cycle
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
@@ -59,7 +63,7 @@ fun AlterCycleDetailScreenM3(
     paddingValues: PaddingValues,
     appBarTitle: MutableState<String>
 ) {
-    val cycleVM: info.upump.jymlight.ui.screens.viewmodel.cycle.CycleDetailVM = viewModel()
+    val cycleVM: info.upump.jymlight.ui.screens.viewmodel.cycle.CycleDetailVM = hiltViewModel()
     val listState = rememberLazyListState()
 
     val coroutine = rememberCoroutineScope()
@@ -182,7 +186,22 @@ fun AlterCycleDetailScreenPreview() {
         MutableStateFlow<String>(" ").asStateFlow().collectAsState() as MutableState<String>
    val navHostController = NavHostController(LocalContext.current)
 
-    val cycleVM: CycleDetailVM = viewModel()
+    val cycleVM = object : CycleDetailVMInterface {
+        override val item: StateFlow<Cycle> = MutableStateFlow(Cycle())
+        override val id: StateFlow<Long> = MutableStateFlow(1L)
+        override val title: StateFlow<String> = MutableStateFlow("Preview cycle")
+        override val comment: StateFlow<String> = MutableStateFlow("")
+        override val startDate: StateFlow<String> = MutableStateFlow("")
+        override val finishDate: StateFlow<String> = MutableStateFlow("")
+        override val img: StateFlow<String> = MutableStateFlow("")
+        override val imgDefault: StateFlow<String> = MutableStateFlow("")
+        override val subItems: StateFlow<List<Workout>> =
+            MutableStateFlow(listOf(Workout().apply { title = "Preview workout" }))
+        override fun getBy(id: Long) {}
+        override fun deleteSubItem(id: Long) {}
+        override fun cleanItem() {}
+        override fun copyToPersonal(long: Long) {}
+    }
     val listState = rememberLazyListState()
     val id = 1L
     val coroutine = rememberCoroutineScope()

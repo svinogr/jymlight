@@ -1,7 +1,5 @@
 package info.upump.database.repo
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.util.Log
 import androidx.room.Transaction
 import info.upump.database.RepoActionsSpecific
@@ -9,24 +7,13 @@ import info.upump.database.RoomDB
 import info.upump.database.entities.WorkoutEntity
 import info.upump.database.entities.WorkoutFullEntity
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class WorkoutRepo private constructor(db: RoomDB) :
+@Singleton
+class WorkoutRepo @Inject constructor(db: RoomDB, private val exerciseRepo: ExerciseRepo) :
     RepoActionsSpecific<WorkoutEntity, WorkoutFullEntity> {
     private val workoutDao = db.workoutDao()
-    private val exerciseRepo = ExerciseRepo.get()
-
-    companion object {
-        @SuppressLint("StaticFieldLeak")
-        private var instance: WorkoutRepo? = null
-
-        fun initialize( db: RoomDB) {
-            instance = WorkoutRepo(db)
-        }
-
-        fun get(): RepoActionsSpecific<WorkoutEntity, WorkoutFullEntity> {
-            return instance ?: throw IllegalStateException(" first need initialize repo")
-        }
-    }
 
     @Transaction
     override fun getFullEntityBy(id: Long): Flow<WorkoutFullEntity> {

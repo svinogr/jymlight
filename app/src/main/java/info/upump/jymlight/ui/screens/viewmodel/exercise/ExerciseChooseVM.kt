@@ -2,6 +2,7 @@ package info.upump.jymlight.ui.screens.viewmodel.exercise
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import info.upump.database.repo.ExerciseRepo
 import info.upump.jymlight.models.entity.Day
 import info.upump.jymlight.models.entity.Exercise
@@ -13,11 +14,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 
-class ExerciseChooseVM : BaseVMWithStateLoad(),
+@HiltViewModel
+class ExerciseChooseVM @Inject constructor(
+    private val exerciseRepo: ExerciseRepo,
+) : BaseVMWithStateLoad(),
     ExerciseChooseVMInterface {
-    private val exerciseRepo = ExerciseRepo.get()
     private var parentId: Long = 0L
 
     private val _day = MutableStateFlow(Day.TUESDAY)
@@ -45,8 +49,6 @@ class ExerciseChooseVM : BaseVMWithStateLoad(),
     override fun saveForParentChosen(id: Long, callback: (id: Long) -> Unit) {
         Log.d("Save exercise", "save $id")
         viewModelScope.launch(Dispatchers.IO) {
-            val exerciseRepo = ExerciseRepo.get()
-
             exerciseRepo.getFullEntityBy(id).take(1).collect { exeFullEnt ->  // костыль
                 val exeDescId = exeFullEnt.exerciseDescriptionEntity._id
                 Log.d("Save exercise", "save $id")

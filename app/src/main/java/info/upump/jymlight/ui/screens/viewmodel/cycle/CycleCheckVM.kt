@@ -5,6 +5,7 @@ import android.net.Uri
 import android.util.Log
 import androidx.core.net.toUri
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import info.upump.database.repo.CycleRepo
 import info.upump.jymlight.models.entity.Cycle
 import info.upump.jymlight.models.entity.CycleCheck
@@ -19,9 +20,12 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.io.File
+import javax.inject.Inject
 
-class CycleCheckVM() : BaseVMWithStateLoad() {
-    private val cycleRepo = CycleRepo.get()
+@HiltViewModel
+class CycleCheckVM @Inject constructor(
+    private val cycleRepo: CycleRepo,
+) : BaseVMWithStateLoad() {
     private val _cycleList = MutableStateFlow<List<CycleCheck>>(mutableListOf())
     val cycleList: StateFlow<List<CycleCheck>> = _cycleList.asStateFlow()
     suspend fun getAllPersonalFromDB() {

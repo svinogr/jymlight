@@ -1,29 +1,16 @@
 package info.upump.database.repo
 
-import android.content.Context
-import info.upump.database.DatabaseApp
-import info.upump.database.RepoActions
 import info.upump.database.RepoActionsSpecific
 import info.upump.database.RoomDB
 import info.upump.database.entities.SetsEntity
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class SetsRepo private constructor(db: RoomDB) :
+@Singleton
+class SetsRepo @Inject constructor(db: RoomDB) :
     RepoActionsSpecific<SetsEntity, SetsEntity> {
-    private val setsDao = DatabaseApp.db.setsDao()
-
-    companion object {
-        private var instance: SetsRepo? = null
-
-        fun initialize(db: RoomDB) {
-            instance = SetsRepo(db)
-
-        }
-
-        fun get(): RepoActionsSpecific<SetsEntity, SetsEntity> {
-            return instance ?: throw IllegalStateException(" first need initialize repo")
-        }
-    }
+    private val setsDao = db.setsDao()
 
     override fun getFullEntityBy(id: Long): Flow<SetsEntity> {
         return setsDao.getBy(id)
