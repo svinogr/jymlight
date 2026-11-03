@@ -9,8 +9,12 @@
 ## Key Commands
 - Build: `./gradlew build`
 - Run: `./gradlew run` or `./gradlew installDebug`
-- Test: `./gradlew test`
+- Test: `./gradlew test` (unit), `./gradlew connectedDebugAndroidTest` (instrumented, needs a device)
+- Lint: `./gradlew detekt`
 - Clean: `./gradlew clean`
+
+## CI
+- GitHub Actions workflow in `.github/workflows/ci.yml`: build, unit tests, detekt
 
 ## Architecture
 - Main entry point: `MainActivityCompose.kt`
@@ -21,11 +25,13 @@
 ## Key Libraries & Frameworks
 - Jetpack Compose (UI framework)
 - Room Database (local persistence)
+- Hilt (dependency injection)
 - Coil (image loading)
 - Accompanist (UI utilities)
 - Navigation Compose (for navigation)
 - Datastore for preferences
 - Gson for JSON parsing
+- Detekt (static analysis, per-module baselines)
 
 ## Build & Development
 - Minimum SDK: 29
