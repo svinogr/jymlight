@@ -32,11 +32,9 @@ abstract class RoomDB : RoomDatabase() {
     companion object {
         const val BASE_NAME = "jym.db"
         const val BASE_NAME_RESTORE = "jymrestore.db"
-        const val DB_PATH = "data/data/info.upump.jymlight/databases/"
-        const val DB_PATH_RESTORE = "data/data/info.upump.jymlight/files/"
-        // добавляем новый столбец и не забываем увеличиьт версию в анотации выше
-        val MIGRATION_1to2: Migration = Migration(1,2){
-            it.execSQL("ALTER TABLE sets add column past_set real default undefined")
+        // добавляем новый столбец и не забываем увеличить версию в аннотации выше
+        val MIGRATION_1to2: Migration = Migration(1, 2) {
+            it.execSQL("ALTER TABLE sets ADD COLUMN past_set REAL")
         }
     }
 

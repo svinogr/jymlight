@@ -26,7 +26,7 @@ class JSONRestoreBackup : ReadToBackupRestorable {
 
             val toJson = gson.toJson(list)
 
-            val file = File(RoomDB.DB_PATH_RESTORE, RoomDB.BASE_NAME_RESTORE)
+            val file = File(context.filesDir, RoomDB.BASE_NAME_RESTORE)
             FileOutputStream(file)
                 .use {
                     it.write(toJson.toByteArray())
