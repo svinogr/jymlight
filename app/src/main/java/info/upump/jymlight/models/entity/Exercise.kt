@@ -58,9 +58,11 @@ class Exercise(
         fun mapFromDbEntity(entity: ExerciseEntity): Exercise {
             val exercise = Exercise()
             exercise.id = entity._id
-            exercise.parentId = entity.parent_id!!
-            exercise.descriptionId = entity.description_id!!
-            exercise.typeMuscle = TypeMuscle.valueOf(entity.type_exercise!!)
+            exercise.parentId = entity.parent_id ?: 0
+            exercise.descriptionId = entity.description_id ?: 0
+            exercise.typeMuscle = entity.type_exercise
+                ?.let { TypeMuscle.entries.firstOrNull { e -> e.name == it } }
+                ?: TypeMuscle.CALVES
             exercise.isTemplate = entity.template == 1
 
             return exercise
@@ -92,7 +94,7 @@ class Exercise(
                 listSets.add(set)
             }
             exercise.exerciseDescription = exerciseDescription
-            exercise.comment = entity.exerciseEntity.comment!!
+            exercise.comment = entity.exerciseEntity.comment.orEmpty()
             exercise.setsList = listSets
 
             return exercise

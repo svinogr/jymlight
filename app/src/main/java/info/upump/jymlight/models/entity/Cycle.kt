@@ -2,6 +2,7 @@ package info.upump.jymlight.models.entity
 
 import androidx.compose.runtime.Immutable
 import info.upump.database.entities.CycleEntity
+import info.upump.database.entities.CycleFullEntity
 import info.upump.database.entities.CycleFullEntityWithWorkouts
 import info.upump.jymlight.models.entity.Workout
 import java.text.ParseException
@@ -38,8 +39,7 @@ open class Cycle(
     }
 
     companion object {
-        fun mapFromDbEntity(entity: CycleEntity): Cycle {
-            val cycle = Cycle(
+        fun mapFromDbEntity(entity: CycleEntity): Cycle {            val cycle = Cycle(
                 workoutList = listOf(),
                 isDefaultType = entity.default_type == 1,
 
@@ -49,7 +49,7 @@ open class Cycle(
             cycle.id = entity._id
             cycle.setStartDate(entity.start_date)
             cycle.setFinishDate(entity.finish_date)
-            cycle.comment = entity.comment!!
+            cycle.comment = entity.comment.orEmpty()
             cycle.image = entity.img ?: ""
             cycle.imageDefault = entity.default_img ?: ""
 
@@ -110,7 +110,28 @@ open class Cycle(
             cycle.id = entity.cycleEntity._id
             cycle.setStartDate(entity.cycleEntity.start_date)
             cycle.setFinishDate(entity.cycleEntity.finish_date)
-            cycle.comment = entity.cycleEntity.comment!!
+            cycle.comment = entity.cycleEntity.comment.orEmpty()
+            cycle.image = entity.cycleEntity.img ?: ""
+            cycle.imageDefault = entity.cycleEntity.default_img ?: ""
+
+            return cycle
+        }
+
+        fun mapFromFullestDbEntity(entity: CycleFullEntity): Cycle {
+            val listWorkout = entity.listWorkoutEntity.map { Workout.mapFromFullDbEntity(it) }
+
+            val cycle = Cycle(
+                workoutList = listWorkout,
+                isDefaultType = entity.cycleEntity.default_type == 1,
+
+                imageDefault = entity.cycleEntity.default_img ?: ""
+            )
+
+            cycle.title = entity.cycleEntity.title
+            cycle.id = entity.cycleEntity._id
+            cycle.setStartDate(entity.cycleEntity.start_date)
+            cycle.setFinishDate(entity.cycleEntity.finish_date)
+            cycle.comment = entity.cycleEntity.comment.orEmpty()
             cycle.image = entity.cycleEntity.img ?: ""
             cycle.imageDefault = entity.cycleEntity.default_img ?: ""
 

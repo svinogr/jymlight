@@ -44,12 +44,12 @@ class Sets(
     companion object {
         fun mapFromDbEntity(entity: SetsEntity): Sets {
            val sets =  Sets(
-                weight = entity.weight!!,
-                reps = entity.reps!!,
-                weightPast = entity.past_set!!
+                weight = entity.weight ?: 0.0,
+                reps = entity.reps ?: 0,
+                weightPast = entity.past_set ?: 0.0
             )
             sets.id = entity._id
-            sets.parentId = entity.parent_id!!
+            sets.parentId = entity.parent_id ?: 0
 
             return sets
         }

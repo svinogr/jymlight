@@ -15,7 +15,7 @@ import info.upump.database.entities.SetsEntity
 import info.upump.database.entities.WorkoutEntity
 
 @Database(
-    version = 2, entities = [
+    version = 3, entities = [
         CycleEntity::class,
         WorkoutEntity::class,
         ExerciseEntity::class,
@@ -36,6 +36,12 @@ abstract class RoomDB : RoomDatabase() {
         const val MIGRATION_1_TO_2_SQL = "ALTER TABLE sets ADD COLUMN past_set REAL"
         val MIGRATION_1to2: Migration = Migration(1, 2) {
             it.execSQL(MIGRATION_1_TO_2_SQL)
+        }
+
+        // старые строки получили past_set = NULL при миграции 1->2 (ALTER TABLE без DEFAULT)
+        const val MIGRATION_2_TO_3_SQL = "UPDATE sets SET past_set = 0.0 WHERE past_set IS NULL"
+        val MIGRATION_2to3: Migration = Migration(2, 3) {
+            it.execSQL(MIGRATION_2_TO_3_SQL)
         }
     }
 

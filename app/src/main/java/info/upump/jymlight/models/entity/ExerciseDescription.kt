@@ -43,7 +43,7 @@ class ExerciseDescription(
             val exerciseDescription = ExerciseDescription(entity._id)
             exerciseDescription.img = entity.img ?: ""
             exerciseDescription.defaultImg = entity.default_img ?: ""
-            exerciseDescription.title = entity.title!!
+            exerciseDescription.title = entity.title.orEmpty()
 
             return exerciseDescription
         }

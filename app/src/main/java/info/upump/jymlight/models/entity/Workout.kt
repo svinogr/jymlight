@@ -21,18 +21,21 @@ class Workout(
     var parentId: Long = 0,
 ) {
     companion object {
+        private fun parseDay(value: String?): Day =
+            value?.let { Day.entries.firstOrNull { e -> e.name == it } } ?: Day.MONDAY
+
         fun mapFromDbEntity(workoutEntity: WorkoutEntity): Workout {
             val workout = Workout(
                 isWeekEven = workoutEntity.week_even == 1,
                 isDefaultType = workoutEntity.default_type == 1,
                 isTemplate = workoutEntity.default_type == 1,
-                day = Day.valueOf(workoutEntity.day!!),
+                day = parseDay(workoutEntity.day),
                 exercises = mutableListOf<Exercise>()
             )
             workout.title = workoutEntity.title
-            workout.parentId = workoutEntity.parent_id!!
+            workout.parentId = workoutEntity.parent_id ?: 0
             workout.id = workoutEntity._id
-            workout.comment = workoutEntity.comment!!
+            workout.comment = workoutEntity.comment.orEmpty()
             workout.setStartDate(workoutEntity.start_date)
             workout.setFinishDate(workoutEntity.finish_date)
 
@@ -67,13 +70,13 @@ class Workout(
                 isWeekEven = entity.workoutEntity.week_even == 1,
                 isDefaultType = entity.workoutEntity.default_type == 1,
                 isTemplate = entity.workoutEntity.default_type == 1,
-                day = Day.valueOf(entity.workoutEntity.day!!),
+                day = parseDay(entity.workoutEntity.day),
                 exercises = listExercises
             )
             workout.title = entity.workoutEntity.title
-            workout.parentId = entity.workoutEntity.parent_id!!
+            workout.parentId = entity.workoutEntity.parent_id ?: 0
             workout.id = entity.workoutEntity._id
-            workout.comment = entity.workoutEntity.comment!!
+            workout.comment = entity.workoutEntity.comment.orEmpty()
             workout.setStartDate(entity.workoutEntity.start_date)
             workout.setFinishDate(entity.workoutEntity.finish_date)
 

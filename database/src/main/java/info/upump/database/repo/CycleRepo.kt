@@ -62,6 +62,10 @@ class CycleRepo @Inject constructor(
         return cycleDao.getAllFullPersonalCyclesNotFlow()
     }
 
+    fun getAllFullPersonalCyclesFlow(): Flow<List<CycleFullEntity>> {
+        return cycleDao.getAllFullPersonalCycles()
+    }
+
     override fun getAllFullEntityDefault(): Flow<List<CycleFullEntityWithWorkouts>> {
         return cycleDao.getAllTemplate()
     }

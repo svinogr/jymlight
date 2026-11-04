@@ -34,10 +34,10 @@ class CycleCheckVM @Inject constructor(
         viewModelScope.launch(
             Dispatchers.IO
         ) {
-            val listEn = cycleRepo.getAllFullEntityPersonal()
+            val listEn = cycleRepo.getAllFullPersonalCyclesFlow()
             listEn.map {
                 it.map { c ->
-                    val cycle = Cycle.mapFullFromDbEntity(c)
+                    val cycle = Cycle.mapFromFullestDbEntity(c)
                     val cycleCheck = CycleCheck(cycle = cycle).apply {
                         isCheck = false
                     }

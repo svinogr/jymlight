@@ -19,6 +19,6 @@ object AppModule {
     fun provideRoomDB(@ApplicationContext context: Context): RoomDB =
         Room.databaseBuilder(context, RoomDB::class.java, RoomDB.BASE_NAME)
             .createFromAsset(RoomDB.BASE_NAME)
-            .addMigrations(RoomDB.MIGRATION_1to2)
+            .addMigrations(RoomDB.MIGRATION_1to2, RoomDB.MIGRATION_2to3)
             .build()
 }
