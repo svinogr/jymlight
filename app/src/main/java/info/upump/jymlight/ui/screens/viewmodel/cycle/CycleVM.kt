@@ -27,7 +27,7 @@ class CycleVM @Inject constructor(
     val cycleList: StateFlow<List<Cycle>> = _cycleList.asStateFlow()
 
     suspend fun getAllPersonal() {
-        Log.d("getAllPersonal", "getAllPersonal")
+        // kimi по запросу закоментить Log.d("getAllPersonal", "getAllPersonal")
         _stateLoading.value = true
 
         viewModelScope.launch(
@@ -39,7 +39,7 @@ class CycleVM @Inject constructor(
                     Cycle.mapFullFromDbEntity(c)
                 }
             }.collect {list ->
-                Log.d("update","${list.size}")
+                // kimi по запросу закоментить Log.d("update","${list.size}")
                 _cycleList.update{ list}
                 _stateLoading.value = false
             }
@@ -47,7 +47,7 @@ class CycleVM @Inject constructor(
     }
 
     fun getAllDefault() {
-        Log.d("getAllPersonal", "getAllPersonal")
+        // kimi по запросу закоментить Log.d("getAllPersonal", "getAllPersonal")
         _stateLoading.value = true
 
         viewModelScope.launch(
@@ -59,7 +59,7 @@ class CycleVM @Inject constructor(
                     Cycle.mapFullFromDbEntity(c)
                 }
             }.collect {list ->
-                Log.d("update","${list.size}")
+                // kimi по запросу закоментить Log.d("update","${list.size}")
                 _cycleList.update{ list}
                 // _cycleList.value = it
                 _stateLoading.value = false
@@ -82,8 +82,8 @@ class CycleVM @Inject constructor(
                 file.delete()
             }
         }catch (e: IllegalArgumentException) {
-            Log.d("delete", "image is not add")
-            Log.d("delete", "${e.message}")
+            // kimi по запросу закоментить Log.d("delete", "image is not add")
+            // kimi по запросу закоментить Log.d("delete", "${e.message}")
         }
     }
 }

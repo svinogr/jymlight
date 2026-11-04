@@ -42,7 +42,7 @@ fun ListItemCycleWithCheck(
         }*/
 
     SideEffect {
-        Log.d("check", "side ListItemCycleWithCheck ")
+        // kimi по запросу закоментить Log.d("check", "side ListItemCycleWithCheck ")
     }
     LazyColumn(
         modifier = modifier

@@ -86,7 +86,7 @@ fun CarDaydWorkoutEdit(
                     focus.clearFocus()
                     val o = widhtOne.value - widhtMenu.value
                     offset.value = o / 2
-                    Log.d("size3 ", "${offset.value}")
+                    // kimi по запросу закоментить Log.d("size3 ", "${offset.value}")
                 }
             ) {
 
@@ -94,7 +94,7 @@ fun CarDaydWorkoutEdit(
                     modifier = Modifier
                         .menuAnchor()
                         .onSizeChanged {
-                            Log.d("size ", "${it.width}")
+                            // kimi по запросу закоментить Log.d("size ", "${it.width}")
                             widhtOne.value = it.width
                         },
                     onClick = {
@@ -122,7 +122,7 @@ fun CarDaydWorkoutEdit(
                 DropdownMenu(
                     modifier = Modifier
                         .onSizeChanged {
-                            Log.d("size2 ", "${it.width}")
+                            // kimi по запросу закоментить Log.d("size2 ", "${it.width}")
                             widhtMenu.value = it.width
                         }
                         .background(

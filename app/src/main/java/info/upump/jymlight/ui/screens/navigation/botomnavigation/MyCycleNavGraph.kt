@@ -94,7 +94,7 @@ fun NavGraphBuilder.myCycleGraph(
         ) {
             val parentId = it.arguments?.getLong("parentId")
             //topBarState.value = false он уже должен был быть убран
-            Log.d("TAG", "parentId = $id")
+            // kimi по запросу закоментить Log.d("TAG", "parentId = $id")
             appBarStyle.value = WHITE_STYLE
             ExerciseChooseScreen(
                 parentId = parentId!!,
@@ -163,7 +163,7 @@ fun NavGraphBuilder.myCycleGraph(
         ) {
             val id = it.arguments?.getLong("id")
             //topBarState.value = false он уже должен был быть убран
-            Log.d("TAG", "id = $id")
+            // kimi по запросу закоментить Log.d("TAG", "id = $id")
 
             appBarStyle.value = WHITE_STYLE
             WorkoutDetailScreenM3(id = id!!, navHostController, paddingValues, appBarTitle)
@@ -180,7 +180,7 @@ fun NavGraphBuilder.myCycleGraph(
 
             //topBarState.value = false он уже должен был быть убран
             val id = it.arguments?.getLong("id")
-            Log.d("TAG", "id = $id")
+            // kimi по запросу закоментить Log.d("TAG", "id = $id")
             bottomBarState.value = false
             val action = if (id == 0L) {
                 ActionState.CREATE

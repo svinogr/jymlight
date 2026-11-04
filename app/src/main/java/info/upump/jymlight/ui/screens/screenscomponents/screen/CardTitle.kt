@@ -109,7 +109,7 @@ fun CardTitlePreviewCycleError() {
     val cycle = Cycle().apply {
         title = "its a Title"
     }
-    val f: (String) -> Unit = { println(it) }
+    val f: (String) -> Unit = { /* kimi по запросу закоментить println(it) */ }
 
     CardTitle(cycle.title, true, f)
 }
@@ -120,7 +120,7 @@ fun CardTitlePreviewCycle() {
     val cycle = Cycle().apply {
         title = "its a Title"
     }
-    val f: (String) -> Unit = { println(it) }
+    val f: (String) -> Unit = { /* kimi по запросу закоментить println(it) */ }
 
     CardTitle(cycle.title, false, f)
 }
@@ -132,7 +132,7 @@ fun CardTitlePreviewWorkout() {
     val workout = Workout().apply {
         title = "its a Title"
     }
-    val f: (String) -> Unit = { println(it) }
+    val f: (String) -> Unit = { /* kimi по запросу закоментить println(it) */ }
 
     CardTitle(workout.title, false, f)
 }
@@ -143,7 +143,7 @@ fun CardTitlePreviewWorkoutError() {
     val workout = Workout().apply {
         title = "its a Title"
     }
-    val f: (String) -> Unit = { println(it) }
+    val f: (String) -> Unit = { /* kimi по запросу закоментить println(it) */ }
 
     CardTitle(workout.title, true, f)
 }
@@ -154,7 +154,7 @@ fun CardTitlePreviewWorkoutNotitle() {
     val workout = Workout().apply {
         title = ""
     }
-    val f: (String) -> Unit = { println(it) }
+    val f: (String) -> Unit = { /* kimi по запросу закоментить println(it) */ }
 
     CardTitle(workout.title, false, f)
 }

@@ -33,7 +33,7 @@ fun MyBottomNavigation(
         val backStackEntry by navController.currentBackStackEntryAsState()
         val currentRout = backStackEntry?.destination?.route
         listScreens.forEach { item ->
-            Log.d("bar", "${currentRout == item.route}")
+            // kimi по запросу закоментить Log.d("bar", "${currentRout == item.route}")
             BottomNavigationItem(
                 modifier = Modifier.background(MaterialTheme.colorScheme.primary),
 

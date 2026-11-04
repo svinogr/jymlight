@@ -46,7 +46,7 @@ class ExerciseVM @Inject constructor(
                 _imageDescription.value = it.exerciseDescription!!.img
                 _imageDescriptionDefault.value = it.exerciseDescription!!.defaultImg
             }
-            Log.d("get", "get")
+            // kimi по запросу закоментить Log.d("get", "get")
             _stateLoading.value = false
         }
     }
@@ -56,7 +56,7 @@ class ExerciseVM @Inject constructor(
             val sets = Sets.mapToEntity(Sets().apply { this.id = id })
             val repo = setsRepo.delete(id)
 
-            Log.d("delete", "${_listSets.value.size}")
+            // kimi по запросу закоментить Log.d("delete", "${_listSets.value.size}")
             _listSets.value.removeIf {
                 it.id == id
             }
@@ -81,7 +81,7 @@ class ExerciseVM @Inject constructor(
                 }
 
                 override fun deleteSub(id: Long) {
-                    Log.d("delete", "$id")
+                    // kimi по запросу закоментить Log.d("delete", "$id")
                 }
 
                 override fun cleanItem() {

@@ -37,7 +37,7 @@ fun CycleItemCardWithCheck(
     action: () -> Unit,
 ) {
     SideEffect {
-        Log.d("check", "side CycleItemCardWithCheck ${cycle.isCheck} ${cycle.cycle.id}")
+        // kimi по запросу закоментить Log.d("check", "side CycleItemCardWithCheck ${cycle.isCheck} ${cycle.cycle.id}")
     }
     val state = remember {
         mutableStateOf(cycle.isCheck)

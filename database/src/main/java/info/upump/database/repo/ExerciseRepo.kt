@@ -44,7 +44,7 @@ class ExerciseRepo @Inject constructor(db: RoomDB, private val setsRepo: SetsRep
     }
 
     override fun save(item: ExerciseEntity): ExerciseEntity {
-        Log.d("Save exercise", "save ExerciseEntity")
+        // kimi по запросу закоментить Log.d("Save exercise", "save ExerciseEntity")
         val id = exerciseDao.save(item)
         item._id = id
 

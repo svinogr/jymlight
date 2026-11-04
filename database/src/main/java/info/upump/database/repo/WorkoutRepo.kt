@@ -53,8 +53,8 @@ class WorkoutRepo @Inject constructor(db: RoomDB, private val exerciseRepo: Exer
             val id = workoutDao.save(item)
             item._id = id
         } else {
-            Log.d("save", "${item._id}")
-            Log.d("save", "${item.parent_id}")
+            // kimi по запросу закоментить Log.d("save", "${item._id}")
+            // kimi по запросу закоментить Log.d("save", "${item.parent_id}")
             workoutDao.update(item)
         }
 

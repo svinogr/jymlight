@@ -66,7 +66,7 @@ fun ProfileChooseBackupScreen(navController: NavHostController, paddingValues: P
                 isVisible = listState.isScrollingUp(), icon = R.drawable.ic_send_to_email
             ) {
                 coroutine.launch {
-                    Log.d("check", "${cycleVM.getCheckedCycle().size}")
+                    // kimi по запросу закоментить Log.d("check", "${cycleVM.getCheckedCycle().size}")
                     val intent: Intent =
                         getIntentToSend(context, cycleVM.getCheckedCycle(), JSONRestoreBackup())
                     context.startActivity(intent)
@@ -162,7 +162,7 @@ fun ProfileChooseBackupScreenWithChooseALL(
                 isVisible = listState.isScrollingUp(), icon = R.drawable.ic_send_to_email
             ) {
                 coroutine.launch {
-                    Log.d("check", "${cycleVM.getCheckedCycle().size}")
+                    // kimi по запросу закоментить Log.d("check", "${cycleVM.getCheckedCycle().size}")
 
                     // profileVM.send(context, cycleVM.getCheckedCycle())
                 }

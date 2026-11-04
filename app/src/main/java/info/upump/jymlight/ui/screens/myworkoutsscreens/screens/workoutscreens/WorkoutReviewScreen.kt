@@ -121,17 +121,17 @@ fun WorkoutReview(
     }
 
     val startAction: () -> Unit = {
-        Log.d("sound", "start")
+        // kimi по запросу закоментить Log.d("sound", "start")
         soundTimerVM.start(context)
     }
 
     val editAction: () -> Unit = {
-        Log.d("sound", "edit")
+        // kimi по запросу закоментить Log.d("sound", "edit")
         navHostController.navigate(NavigationItem.EditSoundTimerWorkoutItem.route)
     }
 
     val stopAction: () -> Unit = {
-        Log.d("sound", "edit")
+        // kimi по запросу закоментить Log.d("sound", "edit")
        soundTimerVM.stop()
     }
 

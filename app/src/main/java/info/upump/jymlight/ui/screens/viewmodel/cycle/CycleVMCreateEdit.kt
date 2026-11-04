@@ -176,7 +176,7 @@ class CycleVMCreateEdit @Inject constructor(
 
                 tempImage = it.image
 
-                Log.d("ret", "$tempImage  / ${it.image}  / ${_img.value} / ${it.imageDefault}")
+                // kimi по запросу закоментить Log.d("ret", "$tempImage  / ${it.image}  / ${_img.value} / ${it.imageDefault}")
             }
         }
     }
@@ -260,7 +260,7 @@ class CycleVMCreateEdit @Inject constructor(
                 file.delete()
             }
         } catch (e: IllegalArgumentException) {
-            Log.d("Error", "нет такого файла для удаления")
+            // kimi по запросу закоментить Log.d("Error", "нет такого файла для удаления")
         }
     }
 

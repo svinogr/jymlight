@@ -186,7 +186,7 @@ fun PreviewSetItemCard() {
     set.id = 1
 
     SetsItemCard(sets = set, number = 1) {
-        println()
+        // kimi по запросу закоментить println()
     }
 }
 
@@ -196,5 +196,5 @@ fun PreviewSetItemCard2() {
     val set = Sets(weight = 20.0, reps = 5, weightPast = 18.0)
     set.id = 1
 
-    SetsItemCard(sets = set, number = 1) { println() }
+    SetsItemCard(sets = set, number = 1) { /* kimi по запросу закоментить println() */ }
 }

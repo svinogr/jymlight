@@ -49,7 +49,7 @@ class SoundTimerEditVM @Inject constructor() : ViewModel() {
     }
 
     fun save(context: Context) {
-        Log.d("sound", "${_start.value}")
+        // kimi по запросу закоментить Log.d("sound", "${_start.value}")
         viewModelScope.launch(Dispatchers.IO) {
             context.dataStore.edit { preferences ->
                 preferences[KeysForDataStore.START_KEY] = _start.value

@@ -47,7 +47,7 @@ fun WorkoutItemCard(
 ) {
     val context = LocalContext.current
     SideEffect {
-        Log.d("recom", "$workout")
+        // kimi по запросу закоментить Log.d("recom", "$workout")
     }
     Card(
         modifier = modifier

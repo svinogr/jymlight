@@ -48,7 +48,7 @@ fun ProfileScreen(navHostController: NavHostController, paddingValues: PaddingVa
 
     val launch = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) {
         it?.let {
-            Log.d("uri", "1 $it")
+            // kimi по запросу закоментить Log.d("uri", "1 $it")
             coroutine.launch(Dispatchers.IO) {
                 saveFile(it, context) {
                     navHostController.navigate(NavigationItem.ChooseRestoreProfileNavigation.route)

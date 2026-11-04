@@ -203,7 +203,7 @@ class WorkoutVM @Inject constructor(
     override fun save(callback: (id: Long) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
             val wC = collectToSave()
-            Log.d("paren", "${parentId.value} ${wC.parentId}")
+            // kimi по запросу закоментить Log.d("paren", "${parentId.value} ${wC.parentId}")
             val wE = Workout.mapToEntity(wC)
             workoutRepo.save(wE)
         }
@@ -220,7 +220,7 @@ class WorkoutVM @Inject constructor(
             setFinishDate(_finishDate.value)
             setStartDate(_startDate.value)
         }
-        Log.d("col", collectW.toString())
+        // kimi по запросу закоментить Log.d("col", collectW.toString())
         return collectW
     }
 

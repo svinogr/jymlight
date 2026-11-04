@@ -26,7 +26,7 @@ fun ImageTitleImageTitle(modifier: Modifier = Modifier, title: String, isTitleEr
 @Preview(showBackground = false)
 @Composable
 fun ImageTitleImageTitlePreviewCycleWithDefaultImage() {
-    val f: (String) -> Unit = { println(it) }
+    val f: (String) -> Unit = { /* kimi по запросу закоментить println(it) */ }
         ImageTitleImageTitle(Modifier, "its a title", true, f){
        ImageWithPicker("", "uk1", ::println)
     }

@@ -51,7 +51,7 @@ fun NavGraphBuilder.defaultCycleGraph(
             })
         ) {
             val id = it.arguments?.getLong("id")
-            Log.d("ddw", "dwdw")
+            // kimi по запросу закоментить Log.d("ddw", "dwdw")
             topBarState.value = false
             bottomBarState.value = false
             appBarTitle.value =
@@ -68,7 +68,7 @@ fun NavGraphBuilder.defaultCycleGraph(
         ) {
             val id = it.arguments?.getLong("id")
             //topBarState.value = false он уже должен был быть убран
-            Log.d("TAG", "id = $id")
+            // kimi по запросу закоментить Log.d("TAG", "id = $id")
 
             appBarStyle.value = WHITE_STYLE
             DefaultWorkoutDetailScreenM3(id = id!!, navHostController, paddingValues, appBarTitle)
@@ -83,7 +83,7 @@ fun NavGraphBuilder.defaultCycleGraph(
         ) {
             val id = it.arguments?.getLong("id")
             //topBarState.value = false он уже должен был быть убран
-            Log.d("TAG", "id = $id")
+            // kimi по запросу закоментить Log.d("TAG", "id = $id")
 
             appBarStyle.value = WHITE_STYLE
             DefaultExerciseDetailScreen(id = id!!, navHostController, paddingValues, appBarTitle)

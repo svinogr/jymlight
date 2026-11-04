@@ -261,7 +261,7 @@ fun ProfileChooseScreenWithChooseALL(
                 isVisible = listState.isScrollingUp(), icon = R.drawable.ic_send_to_email
             ) {
                 coroutine.launch {
-                    Log.d("check", "${cycleVM.getCheckedCycle().size}")
+                    // kimi по запросу закоментить Log.d("check", "${cycleVM.getCheckedCycle().size}")
 
                     // profileVM.send(context, cycleVM.getCheckedCycle())
                 }

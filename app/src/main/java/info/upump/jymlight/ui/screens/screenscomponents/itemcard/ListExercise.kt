@@ -57,7 +57,7 @@ fun ListExercise(
             }
             val dismissState = rememberDismissState(confirmStateChange = { value ->
                 if (value == DismissValue.DismissedToEnd || value == DismissValue.DismissedToStart) {
-                    Log.d("exe", "ListExercise: ${it.exerciseDescription!!.title}")
+                    // kimi по запросу закоментить Log.d("exe", "ListExercise: ${it.exerciseDescription!!.title}")
                   //  actionDel(it.id)
                     true
                 } else {

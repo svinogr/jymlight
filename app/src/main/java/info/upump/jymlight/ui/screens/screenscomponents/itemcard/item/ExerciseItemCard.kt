@@ -64,7 +64,7 @@ fun ExerciseItemCard(
                     image = exercise.exerciseDescription!!.img,
                     defaultImage = exercise.exerciseDescription!!.defaultImg
                 ) {
-                    Log.d("click", "click")
+                    // kimi по запросу закоментить Log.d("click", "click")
                     navHost.navigate(
                         NavigationItem.ReviewExerciseScreenNavigationItem.routeWithId(
                             exercise.id

@@ -47,15 +47,15 @@ class ExerciseChooseVM @Inject constructor(
     }
 
     override fun saveForParentChosen(id: Long, callback: (id: Long) -> Unit) {
-        Log.d("Save exercise", "save $id")
+        // kimi по запросу закоментить Log.d("Save exercise", "save $id")
         viewModelScope.launch(Dispatchers.IO) {
             exerciseRepo.getFullEntityBy(id).take(1).collect { exeFullEnt ->  // костыль
                 val exeDescId = exeFullEnt.exerciseDescriptionEntity._id
-                Log.d("Save exercise", "save $id")
+                // kimi по запросу закоментить Log.d("Save exercise", "save $id")
                 val exercise = Exercise()
                 exercise.id = 0
                 exercise.parentId = parentId
-                Log.d("Save exercise", "save $parentId")
+                // kimi по запросу закоментить Log.d("Save exercise", "save $parentId")
                 exercise.typeMuscle = TypeMuscle.valueOf(exeFullEnt.exerciseEntity.type_exercise!!)
                 exercise.isDefaultType = false
                 exercise.isTemplate = false

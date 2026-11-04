@@ -156,7 +156,7 @@ fun PreviewMyExerciseDetailScreen2() {
             navHost = NavHostController(LocalContext.current),
             list = ExerciseVM.vmOnlyForPreview.subItems.collectAsState().value,
             listState = LazyListState()) {
-                  println(it)
+                  // kimi по запросу закоментить println(it)
             }
 
     }

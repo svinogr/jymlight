@@ -46,7 +46,7 @@ fun DefaultExerciseDetailScreen(
     val coroutine = rememberCoroutineScope()
 
     appBarTitle.value = stringResource(id = R.string.exercise_title_sets)
-    Log.d("saveItem", "$id")
+    // kimi по запросу закоментить Log.d("saveItem", "$id")
     val l = remember {
         mutableStateOf(exerciseVM.subItems)
     }

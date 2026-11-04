@@ -34,7 +34,7 @@ fun DefaultStartScreen(
     }
 
     LaunchedEffect(key1 = true) {
-        Log.d("LaunchedEffect", "LaunchedEffect $")
+        // kimi по запросу закоментить Log.d("LaunchedEffect", "LaunchedEffect $")
         cycleVM.getAllDefault()
     }
 

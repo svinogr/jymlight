@@ -119,7 +119,7 @@ fun SetsCreateScreen(
                         text = stringResource(id = R.string.label_sets),
                         color = MaterialTheme.colorScheme.onBackground)
                     NumberPicker(0, 200, setVM.quantity.collectAsState().value) {
-                       Log.d("q", it.toString())
+                       // kimi по запросу закоментить Log.d("q", it.toString())
                         setVM.updateQuantity(it)
                     }
                 }

@@ -57,7 +57,7 @@ fun DefaultWorkoutDetailScreenM3(
 
     LaunchedEffect(key1 = true) {
         workoutVM.getBy(id)
-        Log.d("size", "$")
+        // kimi по запросу закоментить Log.d("size", "$")
     }
 
     if (id == 0L) {

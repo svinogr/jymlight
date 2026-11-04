@@ -71,7 +71,7 @@ class SetsVM @Inject constructor(
             setsRepo.getFullEntityBy(id).map { entity ->
                 Sets.mapFromDbEntity(entity)
             }.collect() { sets ->
-                Log.d("sets", "$sets ")
+                // kimi по запросу закоментить Log.d("sets", "$sets ")
                 with(sets) {
                     _id.update { id }
                     tempWeight = weight
@@ -88,7 +88,7 @@ class SetsVM @Inject constructor(
         if (quantity.value == 0 && id.value == 0L) return
 
         viewModelScope.launch(Dispatchers.IO) {
-            Log.d("save set", "${weight.value} ${reps.value} ${quantity.value} ${parentId.value} ")
+            // kimi по запросу закоментить Log.d("save set", "${weight.value} ${reps.value} ${quantity.value} ${parentId.value} ")
             val sets = Sets().apply {
                 id = this@SetsVM.id.value
                 parentId = this@SetsVM.parentId.value

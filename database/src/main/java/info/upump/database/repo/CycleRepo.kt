@@ -45,7 +45,7 @@ class CycleRepo @Inject constructor(
     }
 
     override fun save(item: CycleEntity): CycleEntity {
-        Log.d("save", "id = ${item._id}")
+        // kimi по запросу закоментить Log.d("save", "id = ${item._id}")
         if (item._id == 0L) {
             val newId = cycleDao.save(item)
             item.apply { _id = newId }
@@ -74,7 +74,7 @@ class CycleRepo @Inject constructor(
         cycleDao.getFullCycle(id)
             .take(1)
             .onEach {
-                Log.d("copyToPersonal", "copyToPersonal")
+                // kimi по запросу закоментить Log.d("copyToPersonal", "copyToPersonal")
                 it.cycleEntity.default_type = 0
                 it.listWorkoutEntity.forEach { w ->
                     w.workoutEntity.default_type = 0
@@ -102,7 +102,7 @@ class CycleRepo @Inject constructor(
     }
 
     override fun deleteChilds(parentId: Long) {
-        Log.d("clean", "$parentId")
+        // kimi по запросу закоментить Log.d("clean", "$parentId")
         workoutRepo.deleteByParent(parentId)
     }
 
