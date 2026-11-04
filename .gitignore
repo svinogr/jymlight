@@ -15,3 +15,7 @@
 local.properties
 
 hs_err_pid*.log
+
+# figma-export web app
+figma-export/map/node_modules/
+figma-export/map/dist/
