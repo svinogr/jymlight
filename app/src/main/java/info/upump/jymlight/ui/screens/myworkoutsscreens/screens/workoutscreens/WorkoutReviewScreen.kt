@@ -1,6 +1,7 @@
 package info.upump.jymlight.ui.screens.myworkoutsscreens.screens.workoutscreens
 
 
+import android.Manifest
 import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
@@ -13,6 +14,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -22,6 +24,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -43,6 +46,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberPermissionState
 import info.upump.jymlight.R
 import info.upump.jymlight.models.entity.Exercise
 import info.upump.jymlight.models.entity.ExerciseDescription
@@ -64,7 +70,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)
 @Composable
 fun WorkoutReview(
     id: Long,
@@ -120,6 +126,10 @@ fun WorkoutReview(
         mutableStateOf(stopwatchVM.isSoundEveryTime)
     }
 
+    val stateVibrateWatchEveryMinute = remember {
+        mutableStateOf(stopwatchVM.isVibrateWatchEveryMinute)
+    }
+
     val startAction: () -> Unit = {
         // kimi по запросу закоментить Log.d("sound", "start")
         soundTimerVM.start(context)
@@ -156,6 +166,13 @@ fun WorkoutReview(
         view.keepScreenOn = true
         onDispose {
             view.keepScreenOn = false
+        }
+    }
+
+    val notificationPermissionState = rememberPermissionState(Manifest.permission.POST_NOTIFICATIONS)
+    LaunchedEffect(key1 = true) {
+        if (!notificationPermissionState.status.isGranted) {
+            notificationPermissionState.launchPermissionRequest()
         }
     }
 
@@ -214,11 +231,39 @@ fun WorkoutReview(
                     stopwatchState = status.collectAsState().value,
                     stateSoundEveryTime = stateSoundEveryTime.value.collectAsState().value,
                     checkSoundEveryTime = stopwatchVM::setSoundEveryTime,
+                    stateVibrateWatchEveryMinute = stateVibrateWatchEveryMinute.value.collectAsState().value,
+                    checkVibrateWatchEveryMinute = {
+                        stopwatchVM.setVibrateWatchEveryMinute()
+                        // Без разрешения на уведомления телефона минутные
+                        // уведомления не уйдут и на часы — запрашиваем сразу.
+                        if (stopwatchVM.isVibrateWatchEveryMinute.value &&
+                            !notificationPermissionState.status.isGranted
+                        ) {
+                            notificationPermissionState.launchPermissionRequest()
+                        }
+                    },
                     start = stopwatchVM::start,
                     stop = stopwatchVM::stop,
                     pause = stopwatchVM::pause,
                     resume = stopwatchVM::resume
                 )
+
+                if (stopwatchVM.showVibrateWatchHint.collectAsState().value) {
+                    AlertDialog(
+                        onDismissRequest = { stopwatchVM.onVibrateWatchHintShown() },
+                        confirmButton = {
+                            TextButton(onClick = { stopwatchVM.onVibrateWatchHintShown() }) {
+                                Text(text = stringResource(id = R.string.action_ok))
+                            }
+                        },
+                        title = {
+                            Text(text = stringResource(id = R.string.vibrate_watch_hint_title))
+                        },
+                        text = {
+                            Text(text = stringResource(id = R.string.vibrate_watch_hint_text))
+                        }
+                    )
+                }
             }
         }
     }
