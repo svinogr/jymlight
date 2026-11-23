@@ -162,7 +162,10 @@ class StopWatchService : Service() {
                 .setSmallIcon(R.drawable.ic_btn_play_24)
                 .setContentTitle(getString(R.string.app_name))
                 .setContentText(formatted.take(5))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                // HIGH + звук: некоторые часы/прошивки (Xiaomi, MIUI) передают
+                // на часы только заметные (heads-up/со звуком) уведомления.
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setDefaults(NotificationCompat.DEFAULT_SOUND)
                 .setCategory(NotificationCompat.CATEGORY_STOPWATCH)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setAutoCancel(true)

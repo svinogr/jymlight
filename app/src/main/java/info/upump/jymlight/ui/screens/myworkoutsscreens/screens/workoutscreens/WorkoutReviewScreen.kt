@@ -232,7 +232,16 @@ fun WorkoutReview(
                     stateSoundEveryTime = stateSoundEveryTime.value.collectAsState().value,
                     checkSoundEveryTime = stopwatchVM::setSoundEveryTime,
                     stateVibrateWatchEveryMinute = stateVibrateWatchEveryMinute.value.collectAsState().value,
-                    checkVibrateWatchEveryMinute = stopwatchVM::setVibrateWatchEveryMinute,
+                    checkVibrateWatchEveryMinute = {
+                        stopwatchVM.setVibrateWatchEveryMinute()
+                        // Без разрешения на уведомления телефона минутные
+                        // уведомления не уйдут и на часы — запрашиваем сразу.
+                        if (stopwatchVM.isVibrateWatchEveryMinute.value &&
+                            !notificationPermissionState.status.isGranted
+                        ) {
+                            notificationPermissionState.launchPermissionRequest()
+                        }
+                    },
                     start = stopwatchVM::start,
                     stop = stopwatchVM::stop,
                     pause = stopwatchVM::pause,
