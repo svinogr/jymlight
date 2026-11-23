@@ -29,6 +29,7 @@ class StopWatchVM @Inject constructor(
 ) : ViewModel() {
 
     val isSoundEveryTime = holder.isSoundEveryTime
+    val isVibrateWatchEveryMinute = holder.isVibrateWatchEveryMinute
     val formatedTime = holder.formatedTime
     val status = holder.status
 
@@ -41,6 +42,11 @@ class StopWatchVM @Inject constructor(
                 it[KeysForDataStore.SOUND_EVERY_TIME] ?: false
             }.first()
             holder.setSoundEveryTime(saved)
+
+            val savedVibrate = context.dataStore.data.map {
+                it[KeysForDataStore.VIBRATE_WATCH_EVERY_MINUTE] ?: false
+            }.first()
+            holder.setVibrateWatchEveryMinute(savedVibrate)
         }
     }
 
@@ -69,6 +75,16 @@ class StopWatchVM @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             context.dataStore.edit { preferences ->
                 preferences[KeysForDataStore.SOUND_EVERY_TIME] = newValue
+            }
+        }
+    }
+
+    fun setVibrateWatchEveryMinute() {
+        val newValue = !holder.isVibrateWatchEveryMinute.value
+        holder.setVibrateWatchEveryMinute(newValue)
+        viewModelScope.launch(Dispatchers.IO) {
+            context.dataStore.edit { preferences ->
+                preferences[KeysForDataStore.VIBRATE_WATCH_EVERY_MINUTE] = newValue
             }
         }
     }

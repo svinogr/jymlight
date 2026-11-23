@@ -23,6 +23,9 @@ class StopWatchStateHolder @Inject constructor() {
     private val _isSoundEveryTime = MutableStateFlow(false)
     val isSoundEveryTime = _isSoundEveryTime.asStateFlow()
 
+    private val _isVibrateWatchEveryMinute = MutableStateFlow(false)
+    val isVibrateWatchEveryMinute = _isVibrateWatchEveryMinute.asStateFlow()
+
     fun setStatus(state: StopWatchState) {
         _status.update { state }
     }
@@ -33,6 +36,10 @@ class StopWatchStateHolder @Inject constructor() {
 
     fun setSoundEveryTime(sound: Boolean) {
         _isSoundEveryTime.update { sound }
+    }
+
+    fun setVibrateWatchEveryMinute(vibrate: Boolean) {
+        _isVibrateWatchEveryMinute.update { vibrate }
     }
 
     fun reset() {

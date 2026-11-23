@@ -40,6 +40,8 @@ fun StopWatch(
     stopwatchState: StopWatchState,
     stateSoundEveryTime: Boolean = false,
     checkSoundEveryTime: () -> Unit,
+    stateVibrateWatchEveryMinute: Boolean = false,
+    checkVibrateWatchEveryMinute: () -> Unit = {},
     stop: () -> Unit,
     start: () -> Unit,
     pause: () -> Unit,
@@ -80,6 +82,12 @@ fun StopWatch(
                         checkSoundEveryTime()
                     })
                     Text(text = stringResource(R.string.title_sound_every_minute))
+                }
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Checkbox(checked = stateVibrateWatchEveryMinute, onCheckedChange = {
+                        checkVibrateWatchEveryMinute()
+                    })
+                    Text(text = stringResource(R.string.title_vibrate_watch_every_minute))
                 }
             }
 

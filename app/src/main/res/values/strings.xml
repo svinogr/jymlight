@@ -355,7 +355,9 @@
     <string name="label_edit_sound_timer_screen">Создайте интервал нагрузки</string>
     <string name="label_edit_sound_timer_screen_info">Создайте интервал нагрузки</string>
     <string name="title_sound_every_minute">сигнал</string>
+    <string name="title_vibrate_watch_every_minute">часы</string>
     <string name="stopwatch_channel_name">Секундомер</string>
+    <string name="stopwatch_watch_channel_name">Таймер на часах</string>
     <string name="action_pause">Пауза</string>
     <string name="action_resume">Продолжить</string>
     <string name="action_stop">Стоп</string>

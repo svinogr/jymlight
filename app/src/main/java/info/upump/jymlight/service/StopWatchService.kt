@@ -52,6 +52,9 @@ class StopWatchService : Service() {
 
     private var wakeLock: PowerManager.WakeLock? = null
 
+    private val watchNotificationIdStack = mutableListOf<Int>()
+    private var watchNotificationCounter = 0
+
     override fun onBind(intent: Intent?): IBinder? = null
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -107,9 +110,10 @@ class StopWatchService : Service() {
                 holder.setTime(formatted)
                 updateNotificationTime(formatted)
 
-                if (chet >= 60000 && holder.isSoundEveryTime.value) {
-                    playMinuteSound()
+                if (chet >= 60000) {
                     chet = 0
+                    if (holder.isSoundEveryTime.value) playMinuteSound()
+                    if (holder.isVibrateWatchEveryMinute.value) notifyWatch(formatted)
                 }
             }
         }
@@ -126,6 +130,7 @@ class StopWatchService : Service() {
     private fun stopTimerAndService() {
         timerJob?.cancel()
         releaseWakeLock()
+        cancelWatchNotifications()
         timeMile = 0L
         lastTimeStamp = 0L
         holder.reset()
@@ -140,6 +145,40 @@ class StopWatchService : Service() {
                 start()
             }
         }
+    }
+
+    // Каждую минуту постим новое короткое уведомление со временем таймера —
+    // телефон дублирует его на часы (Xiaomi) и они вибрируют.
+    // Обновление одного и того же уведомления вибрации на часах не вызывает,
+    // поэтому каждую минуту новый id, а прошлое уведомление отменяем.
+    private fun notifyWatch(formatted: String) {
+        if (!NotificationManagerCompat.from(this).areNotificationsEnabled()) return
+        val notificationManager = NotificationManagerCompat.from(this)
+        watchNotificationIdStack.lastOrNull()?.let { notificationManager.cancel(it) }
+        val id = WATCH_NOTIFICATION_ID_BASE + watchNotificationCounter++
+        watchNotificationIdStack.add(id)
+        runCatching {
+            val notification = NotificationCompat.Builder(this, WATCH_CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_btn_play_24)
+                .setContentTitle(getString(R.string.app_name))
+                .setContentText(formatted.take(5))
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setCategory(NotificationCompat.CATEGORY_STOPWATCH)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                .setAutoCancel(true)
+                .setTimeoutAfter(50_000)
+                .setVibrate(longArrayOf(0, 300, 200, 300))
+                .build()
+            notificationManager.notify(id, notification)
+        }
+    }
+
+    private fun cancelWatchNotifications() {
+        if (!NotificationManagerCompat.from(this).areNotificationsEnabled()) return
+        val notificationManager = NotificationManagerCompat.from(this)
+        watchNotificationIdStack.forEach { notificationManager.cancel(it) }
+        watchNotificationIdStack.clear()
+        watchNotificationCounter = 0
     }
 
     private fun acquireWakeLock() {
@@ -254,7 +293,9 @@ class StopWatchService : Service() {
 
     companion object {
         const val CHANNEL_ID = "stopwatch_channel"
+        const val WATCH_CHANNEL_ID = "stopwatch_watch_channel"
         const val NOTIFICATION_ID = 1001
+        private const val WATCH_NOTIFICATION_ID_BASE = 2000
 
         const val ACTION_START = "info.upump.jymlight.service.action.START"
         const val ACTION_PAUSE = "info.upump.jymlight.service.action.PAUSE"

@@ -124,6 +124,10 @@ fun WorkoutReview(
         mutableStateOf(stopwatchVM.isSoundEveryTime)
     }
 
+    val stateVibrateWatchEveryMinute = remember {
+        mutableStateOf(stopwatchVM.isVibrateWatchEveryMinute)
+    }
+
     val startAction: () -> Unit = {
         // kimi по запросу закоментить Log.d("sound", "start")
         soundTimerVM.start(context)
@@ -225,6 +229,8 @@ fun WorkoutReview(
                     stopwatchState = status.collectAsState().value,
                     stateSoundEveryTime = stateSoundEveryTime.value.collectAsState().value,
                     checkSoundEveryTime = stopwatchVM::setSoundEveryTime,
+                    stateVibrateWatchEveryMinute = stateVibrateWatchEveryMinute.value.collectAsState().value,
+                    checkVibrateWatchEveryMinute = stopwatchVM::setVibrateWatchEveryMinute,
                     start = stopwatchVM::start,
                     stop = stopwatchVM::stop,
                     pause = stopwatchVM::pause,

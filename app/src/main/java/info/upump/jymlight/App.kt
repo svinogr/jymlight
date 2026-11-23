@@ -18,6 +18,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         createStopWatchNotificationChannel()
+        createStopWatchWatchNotificationChannel()
     }
 
     private fun createStopWatchNotificationChannel() {
@@ -26,6 +27,19 @@ class App : Application() {
             getString(R.string.stopwatch_channel_name),
             NotificationManager.IMPORTANCE_LOW
         )
+        getSystemService(NotificationManager::class.java).createNotificationChannel(channel)
+    }
+
+    // Канал для минутных уведомлений на часы: должен быть с вибрацией,
+    // иначе Xiaomi часы не завибрируют при дублировании уведомления.
+    private fun createStopWatchWatchNotificationChannel() {
+        val channel = NotificationChannel(
+            StopWatchService.WATCH_CHANNEL_ID,
+            getString(R.string.stopwatch_watch_channel_name),
+            NotificationManager.IMPORTANCE_DEFAULT
+        )
+        channel.enableVibration(true)
+        channel.vibrationPattern = longArrayOf(0, 300, 200, 300)
         getSystemService(NotificationManager::class.java).createNotificationChannel(channel)
     }
 }
