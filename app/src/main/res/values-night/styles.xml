@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="PickerTheme" parent="JymTheme">
+        <item name="colorControlNormal">@color/colorBackgroundCardView</item>
+    </style>
+</resources>

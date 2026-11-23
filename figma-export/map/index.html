@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UPump Light — карта экранов</title>
+</head>
+<body>
+  <header id="topbar">
+    <div class="title">UPump Light · развёртка экранов</div>
+    <div class="subtitle">20 экранов · тема #05559B · клик по экрану — крупно · колесо — масштаб · drag — панорама</div>
+  </header>
+  <aside id="legend">
+    <div class="lg-title">Потоки</div>
+    <div class="lg-item"><span class="sw" style="background:#82B4E8"></span>основной поток (мои программы)</div>
+    <div class="lg-item"><span class="sw" style="background:#7ED6A5"></span>шаблоны</div>
+    <div class="lg-item"><span class="sw" style="background:#C89BE8"></span>просмотр тренировки</div>
+    <div class="lg-item"><span class="sw" style="background:#E8C07A"></span>настройки / бэкап</div>
+    <div class="lg-item"><span class="sw dash" style="background:#A9B7C6"></span>копирование шаблона</div>
+    <div class="lg-note">Возврат на предыдущий экран — системная кнопка «назад» (не показана). Нижняя навигация связывает экраны 01, 02, 03.</div>
+  </aside>
+  <div id="viewport">
+    <div id="canvas"></div>
+  </div>
+  <div id="modal" class="hidden">
+    <div class="modal-box">
+      <button id="modal-close">✕</button>
+      <img id="modal-img" alt="" />
+      <div id="modal-title"></div>
+    </div>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

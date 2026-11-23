@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="letter_tile_colors">
+        <item>@color/monday</item>
+        <item>@color/tuesday</item>
+        <item>@color/wednesday</item>
+        <item>@color/thursday</item>
+        <item>@color/friday</item>
+        <item>@color/saturday</item>
+        <item>@color/sunday</item>
+    </string-array>
+</resources>
