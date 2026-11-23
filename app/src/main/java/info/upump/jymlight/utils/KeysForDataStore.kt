@@ -10,5 +10,6 @@ class KeysForDataStore {
         val FINISH_KEY = intPreferencesKey("finish")
         val SOUND_EVERY_TIME = booleanPreferencesKey("soundEveryTime")
         val VIBRATE_WATCH_EVERY_MINUTE = booleanPreferencesKey("vibrateWatchEveryMinute")
+        val VIBRATE_WATCH_HINT_SHOWN = booleanPreferencesKey("vibrateWatchHintShown")
     }
 }
